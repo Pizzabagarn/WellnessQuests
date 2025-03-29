@@ -10,11 +10,23 @@
     tools:context=".MainActivity">
 
     <!-- 🟧 TOP BAR -->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="496dp"
+        android:layout_height="799dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.258"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/topBar"
+        app:srcCompat="@drawable/profile_window" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="64dp"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -24,12 +36,13 @@
             android:id="@+id/imgUser"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/profile_button"
             android:contentDescription="Användare"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="16dp" />
+
 
         <TextView
             android:id="@+id/txtTitle"
@@ -37,34 +50,41 @@
             android:layout_height="wrap_content"
             android:text="WellnessQuest"
             android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imgUser"
-            android:layout_marginStart="12dp" />
+            app:layout_constraintEnd_toEndOf="@+id/txtCoins"
+            app:layout_constraintHorizontal_bias="0.285"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.567" />
 
-        <!-- Byt till coin-ikon -->
         <ImageView
             android:id="@+id/imgCoin"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="62dp"
+            android:layout_height="38dp"
             android:src="@drawable/coin"
-            app:layout_constraintEnd_toStartOf="@id/txtCoins"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.882"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="8dp" />
+            app:layout_constraintVertical_bias="0.461" />
 
         <TextView
             android:id="@+id/txtCoins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="31dp"
+            android:layout_height="33dp"
             android:text="5"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.973"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.516" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
