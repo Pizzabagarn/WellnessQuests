@@ -27,11 +27,22 @@ public class MainActivity extends AppCompatActivity {
 
             ImageView iconQuests = findViewById(R.id.imgQuestsIcon);
             ImageView iconMap = findViewById(R.id.imgMapIcon);
+            ImageView iconProfile = findViewById(R.id.imgUserIcon);
+            TextView txtCoins = findViewById(R.id.txtCoins);
+
+
+            iconProfile.setOnClickListener(view -> {
+                Intent intent = new Intent(MainActivity.this, LogoutActivity.class);
+                startActivity(intent);
+            });
+
 
             iconQuests.setOnClickListener(view -> {
                 Intent intent = new Intent(MainActivity.this, QuestActivity.class);
                 startActivity(intent);
             });
+
+
 
             iconMap.setOnClickListener(view -> {
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
