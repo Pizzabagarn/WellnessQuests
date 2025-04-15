@@ -22,32 +22,6 @@ public class MainActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-
-            //Refererar till ikonerna i activity_main.xml
-
-            ImageView iconQuests = findViewById(R.id.imgQuestsIcon);
-            ImageView iconMap = findViewById(R.id.imgMapIcon);
-            ImageView iconProfile = findViewById(R.id.imgUserIcon);
-            TextView txtCoins = findViewById(R.id.txtCoins);
-
-
-            iconProfile.setOnClickListener(view -> {
-                Intent intent = new Intent(MainActivity.this, LogoutActivity.class);
-                startActivity(intent);
-            });
-
-
-            iconQuests.setOnClickListener(view -> {
-                Intent intent = new Intent(MainActivity.this, QuestActivity.class);
-                startActivity(intent);
-            });
-
-
-
-            iconMap.setOnClickListener(view -> {
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(intent);
-            });
             return insets;
 
         });
