@@ -13,9 +13,20 @@
         android:theme="@style/Theme.WellnessQuest"
         tools:targetApi="31">
         <activity
-            android:name=".View.StartActivity"
+            android:name=".View.QuestTextActivity"
             android:exported="false" />
-        <!-- STARTACTIVITY är nu appens första skärm -->
+        <activity
+            android:name=".View.MapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.QuestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.StartActivity"
+            android:exported="false" /> <!-- STARTACTIVITY är nu appens första skärm -->
         <activity
             android:name=".StartActivity"
             android:exported="true">
