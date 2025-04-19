@@ -1,4 +1,4 @@
-package com.example.wellnessquest.View;
+package com.example.wellnessquest.view.activities;
 
 import android.os.Bundle;
 
@@ -10,18 +10,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wellnessquest.R;
 
-public class HomeActivity extends AppCompatActivity {
+public class QuestTextActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_home);
-
+        setContentView(R.layout.activity_quest_text);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-
             return insets;
         });
     }
