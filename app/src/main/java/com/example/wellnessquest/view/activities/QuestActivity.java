@@ -1,4 +1,4 @@
-package com.example.wellnessquest.View;
+package com.example.wellnessquest.view.activities;
 
 import android.os.Bundle;
 
