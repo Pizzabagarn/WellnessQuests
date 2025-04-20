@@ -4,29 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private String username;
-    private String password;
+    private String email;
     private int coins;
     private int currentLevel;
     private List<Quest> currentQuests;
     private List<Quest> completedQuests;
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public User(String email) {
+        this.email = email;
         this.coins = 0;
         this.currentLevel = 1;
         this.currentQuests = new ArrayList<>();
         this.completedQuests = new ArrayList<>();
     }
 
-    // Getters
-    public String getUsername() {
-        return username;
+    // 🔧 Tom konstruktor krävs av Firestore
+    public User() {
     }
 
-    public String getPassword() {
-        return password;
+    // Getters
+    public String getEmail() {
+        return email;
     }
 
     public int getCoins() {
@@ -46,9 +44,6 @@ public class User {
     }
 
     // Setters
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public void setCoins(int coins) {
         this.coins = coins;

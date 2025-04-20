@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
-            android:text="@={viewModel.username}" />
+            android:text="@={viewModel.email}" />
 
         <EditText
             android:id="@+id/editTextNewPassword"

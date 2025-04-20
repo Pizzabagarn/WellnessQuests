@@ -28,14 +28,6 @@ public class UserStorage {
         gson = new Gson();
     }
 
-    public void addUser(User user) {
-        user.setPassword(hashPassword(user.getPassword())); // kryptera innan lagring
-        String userJson = gson.toJson(user);
-        sharedPreferences.edit()
-                .putString(USER_PREFIX + user.getUsername(), userJson)
-                .apply();
-    }
-
     public boolean userExists(String username) {
         return sharedPreferences.contains(USER_PREFIX + username);
     }
@@ -48,11 +40,6 @@ public class UserStorage {
         return null;
     }
 
-    public boolean validateCredentials(String username, String passwordInput) {
-        User user = findUserByUsername(username);
-        if (user == null) return false;
-        return user.getPassword().equals(hashPassword(passwordInput));
-    }
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();

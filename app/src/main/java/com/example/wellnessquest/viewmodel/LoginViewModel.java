@@ -15,7 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class LoginViewModel extends AndroidViewModel {
 
     // Fields bound to input fields in the UI
-    public MutableLiveData<String> username = new MutableLiveData<>("");
+    public MutableLiveData<String> email = new MutableLiveData<>("");
     public MutableLiveData<String> password = new MutableLiveData<>("");
     public MutableLiveData<String> confirmPassword = new MutableLiveData<>("");
 
@@ -38,7 +38,7 @@ public class LoginViewModel extends AndroidViewModel {
      * Called when the user clicks the "Log In" button
      */
     public void onLoginClicked() {
-        String email = username.getValue();
+        String email = this.email.getValue();
         String pass = password.getValue();
 
         if (email == null || pass == null || email.isEmpty() || pass.isEmpty()) {
@@ -80,7 +80,7 @@ public class LoginViewModel extends AndroidViewModel {
      * Called when the user clicks the "Register" button
      */
     public void onRegisterClicked() {
-        String email = username.getValue();
+        String email = this.email.getValue();
         String pass = password.getValue();
         String confirm = confirmPassword.getValue();
 
@@ -102,7 +102,7 @@ public class LoginViewModel extends AndroidViewModel {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                         if (firebaseUser != null) {
                             // Create the custom User object
-                            User user = new User(email, pass);
+                            User user = new User(email);
 
                             // Save to Firestore
                             firestore.collection("users")
