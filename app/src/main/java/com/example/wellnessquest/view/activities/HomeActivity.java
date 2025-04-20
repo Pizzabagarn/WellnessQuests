@@ -11,6 +11,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.wellnessquest.model.User;
+import com.example.wellnessquest.viewmodel.UserViewModel;
 
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityHomeBinding;
@@ -27,6 +31,15 @@ public class HomeActivity extends AppCompatActivity {
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot()); // ✅ Använd endast detta!
+
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        binding.setUserViewModel(userViewModel);
+        binding.setLifecycleOwner(this); // 👈 viktigt för LiveData att funka
+
+        User user = com.example.wellnessquest.model.UserManager.getInstance().getCurrentUser();
+        if (user != null) {
+            userViewModel.setUser(user);
+        }
 
         setSupportActionBar(binding.toolbar);
 
@@ -50,6 +63,10 @@ public class HomeActivity extends AppCompatActivity {
 
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;
+        });
+
+        binding.addCoinButton.setOnClickListener(v -> {
+            userViewModel.addCoins(1); // 👈 du skapar denna metod i UserViewModel
         });
     }
 

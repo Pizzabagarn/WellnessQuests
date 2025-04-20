@@ -59,11 +59,16 @@ public class LoginViewModel extends AndroidViewModel {
                                     .addOnSuccessListener(documentSnapshot -> {
                                         if (documentSnapshot.exists()) {
                                             User user = documentSnapshot.toObject(User.class);
-                                            UserManager.getInstance().setCurrentUser(user);
 
-                                            // TODO: Store this user globally if needed
-                                            showToast("Login successful!");
-                                            loginSuccess.setValue(true);
+                                            if (user != null) {
+                                                user.setUid(firebaseUser.getUid());
+                                                UserManager.getInstance().setCurrentUser(user);
+
+                                                showToast("Login successful!");
+                                                loginSuccess.setValue(true);
+                                            } else {
+                                                showToast("Failed to parse user data.");
+                                            }
                                         } else {
                                             showToast("User data not found.");
                                         }
@@ -103,6 +108,8 @@ public class LoginViewModel extends AndroidViewModel {
                         if (firebaseUser != null) {
                             // Create the custom User object
                             User user = new User(email);
+                            user.setUid(firebaseUser.getUid()); // set uid for firebase
+
 
                             // Save to Firestore
                             firestore.collection("users")

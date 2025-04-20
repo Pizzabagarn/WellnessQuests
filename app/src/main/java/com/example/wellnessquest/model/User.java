@@ -7,6 +7,7 @@ public class User {
     private String email;
     private int coins;
     private int currentLevel;
+    private String uid; // to save document-id for firebase
     private List<Quest> currentQuests;
     private List<Quest> completedQuests;
 
@@ -18,7 +19,7 @@ public class User {
         this.completedQuests = new ArrayList<>();
     }
 
-    // 🔧 Tom konstruktor krävs av Firestore
+    // 🔧 Empty constructor for Firestore
     public User() {
     }
 
@@ -68,5 +69,13 @@ public class User {
 
     public void advanceLevel() {
         this.currentLevel++;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
     }
 }
