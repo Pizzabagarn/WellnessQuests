@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services") // 🔥
 }
 
 android {
@@ -46,4 +47,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // Import Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
+
+    // Firebase products (you can add more later)
+    implementation(libs.firebase.auth) // for authentication
+    implementation(libs.firebase.analytics) // optional
+    implementation (libs.firebase.firestore) //Firestore for storing in cloud
+
 }

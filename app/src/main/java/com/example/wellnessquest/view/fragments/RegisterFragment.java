@@ -24,26 +24,24 @@ public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Databinding
         FragmentRegisterBinding binding = FragmentRegisterBinding.inflate(inflater, container, false);
 
-        // Hämta ViewModel
         viewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
-
-        // Koppla databinding
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
-        // Observera Toast-meddelanden
+        // Observe toast messages
         viewModel.getToastMessage().observe(getViewLifecycleOwner(), message -> {
             if (message != null && !message.isEmpty()) {
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                viewModel.clearToast();
             }
         });
 
-        // Navigera tillbaka till login efter lyckad registrering
+        // Observe registration success
         viewModel.getNavigateToLogin().observe(getViewLifecycleOwner(), navigate -> {
-            if (navigate) {
+            if (navigate != null && navigate) {
+                // Go back to login fragment
                 requireActivity().getSupportFragmentManager().popBackStack();
                 viewModel.resetNavigation();
             }

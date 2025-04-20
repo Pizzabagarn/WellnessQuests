@@ -24,8 +24,9 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());        setContentView(R.layout.activity_home);
-        setContentView(binding.getRoot());
+
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot()); // ✅ Använd endast detta!
 
         setSupportActionBar(binding.toolbar);
 
@@ -34,26 +35,21 @@ public class HomeActivity extends AppCompatActivity {
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Hantera klick i navigation drawer
-        binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
+        binding.navView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
 
-                // Just nu: visa bara logg eller gör toast
-                if (id == R.id.nav_home) {
-                    showToast("Home selected");
-                } else if (id == R.id.nav_quests) {
-                    showToast("Quests selected");
-                } else if (id == R.id.nav_map) {
-                    showToast("Map selected");
-                } else if (id == R.id.nav_profile) {
-                    showToast("Profile selected");
-                }
-
-                binding.drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+            if (id == R.id.nav_home) {
+                showToast("Home selected");
+            } else if (id == R.id.nav_quests) {
+                showToast("Quests selected");
+            } else if (id == R.id.nav_map) {
+                showToast("Map selected");
+            } else if (id == R.id.nav_profile) {
+                showToast("Profile selected");
             }
+
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
         });
     }
 

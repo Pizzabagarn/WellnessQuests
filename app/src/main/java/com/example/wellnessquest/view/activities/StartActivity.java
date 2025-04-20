@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityStartBinding;
+import com.google.firebase.FirebaseApp;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -19,6 +20,10 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        // 🔥 Initiera Firebase
+        FirebaseApp.initializeApp(this);
 
         ActivityStartBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_start);
 

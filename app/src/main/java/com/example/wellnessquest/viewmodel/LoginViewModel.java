@@ -4,108 +4,151 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.wellnessquest.model.User;
-import com.example.wellnessquest.model.UserStorage;
+import com.example.wellnessquest.model.UserManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginViewModel extends AndroidViewModel {
 
+    // Fields bound to input fields in the UI
     public MutableLiveData<String> username = new MutableLiveData<>("");
     public MutableLiveData<String> password = new MutableLiveData<>("");
     public MutableLiveData<String> confirmPassword = new MutableLiveData<>("");
 
-    private final MutableLiveData<Boolean> navigateToLogin = new MutableLiveData<>();
+    // Observables to communicate with the UI
     private final MutableLiveData<String> toastMessage = new MutableLiveData<>();
     private final MutableLiveData<Boolean> loginSuccess = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> navigateToLogin = new MutableLiveData<>();
 
-    private final UserStorage userStorage;
+    // Firebase instances
+    private final FirebaseAuth firebaseAuth;
+    private final FirebaseFirestore firestore;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
-        userStorage = new UserStorage(application.getApplicationContext());
+        firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
     }
 
+    /**
+     * Called when the user clicks the "Log In" button
+     */
+    public void onLoginClicked() {
+        String email = username.getValue();
+        String pass = password.getValue();
+
+        if (email == null || pass == null || email.isEmpty() || pass.isEmpty()) {
+            showToast("Please enter both email and password");
+            return;
+        }
+
+        // Try to sign in using Firebase Authentication
+        firebaseAuth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                        if (firebaseUser != null) {
+                            // Fetch additional user data from Firestore
+                            firestore.collection("users")
+                                    .document(firebaseUser.getUid())
+                                    .get()
+                                    .addOnSuccessListener(documentSnapshot -> {
+                                        if (documentSnapshot.exists()) {
+                                            User user = documentSnapshot.toObject(User.class);
+                                            UserManager.getInstance().setCurrentUser(user);
+
+                                            // TODO: Store this user globally if needed
+                                            showToast("Login successful!");
+                                            loginSuccess.setValue(true);
+                                        } else {
+                                            showToast("User data not found.");
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> showToast("Error loading user data."));
+                        }
+                    } else {
+                        showToast("Login failed: " + task.getException().getMessage());
+                    }
+                });
+    }
+
+    /**
+     * Called when the user clicks the "Register" button
+     */
     public void onRegisterClicked() {
-        String user = username.getValue();
+        String email = username.getValue();
         String pass = password.getValue();
         String confirm = confirmPassword.getValue();
 
-        if (user == null || pass == null || confirm == null || user.isEmpty() || pass.isEmpty() || confirm.isEmpty()) {
-            toastMessage.setValue("Please fill in all fields");
-            return;
-        }
-
-        if (!pass.equals(confirm)) {
-            toastMessage.setValue("Passwords do not match");
-            return;
-        }
-
-        if (userStorage.userExists(user)) {
-            toastMessage.setValue("Username already exists");
-            return;
-        }
-
-        User newUser = new User(user, pass);
-        userStorage.addUser(newUser);
-        toastMessage.setValue("Account created!");
-        navigateToLogin.setValue(true); // Trigger navigation
-    }
-
-    public void onLoginClicked() {
-        String user = username.getValue();
-        String pass = password.getValue();
-
-        if (user == null || pass == null || user.isEmpty() || pass.isEmpty()) {
+        if (email == null || pass == null || confirm == null ||
+                email.isEmpty() || pass.isEmpty() || confirm.isEmpty()) {
             showToast("Please fill in all fields");
             return;
         }
 
-        if (!userStorage.userExists(user)) {
-            showToast("User does not exist");
+        if (!pass.equals(confirm)) {
+            showToast("Passwords do not match");
             return;
         }
 
-        if (!userStorage.validateCredentials(user, pass)) {
-            showToast("Incorrect password");
-            return;
-        }
+        // Try to create the user in Firebase Authentication
+        firebaseAuth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                        if (firebaseUser != null) {
+                            // Create the custom User object
+                            User user = new User(email, pass);
 
-        User loggedInUser = userStorage.findUserByUsername(user);
-        userStorage.saveCurrentUser(loggedInUser);
-
-        showToast("Login successful!");
-        loginSuccess.setValue(true);
-
-
+                            // Save to Firestore
+                            firestore.collection("users")
+                                    .document(firebaseUser.getUid())
+                                    .set(user)
+                                    .addOnSuccessListener(aVoid -> {
+                                        showToast("Account created!");
+                                        navigateToLogin.setValue(true);
+                                    })
+                                    .addOnFailureListener(e -> showToast("Failed to save user data."));
+                        }
+                    } else {
+                        showToast("Registration failed: " + task.getException().getMessage());
+                    }
+                });
     }
 
+    // Show a toast message to the UI
     private void showToast(String message) {
         toastMessage.setValue(message);
+    }
+
+    // Expose toast message
+    public MutableLiveData<String> getToastMessage() {
+        return toastMessage;
     }
 
     public void clearToast() {
         toastMessage.setValue(null);
     }
 
-    public void resetNavigation() {
-        navigateToLogin.setValue(false);
-    }
-
-    public LiveData<Boolean> getNavigateToLogin() {
-        return navigateToLogin;
+    // Expose login success status
+    public MutableLiveData<Boolean> getLoginSuccess() {
+        return loginSuccess;
     }
 
     public void resetLoginSuccess() {
         loginSuccess.setValue(false);
     }
 
-    public LiveData<String> getToastMessage() {
-        return toastMessage;
+    // Expose navigation trigger for UI
+    public MutableLiveData<Boolean> getNavigateToLogin() {
+        return navigateToLogin;
     }
 
-    public LiveData<Boolean> getLoginSuccess() {
-        return loginSuccess;
+    public void resetNavigation() {
+        navigateToLogin.setValue(false);
     }
 }
