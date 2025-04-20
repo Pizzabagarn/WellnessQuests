@@ -14,7 +14,7 @@ public class Quest {
         this.description = description;
         this.category = category;
         this.isCompleted = isCompleted;
-        this.coins = coins;
+        this.coins = coins;  //Döpa om till coinsReward?
     }
 
     // Getters
