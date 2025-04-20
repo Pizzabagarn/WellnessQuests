@@ -54,7 +54,7 @@ public class LoginFragment extends Fragment {
             if (success != null && success) {
                 startActivity(new Intent(requireContext(), HomeActivity.class));
                 requireActivity().finish(); // stänger Login-aktiviteten
-                viewModel.resetLoginSuccess(); // om du vill nollställa den
+                viewModel.resetLoginSuccess(); // nollställer den loginSuccess
             }
         });
 
