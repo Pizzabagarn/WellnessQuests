@@ -1,5 +1,6 @@
 package com.example.wellnessquest.view.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -44,7 +45,8 @@ public class HomeActivity extends AppCompatActivity {
                 if (id == R.id.nav_home) {
                     showToast("Home selected");
                 } else if (id == R.id.nav_quests) {
-                    showToast("Quests selected");
+                    Intent intent = new Intent(HomeActivity.this, QuestActivity.class);
+                    startActivity(intent);
                 } else if (id == R.id.nav_map) {
                     showToast("Map selected");
                 } else if (id == R.id.nav_profile) {
