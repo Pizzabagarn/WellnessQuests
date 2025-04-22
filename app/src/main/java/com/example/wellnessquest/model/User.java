@@ -3,6 +3,7 @@ package com.example.wellnessquest.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class User {
     private String email;
     private int coins;
