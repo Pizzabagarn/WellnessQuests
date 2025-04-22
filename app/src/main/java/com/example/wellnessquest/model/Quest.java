@@ -1,4 +1,4 @@
-package com.example.wellnessquest.model;
+package com.example.wellnessquest.Model;
 
 public class Quest {
     private String id;
@@ -55,6 +55,10 @@ public class Quest {
         this.description = description;
     }
 
+    public String setCategory() {
+        return category;
+    }
+
     public void setCategory(String category) {
         this.category = category;
     }
@@ -65,5 +69,17 @@ public class Quest {
 
     public void setCoins(int coins) {
         this.coins = coins;
+    }
+
+    public boolean isComplete() {
+        return isCompleted;
+    }
+
+    public int getRewardCoins() {
+        return coins;
+    }
+
+    public void markComplete() {
+        this.isCompleted = true;
     }
 }

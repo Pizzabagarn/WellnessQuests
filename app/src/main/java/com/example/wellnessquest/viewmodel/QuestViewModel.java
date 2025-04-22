@@ -1,4 +1,51 @@
 package com.example.wellnessquest.viewmodel;
 
-public class QuestViewModel {
+import android.app.Application;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import com.example.wellnessquest.Model.Quest;
+import com.example.wellnessquest.Model.User;
+import java.util.ArrayList;
+import java.util.List;
+
+public class QuestViewModel extends AndroidViewModel {
+
+    private User user;
+
+    public QuestViewModel(@NonNull Application application) {
+        super(application);
+        // Du kan lägga till initkod här senare om du vill
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    /*
+    public List<Quest> getCurrentQuests() {
+        if (user != null) {
+            return user.getCurrentQuests();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+     */
+
+    public List<Quest> getCurrentQuests() {
+        if (user == null) {
+            // Tillfälligt testdata
+            List<Quest> dummy = new ArrayList<>();
+            dummy.add(new Quest("q1", "Meditera i 5 min", "Sätt dig tyst och andas i fem minuter", "Mind", false, 10));
+            dummy.add(new Quest("q2", "Gå 2000 steg", "Ta en kort promenad idag", "Fitness", false, 15));
+            return dummy;
+        }
+        return user.getCurrentQuests();
+    }
+
 }
+

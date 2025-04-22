@@ -1,14 +1,12 @@
 package com.example.wellnessquest.viewmodel;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
-import com.example.wellnessquest.model.User;
-import com.example.wellnessquest.model.UserStorage;
+import com.example.wellnessquest.Model.User;
+import com.example.wellnessquest.Model.UserStorage;
 
 public class LoginViewModel extends AndroidViewModel {
 
@@ -77,8 +75,6 @@ public class LoginViewModel extends AndroidViewModel {
 
         showToast("Login successful!");
         loginSuccess.setValue(true);
-
-
     }
 
     private void showToast(String message) {

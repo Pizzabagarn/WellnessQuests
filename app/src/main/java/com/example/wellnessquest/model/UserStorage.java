@@ -1,11 +1,9 @@
-package com.example.wellnessquest.model;
+package com.example.wellnessquest.Model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
-
 import com.google.gson.Gson;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -99,14 +97,12 @@ public class UserStorage {
         return null;
     }
 
-
     public void clearCurrentUser() {
         sharedPreferences.edit()
                 .remove(CURRENT_USER_KEY)
                 .remove(LAST_ACTIVE_KEY)
                 .apply();
     }
-
 
     public void updateLastActive() {
         sharedPreferences.edit()

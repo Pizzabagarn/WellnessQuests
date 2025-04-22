@@ -3,19 +3,13 @@ package com.example.wellnessquest.view.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityHomeBinding;
-import com.example.wellnessquest.model.UserStorage;
+import com.example.wellnessquest.Model.UserStorage;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity {
