@@ -1,4 +1,4 @@
-package com.example.wellnessquest.Model;
+package com.example.wellnessquest.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;

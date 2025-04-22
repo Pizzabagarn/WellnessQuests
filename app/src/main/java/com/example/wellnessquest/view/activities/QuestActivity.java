@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wellnessquest.R;
-import com.example.wellnessquest.Model.Quest;
+import com.example.wellnessquest.model.Quest;
 import com.example.wellnessquest.viewmodel.QuestViewModel;
 import com.example.wellnessquest.view.adapters.QuestAdapter;
 

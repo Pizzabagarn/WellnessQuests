@@ -1,4 +1,4 @@
-package com.example.wellnessquest.Model;
+package com.example.wellnessquest.model;
 
 public class Quest {
     private String id;
