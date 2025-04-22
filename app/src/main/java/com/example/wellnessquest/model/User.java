@@ -1,4 +1,4 @@
-package com.example.wellnessquest.model;
+package com.example.wellnessquest.Model;
 
 import java.util.ArrayList;
 import java.util.List;
