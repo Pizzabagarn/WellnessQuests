@@ -3,8 +3,8 @@ package com.example.wellnessquest.viewmodel;
 import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import com.example.wellnessquest.Model.Quest;
-import com.example.wellnessquest.Model.User;
+import com.example.wellnessquest.model.Quest;
+import com.example.wellnessquest.model.User;
 import java.util.ArrayList;
 import java.util.List;
 

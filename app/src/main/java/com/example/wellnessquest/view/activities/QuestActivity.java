@@ -2,23 +2,17 @@ package com.example.wellnessquest.view.activities;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wellnessquest.R;
 
-import android.os.Bundle;
 import android.widget.CheckBox;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wellnessquest.R;
-import com.example.wellnessquest.Model.Quest;
+import com.example.wellnessquest.model.Quest;
 import com.example.wellnessquest.viewmodel.QuestViewModel;
 import com.example.wellnessquest.view.adapters.QuestAdapter;
 
