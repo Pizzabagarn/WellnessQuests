@@ -7,7 +7,6 @@ import java.util.List;
 public class User {
     private String email;
     private int coins;
-    private int currentLevel;
     private int level = 1;
     private String uid; // to save document-id for firebase
     private List<Quest> currentQuests;
@@ -16,7 +15,6 @@ public class User {
     public User(String email) {
         this.email = email;
         this.coins = 0;
-        this.currentLevel = 1;
         this.currentQuests = new ArrayList<>();
         this.completedQuests = new ArrayList<>();
     }
@@ -43,9 +41,6 @@ public class User {
         return coins;
     }
 
-    public int getCurrentLevel() {
-        return currentLevel;
-    }
 
     public List<Quest> getCurrentQuests() {
         return currentQuests;
@@ -59,10 +54,6 @@ public class User {
 
     public void setCoins(int coins) {
         this.coins = coins;
-    }
-
-    public void setCurrentLevel(int currentLevel) {
-        this.currentLevel = currentLevel;
     }
 
     public void setCurrentQuests(List<Quest> currentQuests) {
@@ -79,8 +70,21 @@ public class User {
     }
 
     public void advanceLevel() {
-        this.currentLevel++;
+        this.level++;
     }
+
+    public void completeQuest(String questId) {
+        for (Quest q : currentQuests) {
+            if (q.getId().equals(questId) && !q.isComplete()) {
+                q.setComplete(true);
+                earnCoins(q.getRewardCoins()); // lägg till coins
+                advanceLevel(); // höj level
+                completedQuests.add(q); // flytta till completed
+                break;
+            }
+        }
+    }
+
 
     public void setUid(String uid) {
         this.uid = uid;

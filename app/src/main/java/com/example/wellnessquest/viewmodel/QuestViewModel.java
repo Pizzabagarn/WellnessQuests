@@ -25,25 +25,14 @@ public class QuestViewModel extends AndroidViewModel {
         return user;
     }
 
-    /*
-    public List<Quest> getCurrentQuests() {
-        if (user != null) {
-            return user.getCurrentQuests();
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-     */
-
     public List<Quest> getCurrentQuests() {
         if (user == null) {
             // Tillfälligt testdata
             List<Quest> dummy = new ArrayList<>();
-            dummy.add(new Quest("q1", "Meditera i 5 min", "Sätt dig tyst och andas i fem minuter", "Mind", true, 10, 1));
+            dummy.add(new Quest("q4", "Gör 20 squats", "Snabb styrkeövning hemma", "Fitness", false, 20, 2));
             dummy.add(new Quest("q2", "Gå 2000 steg", "Ta en kort promenad idag", "Fitness", false, 15, 1));
             dummy.add(new Quest("q3", "Skriv dagbok", "Reflektera över din dag", "Mind", false, 10, 2));
-            dummy.add(new Quest("q4", "Gör 20 squats", "Snabb styrkeövning hemma", "Fitness", false, 20, 2));
+            dummy.add(new Quest("q1", "Meditera i 5 min", "Sätt dig tyst och andas i fem minuter", "Mind", true, 10, 1));
             return dummy;
         }
         return user.getCurrentQuests();

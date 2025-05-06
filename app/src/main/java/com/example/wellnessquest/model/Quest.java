@@ -85,7 +85,7 @@ public class Quest {
         return coins;
     }
 
-    public void markComplete() {
-        this.isCompleted = true;
+    public void setComplete(boolean complete) {
+        this.isCompleted = complete;
     }
 }
