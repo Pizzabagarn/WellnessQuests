@@ -7,14 +7,20 @@ public class Quest {
     private String category; // "Fitness" eller "Mind"
     private boolean isCompleted;
     private int coins;
+    private int requiredLevel;
 
-    public Quest(String id, String title, String description, String category, boolean isCompleted, int coins) {
+    public Quest(String id, String title, String description, String category, boolean isCompleted, int coins, int requiredLevel) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
         this.isCompleted = isCompleted;
-        this.coins = coins;  //Döpa om till coinsReward?
+        this.coins = coins;
+        this.requiredLevel = requiredLevel;
+    }
+
+    public int getRequiredLevel() {
+        return requiredLevel;
     }
 
     // Getters
