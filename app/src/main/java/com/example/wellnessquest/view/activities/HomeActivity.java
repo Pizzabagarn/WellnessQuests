@@ -58,7 +58,8 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, QuestActivity.class);
                 startActivity(intent);
             } else if (id == R.id.nav_map) {
-                showToast("Map selected");
+                Intent intent = new Intent(HomeActivity.this, MapActivity.class);
+                startActivity(intent);
             } else if (id == R.id.nav_profile) {
                 showToast("Profile selected");
             }

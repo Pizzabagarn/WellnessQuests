@@ -11,6 +11,8 @@ navigationFragment = "2.8.9"
 gson = "2.10.1"
 library = "3.2.0-alpha11"
 databindingRuntime = "8.9.1"
+firebaseAuth = "23.2.0"
+lifecycleViewmodelAndroid = "2.8.7"
 
 [libraries]
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
@@ -27,6 +29,8 @@ navigation-fragment = { group = "androidx.navigation", name = "navigation-fragme
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 library = { group = "androidx.databinding", name = "library", version.ref = "library" }
 databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databindingRuntime" }
+google-firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
