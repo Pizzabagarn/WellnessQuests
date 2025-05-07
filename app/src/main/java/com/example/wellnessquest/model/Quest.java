@@ -40,10 +40,6 @@ public class Quest {
         return category;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
     public int getCoins() {
         return coins;
     }
@@ -61,16 +57,11 @@ public class Quest {
         this.description = description;
     }
 
-    public String setCategory() {
-        return category;
-    }
-
     public void setCategory(String category) {
         this.category = category;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public Quest() {
     }
 
     public void setCoins(int coins) {
