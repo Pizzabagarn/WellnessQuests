@@ -11,13 +11,16 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.model.Quest;
+import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.viewmodel.QuestViewModel;
 import com.example.wellnessquest.view.adapters.QuestAdapter;
+import com.example.wellnessquest.viewmodel.UserViewModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -25,7 +28,8 @@ import java.util.List;
 
 public class QuestActivity extends AppCompatActivity {
 
-    private QuestViewModel viewModel;
+    private QuestViewModel questViewModel;
+    private UserViewModel userViewModel;
     private RecyclerView recyclerView;
     private CheckBox checkBoxFitness, checkBoxMind;
     private QuestAdapter adapter;
@@ -42,12 +46,22 @@ public class QuestActivity extends AppCompatActivity {
         checkBoxMind = findViewById(R.id.checkbox_mind);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()))
-                .get(QuestViewModel.class);
+        // ViewModels
+        questViewModel = new ViewModelProvider(this).get(QuestViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-        allQuests = viewModel.getCurrentQuests();
+        // Hämta användare från UserManager och sätt i båda ViewModels
+        User currentUser = com.example.wellnessquest.model.UserManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            questViewModel.setUser(currentUser);
+            userViewModel.setUser(currentUser);
+        }
+
+        // Quests
+        allQuests = questViewModel.getCurrentQuests();
         if (allQuests == null) allQuests = new ArrayList<>();
 
+        // Adapter
         adapter = new QuestAdapter(filteredQuests, this, quest -> {
             View dialogView = LayoutInflater.from(this).inflate(R.layout.quest_details_dialog, null);
 
@@ -68,17 +82,24 @@ public class QuestActivity extends AppCompatActivity {
 
             buttonComplete.setOnClickListener(v -> {
                 if (!quest.isComplete()) {
-                    viewModel.getUser().completeQuest(quest.getId());
-                    com.example.wellnessquest.model.UserManager.getInstance().setCurrentUser(viewModel.getUser());
-                    allQuests = viewModel.getCurrentQuests();
+                    // 1. Markera quest som klart
+                    currentUser.completeQuest(quest.getId());
+
+                    // 2. Uppdatera båda ViewModels + UserManager
+                    questViewModel.setUser(currentUser);
+                    userViewModel.setUser(currentUser);
+                    userViewModel.refreshUserLiveData();
+                    com.example.wellnessquest.model.UserManager.getInstance().setCurrentUser(currentUser);
+
+                    // 3. Uppdatera Firebase
+                    FirebaseFirestore.getInstance()
+                            .collection("users")
+                            .document(currentUser.getUid())
+                            .set(currentUser);
+
+                    // 4. Uppdatera UI
+                    allQuests = questViewModel.getCurrentQuests();
                     filterQuests();
-
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    String uid = viewModel.getUser().getUid();
-
-                    db.collection("users").document(uid).set(viewModel.getUser())
-                            .addOnSuccessListener(aVoid -> Log.d("FIREBASE", "Användare uppdaterad i Firebase"))
-                            .addOnFailureListener(e -> Log.e("FIREBASE", "Misslyckades att uppdatera användaren", e));
                 }
 
                 dialog.dismiss();

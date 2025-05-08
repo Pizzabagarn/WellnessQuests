@@ -22,31 +22,33 @@ public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
     private ActionBarDrawerToggle toggle;
-    private UserViewModel userViewModel; // Gemensam ViewModel
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // ViewModel för databinding
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         binding.setUserViewModel(userViewModel);
         binding.setLifecycleOwner(this);
 
-        User user = UserManager.getInstance().getCurrentUser();
+        // Hämta användare från UserManager
+        User user = com.example.wellnessquest.model.UserManager.getInstance().getCurrentUser();
         if (user != null) {
             userViewModel.setUser(user);
         }
 
+        // Toolbar
         setSupportActionBar(binding.toolbar);
-
         toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        // Navigation
         binding.navView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
@@ -62,7 +64,19 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
 
+        // Testknapp för coins
         binding.addCoinButton.setOnClickListener(v -> userViewModel.addCoins(1));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        User user = com.example.wellnessquest.model.UserManager.getInstance().getCurrentUser();
+        if (user != null) {
+            userViewModel.setUser(user);
+            userViewModel.refreshUserLiveData(); // viktigt
+        }
+        new com.example.wellnessquest.model.UserStorage(getApplicationContext()).updateLastActive();
     }
 
     private void showToast(String msg) {
@@ -76,15 +90,5 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        User user = UserManager.getInstance().getCurrentUser();
-        if (user != null) {
-            userViewModel.setUser(user); // Samma instans
-        }
-        new UserStorage(getApplicationContext()).updateLastActive();
     }
 }
