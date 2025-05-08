@@ -19,6 +19,10 @@ public class Quest {
         this.requiredLevel = requiredLevel;
     }
 
+    // Tom konstruktor för Firebase
+    public Quest() {
+    }
+
     public int getRequiredLevel() {
         return requiredLevel;
     }
@@ -40,10 +44,6 @@ public class Quest {
         return category;
     }
 
-    public int getCoins() {
-        return coins;
-    }
-
     // Setters
     public void setId(String id) {
         this.id = id;
@@ -59,9 +59,6 @@ public class Quest {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public Quest() {
     }
 
     public void setCoins(int coins) {

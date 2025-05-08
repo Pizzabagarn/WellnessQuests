@@ -1,5 +1,7 @@
 package com.example.wellnessquest.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +14,15 @@ public class User {
     private List<Quest> currentQuests;
     private List<Quest> completedQuests;
 
+    // Empty constructor for Firestore
+    public User() {
+    }
+
     public User(String email) {
         this.email = email;
         this.coins = 0;
         this.currentQuests = new ArrayList<>();
         this.completedQuests = new ArrayList<>();
-    }
-
-    // 🔧 Empty constructor for Firestore
-    public User() {
     }
 
     public int getLevel() {
@@ -31,7 +33,6 @@ public class User {
         this.level = level;
     }
 
-
     // Getters
     public String getEmail() {
         return email;
@@ -40,7 +41,6 @@ public class User {
     public int getCoins() {
         return coins;
     }
-
 
     public List<Quest> getCurrentQuests() {
         return currentQuests;
@@ -75,6 +75,20 @@ public class User {
 
     public void completeQuest(String questId) {
         for (Quest q : currentQuests) {
+
+            if (q.getId().equals(questId) && !q.isComplete()) {
+                q.setComplete(true);
+                earnCoins(q.getRewardCoins());
+                advanceLevel();
+                completedQuests.add(q);
+                return;
+            }
+        }
+    }
+
+    /*
+    public void completeQuest(String questId) {
+        for (Quest q : currentQuests) {
             if (q.getId().equals(questId) && !q.isComplete()) {
                 q.setComplete(true);
                 earnCoins(q.getRewardCoins()); // lägg till coins
@@ -85,6 +99,7 @@ public class User {
         }
     }
 
+     */
 
     public void setUid(String uid) {
         this.uid = uid;

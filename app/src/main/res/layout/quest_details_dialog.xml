@@ -7,26 +7,42 @@
     android:background="@drawable/dialog_background"
     android:elevation="8dp">
 
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="21dp"
+        android:layout_height="24dp"
+        android:text="Stäng" />
+
     <TextView
         android:id="@+id/dialogQuestTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="Titel på quest"
-        android:textStyle="bold"
         android:textSize="18sp"
-        android:layout_marginBottom="8dp" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/dialogQuestDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:text="Beskrivning av quest"
-        android:textSize="16sp"
-        android:layout_marginBottom="16dp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/buttonMarkCompleted"
+        android:layout_width="228dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Markera som klar" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Markera som klar" />
+        android:orientation="horizontal"
+        android:gravity="end">
+
+    </LinearLayout>
+
 </LinearLayout>

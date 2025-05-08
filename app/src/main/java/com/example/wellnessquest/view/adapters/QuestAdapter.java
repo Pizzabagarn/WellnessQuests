@@ -46,21 +46,18 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.QuestViewHol
         holder.title.setText(quest.getTitle());
         holder.coins.setText(String.valueOf(quest.getRewardCoins()));
 
-        // Stryk över klarade quests
         if (quest.isComplete()) {
             holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
             holder.title.setPaintFlags(holder.title.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
 
-        // Visa ikon beroende på kategori
         if (quest.getCategory().equalsIgnoreCase("Mind")) {
-            holder.icon.setImageResource(R.drawable.image_brain); // temporär
+            holder.icon.setImageResource(R.drawable.image_brain);
         } else {
-            holder.icon.setImageResource(R.drawable.image_strong_arm); // temporär
+            holder.icon.setImageResource(R.drawable.image_strong_arm);
         }
 
-        // Klick på quest
         holder.itemView.setOnClickListener(v -> listener.onQuestClick(quest));
     }
 
