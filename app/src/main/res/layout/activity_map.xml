@@ -85,7 +85,13 @@
         <androidx.constraintlayout.widget.Guideline android:id="@+id/gy2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.625" />
         <androidx.constraintlayout.widget.Guideline android:id="@+id/gy3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.63" />
         <androidx.constraintlayout.widget.Guideline android:id="@+id/gy4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.51" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.49" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.47" />
         <androidx.constraintlayout.widget.Guideline android:id="@+id/gy6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.435" />
         <androidx.constraintlayout.widget.Guideline android:id="@+id/gy7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.38" />
 
@@ -207,7 +213,8 @@
             android:id="@+id/node_4"
             android:layout_width="64dp"
             android:layout_height="50dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/transparent_bg"
             android:clickable="true"
             android:focusable="true"
@@ -254,7 +261,7 @@
             android:layout_width="60dp"
             android:layout_height="48dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/transparent_bg"
             android:clickable="true"
             android:focusable="true"
