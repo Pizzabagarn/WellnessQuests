@@ -1,6 +1,8 @@
 package com.example.wellnessquest.model;
 
-public class Quest {
+import java.io.Serializable;
+
+public class Quest implements Serializable {
     private String id;
     private String title;
     private String description;
@@ -50,6 +52,7 @@ public class Quest {
     public void setTitle(String title) {
         this.title = title;
     }
+
 
     public void setDescription(String description) {
         this.description = description;

@@ -40,7 +40,7 @@ public class QuestViewModel extends AndroidViewModel {
         if (user == null) {
             // Tillfälligt testdata
             List<Quest> dummy = new ArrayList<>();
-            dummy.add(new Quest("q1", "Meditera i 5 min", "Sätt dig tyst och andas i fem minuter", "Mind", false, 10));
+            dummy.add(new Quest("q1", "Meditera i 5 min", "Sätt dig tyst och andas i fem minuter", "Mind", true, 10));
             dummy.add(new Quest("q2", "Gå 2000 steg", "Ta en kort promenad idag", "Fitness", false, 15));
             return dummy;
         }

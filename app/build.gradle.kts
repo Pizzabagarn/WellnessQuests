@@ -47,6 +47,8 @@ dependencies {
     implementation(libs.databinding.runtime)
     implementation(libs.google.firebase.auth)
     implementation(libs.lifecycle.viewmodel.android)
+    implementation(libs.image.labeling)
+    implementation(libs.vision.common)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

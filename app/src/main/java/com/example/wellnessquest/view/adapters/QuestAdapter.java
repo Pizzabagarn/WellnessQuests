@@ -1,17 +1,13 @@
 package com.example.wellnessquest.view.adapters;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wellnessquest.R;
+import com.example.wellnessquest.databinding.ItemQuestBinding;
 import com.example.wellnessquest.model.Quest;
 
 import java.util.List;
@@ -35,33 +31,19 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.QuestViewHol
     @NonNull
     @Override
     public QuestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_quest, parent, false);
-        return new QuestViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        ItemQuestBinding binding = ItemQuestBinding.inflate(inflater, parent, false);
+        return new QuestViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull QuestViewHolder holder, int position) {
         Quest quest = questList.get(position);
+        holder.binding.setQuest(quest);  // Kopplar datan till layouten
+        holder.binding.executePendingBindings();
 
-        holder.title.setText(quest.getTitle());
-        holder.coins.setText(String.valueOf(quest.getRewardCoins()));
-
-        // Stryk över klarade quests
-        if (quest.isComplete()) {
-            holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        } else {
-            holder.title.setPaintFlags(holder.title.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-        }
-
-        // Visa ikon beroende på kategori
-        if (quest.getCategory().equalsIgnoreCase("Mind")) {
-            holder.icon.setImageResource(R.drawable.image_brain); // temporär
-        } else {
-            holder.icon.setImageResource(R.drawable.image_strong_arm); // temporär
-        }
-
-        // Klick på quest
-        holder.itemView.setOnClickListener(v -> listener.onQuestClick(quest));
+        // Klick-hantering
+        holder.binding.getRoot().setOnClickListener(v -> listener.onQuestClick(quest));
     }
 
     @Override
@@ -70,14 +52,11 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.QuestViewHol
     }
 
     public static class QuestViewHolder extends RecyclerView.ViewHolder {
-        ImageView icon;
-        TextView title, coins;
+        ItemQuestBinding binding;
 
-        public QuestViewHolder(@NonNull View itemView) {
-            super(itemView);
-            icon = itemView.findViewById(R.id.questIcon);
-            title = itemView.findViewById(R.id.questTitle);
-            coins = itemView.findViewById(R.id.questCoins);
+        public QuestViewHolder(ItemQuestBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

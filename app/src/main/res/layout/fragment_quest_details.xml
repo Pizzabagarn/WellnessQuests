@@ -1,0 +1,67 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="quest"
+            type="com.example.wellnessquest.model.Quest" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{quest.title}"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:paddingBottom="12dp" />
+
+            <TextView
+                android:id="@+id/textDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{quest.description}"
+                android:textSize="16sp"
+                android:paddingBottom="16dp" />
+
+            <TextView
+                android:id="@+id/textCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='@{"Category: " + quest.category}'
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:paddingBottom="8dp" />
+
+            <TextView
+                android:id="@+id/textCoins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='@{"Reward: " + String.valueOf(quest.rewardCoins) + " coins"}'
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:paddingBottom="32dp" />
+
+            <Button
+                android:id="@+id/buttonVerify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Verify Quest"
+                android:backgroundTint="@color/purple_500"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false" />
+        </LinearLayout>
+    </ScrollView>
+</layout>
