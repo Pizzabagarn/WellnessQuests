@@ -32,6 +32,64 @@ public class QuestRepository {
         List<Quest> quests = new ArrayList<>();
 
         switch (level) {
+//Level 1 - Foundation
+            case 1:
+                quests.add(new Quest("q1", "Water of Clarity",
+                        "Drink a full glass of water and capture it in your hand.",
+                        "Fitness", false, 10, Arrays.asList(
+                        "glass", "bottle", "cup", "hand", "water", "drink", "transparent",
+                        "liquid", "kitchen", "table", "hydration"
+                )));
+
+                quests.add(new Quest("q2", "Arms Toward the Sky",
+                        "Stretch both arms upward and hold.",
+                        "Fitness", false, 15, Arrays.asList(
+                        "arms", "stretch", "standing", "pose", "exercise", "sky", "outside",
+                        "fitness", "person", "torso", "legs", "shoulder", "balance", "motion"
+                )));
+
+                quests.add(new Quest("q3", "The First Step",
+                        "Step outside and capture your shoes on the ground.",
+                        "Fitness", false, 5, Arrays.asList(
+                        "shoes", "feet", "outdoor", "sidewalk", "asphalt", "legs", "concrete",
+                        "walk", "pants", "shadow", "street", "step"
+                )));
+
+                quests.add(new Quest("q4", "Reflection in Stillness",
+                        "Stand before a mirror and smile with peace.",
+                        "Mind", false, 10, Arrays.asList(
+                        "mirror", "reflection", "face", "smile", "person", "bathroom",
+                        "room", "lighting", "eyes", "hair", "selfie", "shoulders", "hand"
+                )));
+
+                quests.add(new Quest("q5", "Roots in the Earth",
+                        "Sit calmly near nature. Photograph a tree, grass, or sky.",
+                        "Mind", false, 10, Arrays.asList(
+                        "tree", "grass", "sky", "outdoor", "leaves", "nature", "sunlight",
+                        "park", "cloud", "plant", "ground", "relax", "green"
+                )));
+
+                quests.add(new Quest("q6", "The Word Within",
+                        "Write a word that captures how you feel.",
+                        "Mind", false, 10, Arrays.asList(
+                        "paper", "pen", "notebook", "writing", "handwriting", "table",
+                        "desk", "hand", "words", "text", "journal", "stationery"
+                )));
+
+                quests.add(new Quest("q7", "Skyward Vision",
+                        "Admire the sky and capture the clouds or clear blue.",
+                        "Mind", false, 15, Arrays.asList(
+                        "sky", "cloud", "blue", "sun", "light", "open", "air", "outdoor",
+                        "skyline", "weather", "sunlight", "atmosphere"
+                )));
+
+                quests.add(new Quest("q8", "Motion of Awakening",
+                        "Do 10 jumping jacks. Capture your stance.",
+                        "Fitness", false, 5, Arrays.asList(
+                        "jump", "person", "movement", "arms", "legs", "pose", "exercise",
+                        "muscle", "fitness", "room", "motion", "athlete", "sports",
+                        "balance", "stretch", "action", "energy"
+                )));
 // Level 2 – Awakening
             case 2:
                 quests.add(new Quest("q9", "Steps of Progress", "Take 500 steps today and show your journey with a picture of your walking path.", "Fitness", false, 15, Arrays.asList(
