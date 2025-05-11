@@ -35,13 +35,13 @@ public class QuestRepository {
 // Level 1 – Foundation
             case 1:
                 quests.add(new Quest("q1", "Water of Clarity", "Begin your journey with clarity. Drink a full glass of water and capture it in your hand as proof of intention.", "Fitness", false, 10, Arrays.asList("glass", "bottle", "water", "drink")));
-                quests.add(new Quest("q2", "Arms Toward the Sky", "Stretch both arms upward and hold for 10 seconds. Let your photo show the posture of openness.", "Fitness", false, 10, Arrays.asList("stretch", "arms", "pose", "exercise")));
-                quests.add(new Quest("q3", "The First Step", "Step outside and feel the world. Capture your shoes on the ground beneath you.", "Fitness", false, 10, Arrays.asList("shoes", "outdoor", "sidewalk", "walk")));
+                quests.add(new Quest("q2", "Arms Toward the Sky", "Stretch both arms upward and hold for 10 seconds. Let your photo show the posture of openness.", "Fitness", false, 15, Arrays.asList("stretch", "arms", "pose", "exercise")));
+                quests.add(new Quest("q3", "The First Step", "Step outside and feel the world. Capture your shoes on the ground beneath you.", "Fitness", false, 5, Arrays.asList("shoes", "outdoor", "sidewalk", "walk")));
                 quests.add(new Quest("q4", "Reflection in Stillness", "Stand before a mirror and smile with peace. Capture the reflection of your strength.", "Mind", false, 10, Arrays.asList("mirror", "face", "smile", "reflection")));
                 quests.add(new Quest("q5", "Roots in the Earth", "Sit calmly near nature. Photograph a tree, grass, or sky as witness.", "Mind", false, 10, Arrays.asList("tree", "grass", "sky", "outdoor")));
                 quests.add(new Quest("q6", "The Word Within", "Write a word that captures how you feel. Capture the word on paper.", "Mind", false, 10, Arrays.asList("paper", "pen", "word", "writing")));
-                quests.add(new Quest("q7", "Skyward Vision", "Look up and admire the sky. Capture the clouds or the clear blue as a sign of breath.", "Mind", false, 10, Arrays.asList("sky", "cloud", "blue", "light")));
-                quests.add(new Quest("q8", "Motion of Awakening", "Do 10 jumping jacks to awaken the body. Capture your stance in motion or stillness.", "Fitness", false, 10, Arrays.asList("jump", "person", "movement", "fitness")));
+                quests.add(new Quest("q7", "Skyward Vision", "Look up and admire the sky. Capture the clouds or the clear blue as a sign of breath.", "Mind", false, 15, Arrays.asList("sky", "cloud", "blue", "light")));
+                quests.add(new Quest("q8", "Motion of Awakening", "Do 10 jumping jacks to awaken the body. Capture your stance in motion or stillness.", "Fitness", false, 5, Arrays.asList("jump", "person", "movement", "fitness")));
                 break;
 
 // Level 2 – Awakening
