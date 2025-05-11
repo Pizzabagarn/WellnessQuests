@@ -38,6 +38,7 @@ public class ProofFragment extends Fragment {
 
     private FragmentProofBinding binding;
     private Uri imageUri;
+    private Uri photoUri;
     private String currentPhotoPath;
     private Quest quest;
     private UserViewModel userViewModel;
@@ -79,8 +80,7 @@ public class ProofFragment extends Fragment {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                    File f = new File(currentPhotoPath);
-                    imageUri = Uri.fromFile(f);
+                    imageUri = photoUri;
                     binding.imagePreview.setImageURI(imageUri);
                 }
             });
@@ -96,8 +96,8 @@ public class ProofFragment extends Fragment {
                 ex.printStackTrace();
                 return;
             }
-            Uri photoURI = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", photoFile);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            photoUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
             cameraLauncher.launch(takePictureIntent);
         }
     }
