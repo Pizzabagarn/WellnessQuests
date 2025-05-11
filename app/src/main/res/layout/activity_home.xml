@@ -55,14 +55,7 @@
                     android:layout_marginStart="8dp"
                     android:textColor="@android:color/black" />
             </LinearLayout>
-
-            <!-- BUTTON TO TEST COINS -->
-            <Button
-                android:id="@+id/add_coin_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Coin"
-                android:layout_marginStart="16dp" />
+            
 
             <!-- FRAGMENT CONTAINER -->
             <FrameLayout

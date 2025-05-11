@@ -4,12 +4,12 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.wellnessquest.model.Level;
 import com.example.wellnessquest.model.Quest;
 import com.example.wellnessquest.model.User;
-import com.example.wellnessquest.model.UserManager;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.wellnessquest.model.QuestRepository;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -35,14 +35,30 @@ public class UserViewModel extends AndroidViewModel {
         User user = userLiveData.getValue();
         if (user != null) {
             user.earnCoins(amount);
-            userLiveData.setValue(user); // Trigger observer
-
-            // Uppdatera i Firestore
-            firestore.collection("users")
-                    .document(user.getUid())
-                    .set(user);
+            userLiveData.setValue(user);
+            saveToFirestore(user);
         }
     }
+
+    public boolean unlockNextLevelIfAffordable() {
+        User user = userLiveData.getValue();
+        int nextLevel = user.getCurrentLevel() + 1;
+
+        Level level = QuestRepository.getLevel(nextLevel);
+        int cost = level.getUnlockCost();
+
+        if (user.getCoins() >= cost) {
+            user.setCoins(user.getCoins() - cost);
+            user.setCurrentLevel(nextLevel);
+
+            saveToFirestore(user);
+            userLiveData.setValue(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void completeQuest(Quest quest, String imageUrl, String description) {
         User user = userLiveData.getValue();
         if (user == null) return;
@@ -51,9 +67,8 @@ public class UserViewModel extends AndroidViewModel {
         user.earnCoins(quest.getRewardCoins());
         quest.setCompleted(true);
 
-        firestore.collection("users").document(user.getUid()).set(user);
+        saveToFirestore(user);
 
-        // Spara till dagbok också (exempel)
         Map<String, Object> entry = new HashMap<>();
         entry.put("title", quest.getTitle());
         entry.put("description", description);
@@ -65,7 +80,12 @@ public class UserViewModel extends AndroidViewModel {
                 .collection("diaryEntries")
                 .add(entry);
 
-        userLiveData.setValue(user); // Trigga observer
+        userLiveData.setValue(user);
+    }
+
+    private void saveToFirestore(User user) {
+        firestore.collection("users")
+                .document(user.getUid())
+                .set(user);
     }
 }
-

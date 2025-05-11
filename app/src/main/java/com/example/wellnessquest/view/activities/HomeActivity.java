@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wellnessquest.model.User;
+import com.example.wellnessquest.model.UserManager;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 
 import com.example.wellnessquest.R;
@@ -68,9 +69,6 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
 
-        binding.addCoinButton.setOnClickListener(v -> {
-            userViewModel.addCoins(1); // 👈 du skapar denna metod i UserViewModel
-        });
     }
 
     private void showToast(String msg) {
@@ -90,5 +88,11 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         new UserStorage(getApplicationContext()).updateLastActive();
+
+        User user = UserManager.getInstance().getCurrentUser();
+        if (user != null) {
+            UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+            userViewModel.setUser(user);  // 🔁 FLYTTAD HIT
+        }
     }
 }

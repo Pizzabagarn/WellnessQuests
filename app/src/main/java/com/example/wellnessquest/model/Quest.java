@@ -1,6 +1,7 @@
 package com.example.wellnessquest.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Quest implements Serializable {
     private String id;
@@ -10,18 +11,25 @@ public class Quest implements Serializable {
     private boolean isCompleted;
     private int coins;
 
-    public Quest(String id, String title, String description, String category, boolean isCompleted, int coins) {
+    private List<String> validTags;
+
+    public Quest(String id, String title, String description, String category, boolean isCompleted, int coins, List<String> validTags) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
         this.isCompleted = isCompleted;
         this.coins = coins;  //Döpa om till coinsReward?
+        this.validTags = validTags;
     }
 
     // Getters
     public String getId() {
         return id;
+    }
+
+    public List<String> getValidTags() {
+        return validTags;
     }
 
     public String getTitle() {
@@ -47,6 +55,10 @@ public class Quest implements Serializable {
     // Setters
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setValidTags(List<String> validTags) {
+        this.validTags = validTags;
     }
 
     public void setTitle(String title) {

@@ -1,3 +1,4 @@
+// ProofFragment.java
 package com.example.wellnessquest.view.fragments;
 
 import android.app.Activity;
@@ -41,7 +42,7 @@ public class ProofFragment extends Fragment {
     private FragmentProofBinding binding;
     private Uri imageUri;
     private String currentPhotoPath;
-    private Quest testQuest;
+    private Quest quest;
     private UserViewModel userViewModel;
 
     @Override
@@ -56,7 +57,12 @@ public class ProofFragment extends Fragment {
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        testQuest = new Quest("q1", "Gå en promenad", "Promenera i minst 10 minuter", "Fitness", false, 10);
+        if (getArguments() != null && getArguments().containsKey("quest")) {
+            quest = (Quest) getArguments().getSerializable("quest");
+        } else {
+            Toast.makeText(getContext(), "No quest data", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         binding.buttonSelectImage.setOnClickListener(v -> galleryLauncher.launch("image/*"));
         binding.buttonTakePhoto.setOnClickListener(v -> dispatchTakePictureIntent());
@@ -86,17 +92,16 @@ public class ProofFragment extends Fragment {
         Context context = requireContext();
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
-            File photoFile = null;
+            File photoFile;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 ex.printStackTrace();
+                return;
             }
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                cameraLauncher.launch(takePictureIntent);
-            }
+            Uri photoURI = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            cameraLauncher.launch(takePictureIntent);
         }
     }
 
@@ -122,7 +127,7 @@ public class ProofFragment extends Fragment {
 
         try {
             InputImage image = InputImage.fromFilePath(requireContext(), imageUri);
-            ImageLabeler labeler = ImageLabeling.getClient(new ImageLabelerOptions.Builder().build());
+            ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
             labeler.process(image)
                     .addOnSuccessListener(this::handleLabels)
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Analyze failed", Toast.LENGTH_SHORT).show());
@@ -133,22 +138,26 @@ public class ProofFragment extends Fragment {
 
     private void handleLabels(List<ImageLabel> labels) {
         boolean matchFound = false;
+        List<String> validTags = quest.getValidTags();
+
         for (ImageLabel label : labels) {
             String tag = label.getText().toLowerCase();
             float confidence = label.getConfidence();
-            if (confidence > 0.7f) {
-                if (testQuest.getCategory().equalsIgnoreCase("fitness") && (tag.contains("outdoor") || tag.contains("person") || tag.contains("walk"))) {
-                    matchFound = true;
-                }
-                if (testQuest.getCategory().equalsIgnoreCase("mind") && (tag.contains("book") || tag.contains("journal") || tag.contains("writing"))) {
-                    matchFound = true;
+
+            if (confidence > 0.7f && validTags != null) {
+                for (String valid : validTags) {
+                    if (tag.contains(valid)) {
+                        matchFound = true;
+                        break;
+                    }
                 }
             }
+            if (matchFound) break;
         }
 
         if (matchFound) {
             binding.textResult.setText("Verified! Quest completed");
-            userViewModel.completeQuest(testQuest, imageUri.toString(), binding.editDescription.getText().toString());
+            userViewModel.completeQuest(quest, imageUri.toString(), binding.editDescription.getText().toString());
         } else {
             binding.textResult.setText("The image doesn't match the quest. Try again!");
         }

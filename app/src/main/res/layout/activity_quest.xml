@@ -1,39 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@drawable/login_page"
-    tools:context=".view.activities.QuestActivity">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
-
-        <CheckBox
-            android:id="@+id/checkbox_fitness"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fitness"
-            android:checked="true" />
-
-        <CheckBox
-            android:id="@+id/checkbox_mind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mind"
-            android:checked="true"
-            android:layout_marginStart="16dp"/>
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewQuests"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-</LinearLayout>
+    tools:context=".view.activities.QuestActivity" />
