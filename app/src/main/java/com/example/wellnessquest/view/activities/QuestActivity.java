@@ -17,7 +17,7 @@ public class QuestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest);
 
-        // ✅ Lägg till detta
+
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         User user = UserManager.getInstance().getCurrentUser();
         if (user != null) {
