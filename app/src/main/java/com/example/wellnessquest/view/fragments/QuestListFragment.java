@@ -66,28 +66,19 @@ public class QuestListFragment extends Fragment {
         // Observera user
         userViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> {
             if (user == null) {
-                Log.d("QuestDebug", "User is null");
                 return;
             }
-
-            Log.d("QuestDebug", "User level: " + user.getCurrentLevel());
-
             allQuests = QuestRepository.getLevel(user.getCurrentLevel()).getQuests();
-            Log.d("QuestDebug", "Fetched quests count: " + allQuests.size());
 
             // Markera slutförda
-            List<String> completedIds = new ArrayList<>();
-            for (Quest completed : user.getCompletedQuests()) {
-                completedIds.add(completed.getId());
-            }
+            List<String> completedIds = user.getCompletedQuests();
+
             for (Quest quest : allQuests) {
-                quest.setCompleted(completedIds.contains(quest.getId()));
+                quest.setCompleted(completedIds != null && completedIds.contains(quest.getId()));
             }
 
             // Filtrera
             filterQuests();
-            Log.d("QuestDebug", "Filtered quests count: " + filteredQuests.size());
-
             adapter.notifyDataSetChanged();
         });
 

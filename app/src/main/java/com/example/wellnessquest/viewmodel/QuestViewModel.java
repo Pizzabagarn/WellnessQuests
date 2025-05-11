@@ -31,20 +31,15 @@ public class QuestViewModel extends AndroidViewModel {
         if (user == null) return new ArrayList<>();
 
         List<Quest> allQuests = QuestRepository.getLevel(user.getCurrentLevel()).getQuests();
-        List<String> completedIds = new ArrayList<>();
-
-        for (Quest completed : user.getCompletedQuests()) {
-            completedIds.add(completed.getId());
-        }
+        List<String> completedIds = user.getCompletedQuests();
 
         for (Quest quest : allQuests) {
-            if (completedIds.contains(quest.getId())) {
-                quest.setCompleted(true); // ✔ markera som klar
-            }
+            quest.setCompleted(completedIds != null && completedIds.contains(quest.getId()));
         }
 
-        return allQuests; // ✔ returnera ALLA quests
+        return allQuests;
     }
+
 
 
 }

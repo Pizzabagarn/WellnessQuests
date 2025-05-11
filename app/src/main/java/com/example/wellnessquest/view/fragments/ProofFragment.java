@@ -23,12 +23,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wellnessquest.databinding.FragmentProofBinding;
 import com.example.wellnessquest.model.Quest;
+import com.example.wellnessquest.utils.QuestVerifier;
 import com.example.wellnessquest.viewmodel.UserViewModel;
-import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.label.ImageLabel;
-import com.google.mlkit.vision.label.ImageLabeler;
-import com.google.mlkit.vision.label.ImageLabeling;
-import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
 
 import java.io.File;
 import java.io.IOException;
@@ -125,41 +122,28 @@ public class ProofFragment extends Fragment {
             return;
         }
 
-        try {
-            InputImage image = InputImage.fromFilePath(requireContext(), imageUri);
-            ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
-            labeler.process(image)
-                    .addOnSuccessListener(this::handleLabels)
-                    .addOnFailureListener(e -> Toast.makeText(getContext(), "Analyze failed", Toast.LENGTH_SHORT).show());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void handleLabels(List<ImageLabel> labels) {
-        boolean matchFound = false;
-        List<String> validTags = quest.getValidTags();
-
-        for (ImageLabel label : labels) {
-            String tag = label.getText().toLowerCase();
-            float confidence = label.getConfidence();
-
-            if (confidence > 0.7f && validTags != null) {
-                for (String valid : validTags) {
-                    if (tag.contains(valid)) {
-                        matchFound = true;
-                        break;
-                    }
-                }
+        QuestVerifier.verify(requireContext(), imageUri, quest, description, new QuestVerifier.VerificationCallback() {
+            @Override
+            public void onVerified() {
+                binding.textResult.setText("Verified! Quest completed");
+                userViewModel.completeQuest(quest, imageUri.toString(), description);
             }
-            if (matchFound) break;
-        }
 
-        if (matchFound) {
-            binding.textResult.setText("Verified! Quest completed");
-            userViewModel.completeQuest(quest, imageUri.toString(), binding.editDescription.getText().toString());
-        } else {
-            binding.textResult.setText("The image doesn't match the quest. Try again!");
-        }
+            @Override
+            public void onFailed() {
+                binding.textResult.setText("The image doesn't match the quest. Try again!");
+            }
+
+            @Override
+            public void onMismatch(List<ImageLabel> labels) {
+                binding.textResult.setText("The image doesn't match the quest. Try again!\n" + labels.toString());
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Toast.makeText(getContext(), "Verification error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

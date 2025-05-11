@@ -9,7 +9,8 @@ public class User {
     private int coins;
     private int currentLevel;
     private String uid; // to save document-id for firebase
-    private List<Quest> completedQuests;
+    private List<String> completedQuests;
+
 
     public User(String email) {
         this.email = email;
@@ -35,7 +36,7 @@ public class User {
         return currentLevel;
     }
 
-    public List<Quest> getCompletedQuests() {
+    public List<String> getCompletedQuests() {
         return completedQuests;
     }
 
@@ -49,7 +50,7 @@ public class User {
         this.currentLevel = currentLevel;
     }
 
-    public void setCompletedQuests(List<Quest> completedQuests) {
+    public void setCompletedQuests(List<String> completedQuests) {
         this.completedQuests = completedQuests;
     }
 

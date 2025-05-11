@@ -63,7 +63,7 @@ public class UserViewModel extends AndroidViewModel {
         User user = userLiveData.getValue();
         if (user == null) return;
 
-        user.getCompletedQuests().add(quest);
+        user.getCompletedQuests().add(quest.getId());
         user.earnCoins(quest.getRewardCoins());
         quest.setCompleted(true);
 
