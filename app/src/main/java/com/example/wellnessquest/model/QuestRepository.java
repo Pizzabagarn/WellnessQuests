@@ -24,7 +24,7 @@ public class QuestRepository {
     }
 
     private static int calculateLevelCost(int levelNumber) {
-        // Exempel: kostnaden ökar per nivå
+        //kostnaden ökar per nivå
         return 60 + (levelNumber - 1) * 20;
     }
 
