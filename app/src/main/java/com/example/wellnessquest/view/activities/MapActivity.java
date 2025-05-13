@@ -37,8 +37,10 @@ public class MapActivity extends AppCompatActivity {
 
         // Hämta ViewModel instans
         mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
-
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        binding.setUserViewModel(userViewModel);
+        binding.setLifecycleOwner(this);
+
         // Lägg klicklyssnare med databinding (för alla noder/levels)
         setupNodeClick(binding.node0, 0);
         setupNodeClick(binding.node1, 1);
@@ -56,30 +58,36 @@ public class MapActivity extends AppCompatActivity {
     // Binder en nivå-knapp till klicklogik
     private void setupNodeClick(View view, int level) {
         view.setOnClickListener(v -> {
+            int currentLevel = userViewModel.getUserLiveData().getValue().getCurrentLevel();
+
+            if (level == 0 || level <= currentLevel) {
+                moveAvatarToLevel(level);
+                return;
+            }
+
+            if (level > currentLevel + 1) {
+                Toast.makeText(this, "You must unlock previous levels first.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             int cost = mapViewModel.getCostForLevel(level);
-            int currentLevel = mapViewModel.getCurrentLevel().getValue();
-            int coins = mapViewModel.getCoins().getValue();
+            int coins = userViewModel.getUserLiveData().getValue().getCoins();
 
-            // Kontrollera om spelaren får köpa denna nivå
-            if (level != currentLevel + 1) {
-                Toast.makeText(this, "You can only buy the next level.", Toast.LENGTH_SHORT).show();
-                return;
-            }
             if (coins < cost) {
-                Toast.makeText(this, "Not enough coins.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Not enough coins!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Visa bekräftelsedialog
-                new AlertDialog.Builder(this)
-                        .setTitle("Buy Level " + level)
-                        .setMessage("Buy level " + level + "for " + cost + " coins?")
-                        .setPositiveButton("Yes", (dialog, which) -> {
-                            boolean purchased = mapViewModel.purchaseLevel(level);
-                            if (purchased) moveAvatarToLevel(level);
-                        })
-                        .setNegativeButton("Cancel", null)
-                        .show();
+            new AlertDialog.Builder(this)
+                    .setTitle("Unlock Level " + level)
+                    .setMessage("Buy level " + level + " for " + cost + " coins?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        boolean unlocked = userViewModel.unlockNextLevelIfAffordable();
+                        if (unlocked) moveAvatarToLevel(level);
+                        else Toast.makeText(this, "Level locked!", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
         });
     }
 
