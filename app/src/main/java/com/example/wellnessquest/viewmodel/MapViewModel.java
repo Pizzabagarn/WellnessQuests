@@ -18,13 +18,6 @@ public class MapViewModel extends ViewModel {
         this.levels = QuestRepository.getAllLevels();
     }
 
-    public int getCostForLevel(int levelNumber) {
-        for (Level l : levels) {
-            if (l.getLevelNumber() == levelNumber) return l.getUnlockCost();
-        }
-        return -1;
-    }
-
     public Level getLevel(int levelNumber) {
         for (Level l : levels) {
             if (l.getLevelNumber() == levelNumber) return l;
