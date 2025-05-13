@@ -58,25 +58,7 @@ public class MapActivity extends AppCompatActivity {
     // Binder en nivå-knapp till klicklogik
     private void setupNodeClick(View view, int level) {
         view.setOnClickListener(v -> {
-            int currentLevel = userViewModel.getUserLiveData().getValue().getCurrentLevel();
-
-            if (level == 0 || level <= currentLevel) {
-                moveAvatarToLevel(level);
-                return;
-            }
-
-            if (level > currentLevel + 1) {
-                Toast.makeText(this, "You must unlock previous levels first.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
             int cost = mapViewModel.getCostForLevel(level);
-            int coins = userViewModel.getUserLiveData().getValue().getCoins();
-
-            if (coins < cost) {
-                Toast.makeText(this, "Not enough coins!", Toast.LENGTH_SHORT).show();
-                return;
-            }
 
             new AlertDialog.Builder(this)
                     .setTitle("Unlock Level " + level)

@@ -10,6 +10,7 @@ import com.example.wellnessquest.model.Level;
 import com.example.wellnessquest.model.Quest;
 import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.model.QuestRepository;
+import com.example.wellnessquest.model.UserManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class UserViewModel extends AndroidViewModel {
 
     public void setUser(User user) {
         userLiveData.setValue(user);
+        UserManager.getInstance().setCurrentUser(user); // 🔁 håll synkat
     }
 
     public void addCoins(int amount) {
@@ -39,7 +41,6 @@ public class UserViewModel extends AndroidViewModel {
             saveToFirestore(user);
         }
     }
-
     public boolean unlockNextLevelIfAffordable() {
         User user = userLiveData.getValue();
         int nextLevel = user.getCurrentLevel() + 1;
@@ -87,5 +88,7 @@ public class UserViewModel extends AndroidViewModel {
         firestore.collection("users")
                 .document(user.getUid())
                 .set(user);
+
+        UserManager.getInstance().setCurrentUser(user); // 🔁 håll synkat
     }
 }
