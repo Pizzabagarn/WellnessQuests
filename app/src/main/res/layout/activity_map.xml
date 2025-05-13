@@ -2,6 +2,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="userViewModel"
+            type="com.example.wellnessquest.viewmodel.UserViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mapRoot"
         android:layout_width="match_parent"
@@ -56,7 +62,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.28" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gx7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gx7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx8"
@@ -70,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.44" />
+            app:layout_constraintGuide_percent="0.45" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx10"
@@ -120,21 +132,26 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@drawable/ic_map2"
-            tools:layout_editor_absoluteX="-16dp"
-            tools:layout_editor_absoluteY="148dp" />
+            tools:layout_editor_absoluteX="-185dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <TextView
             android:id="@+id/node_0"
-            android:layout_width="70dp"
-            android:layout_height="61dp"
+            android:layout_width="83dp"
+            android:layout_height="64dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/transparent_bg"
             android:clickable="true"
             android:focusable="true"
             android:padding="6dp"
+            android:shadowColor="#FF000000"
+            android:shadowDx="9"
+            android:shadowDy="6"
+            android:shadowRadius="6"
             android:text="START"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx0"
             app:layout_constraintTop_toTopOf="@id/gy0" />
@@ -156,8 +173,8 @@
             android:shadowRadius="6"
             android:text="100"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/gold"
-            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx1"
             app:layout_constraintTop_toTopOf="@id/gy1" />
@@ -166,7 +183,8 @@
             android:id="@+id/node_2"
             android:layout_width="74dp"
             android:layout_height="53dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/transparent_bg"
             android:clickable="true"
             android:focusable="true"
@@ -179,8 +197,8 @@
             android:shadowRadius="6"
             android:text="200"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/gold"
-            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx2"
             app:layout_constraintTop_toTopOf="@id/gy2" />
@@ -201,10 +219,10 @@
             android:shadowDx="10"
             android:shadowDy="10"
             android:shadowRadius="6"
-            android:text="LVL3"
+            android:text="250"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/gold"
-            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx3"
             app:layout_constraintTop_toTopOf="@id/gy3" />
@@ -214,29 +232,6 @@
             android:layout_width="64dp"
             android:layout_height="50dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
-            android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
-            android:text="LVL4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/gold"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/gx4"
-            app:layout_constraintTop_toTopOf="@id/gy4" />
-
-        <TextView
-            android:id="@+id/node_5"
-            android:layout_width="70dp"
-            android:layout_height="48dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/transparent_bg"
             android:clickable="true"
@@ -248,10 +243,33 @@
             android:shadowDx="10"
             android:shadowDy="10"
             android:shadowRadius="6"
-            android:text="LVL5"
+            android:text="200"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/gold"
-            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/gx4"
+            app:layout_constraintTop_toTopOf="@id/gy4" />
+
+        <TextView
+            android:id="@+id/node_5"
+            android:layout_width="66dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/transparent_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/aldrich"
+            android:gravity="center"
+            android:padding="6dp"
+            android:shadowColor="#FF000000"
+            android:shadowDx="10"
+            android:shadowDy="10"
+            android:shadowRadius="6"
+            android:text="250"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx5"
             app:layout_constraintTop_toTopOf="@id/gy5" />
@@ -272,10 +290,10 @@
             android:shadowDx="10"
             android:shadowDy="10"
             android:shadowRadius="6"
-            android:text="LVL6"
+            android:text="300"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/gold"
-            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx6"
             app:layout_constraintTop_toTopOf="@id/gy6" />
@@ -295,10 +313,10 @@
             android:shadowDx="10"
             android:shadowDy="10"
             android:shadowRadius="6"
-            android:text="LVL7"
+            android:text="350"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/gold"
-            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx7"
             app:layout_constraintTop_toTopOf="@id/gy7" />
@@ -319,10 +337,10 @@
             android:shadowDx="10"
             android:shadowDy="10"
             android:shadowRadius="6"
-            android:text="LVL8"
+            android:text="350"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/gold"
-            android:textSize="11sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx8"
             app:layout_constraintTop_toTopOf="@id/gy8" />
@@ -331,8 +349,8 @@
             android:id="@+id/node_9"
             android:layout_width="59dp"
             android:layout_height="48dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/transparent_bg"
             android:clickable="true"
             android:focusable="true"
@@ -343,10 +361,10 @@
             android:shadowDx="10"
             android:shadowDy="10"
             android:shadowRadius="6"
-            android:text="LVL9"
+            android:text="300"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/gold"
-            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx9"
             app:layout_constraintTop_toTopOf="@id/gy9" />
@@ -356,7 +374,7 @@
             android:layout_width="63dp"
             android:layout_height="48dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="192dp"
+            android:layout_marginTop="148dp"
             android:background="@drawable/transparent_bg"
             android:clickable="true"
             android:focusable="true"
@@ -367,13 +385,41 @@
             android:shadowDx="10"
             android:shadowDy="10"
             android:shadowRadius="6"
-            android:text="LVL10"
+            android:text="250"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/gold"
-            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/gx10"
             app:layout_constraintTop_toTopOf="@id/gy10" />
+
+        <LinearLayout
+            android:id="@+id/coin_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/coin_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="Coins"
+                android:src="@drawable/coin" />
+
+            <TextView
+                android:id="@+id/coin_text"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text='@{"Coins: " + userViewModel.userLiveData.coins}'
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/avatar"
