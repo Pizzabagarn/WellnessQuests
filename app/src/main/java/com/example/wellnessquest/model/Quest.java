@@ -10,7 +10,6 @@ public class Quest implements Serializable {
     private String category; // "Fitness" eller "Mind"
     private boolean isCompleted;
     private int coins;
-
     private List<String> validTags;
 
     public Quest(String id, String title, String description, String category, boolean isCompleted, int coins, List<String> validTags) {
