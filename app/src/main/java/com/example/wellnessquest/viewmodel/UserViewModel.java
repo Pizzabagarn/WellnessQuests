@@ -43,6 +43,7 @@ public class UserViewModel extends AndroidViewModel {
     }
     public boolean unlockNextLevelIfAffordable() {
         User user = userLiveData.getValue();
+
         int nextLevel = user.getCurrentLevel() + 1;
 
         Level level = QuestRepository.getLevel(nextLevel);
