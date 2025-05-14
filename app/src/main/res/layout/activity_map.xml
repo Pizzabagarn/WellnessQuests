@@ -393,33 +393,6 @@
             app:layout_constraintStart_toStartOf="@id/gx10"
             app:layout_constraintTop_toTopOf="@id/gy10" />
 
-        <LinearLayout
-            android:id="@+id/coin_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <ImageView
-                android:id="@+id/coin_icon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:contentDescription="Coins"
-                android:src="@drawable/coin" />
-
-            <TextView
-                android:id="@+id/coin_text"
-                android:layout_width="44dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text='@{"Coins: " + userViewModel.userLiveData.coins}'
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-        </LinearLayout>
 
         <ImageView
             android:id="@+id/avatar"

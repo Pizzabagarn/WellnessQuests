@@ -1,9 +1,14 @@
 package com.example.wellnessquest.view.activities;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
@@ -11,79 +16,94 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityMapBinding;
 import com.example.wellnessquest.model.User;
+import com.example.wellnessquest.viewmodel.MapViewModel;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 
 public class MapActivity extends AppCompatActivity {
 
     private UserViewModel userViewModel;
+    private MapViewModel mapViewModel;
     private ActivityMapBinding binding;
-    private int currentNode = 0;  // Håller koll på den aktuella noden som avataren är på.
+    private ImageView avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-      //  binding.setLifecycleOwner(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+        avatar = binding.avatar;
+        avatar.setVisibility(View.VISIBLE);
+
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        mapViewModel = new MapViewModel(userViewModel);
+
+        binding.setLifecycleOwner(this);
         binding.setUserViewModel(userViewModel);
 
 
-        // Hämta referenser till UI-elementen
-        binding.avatar.setVisibility(View.VISIBLE);
+        // Setup klick för alla noder
+        setupNodeClick(binding.node0, 0);
+        setupNodeClick(binding.node1, 1);
+        setupNodeClick(binding.node2, 2);
+        setupNodeClick(binding.node3, 3);
+        setupNodeClick(binding.node4, 4);
+        setupNodeClick(binding.node5, 5);
+        setupNodeClick(binding.node6, 6);
+        setupNodeClick(binding.node7, 7);
+        setupNodeClick(binding.node8, 8);
+        setupNodeClick(binding.node9, 9);
+        setupNodeClick(binding.node10, 10);
 
-
-        // Klickhantering för noder (klickbar noder)
-        binding.node0.setOnClickListener(v -> onNodeClicked(0));
-        binding.node1.setOnClickListener(v -> onNodeClicked(1));
-        binding.node2.setOnClickListener(v -> onNodeClicked(2));
-        binding.node3.setOnClickListener(v -> onNodeClicked(3));
-        // Lägg till fler noder här med samma pattern
+        userViewModel.getUserLiveData().observe(this, user -> {
+            if (user != null) {
+                int currentLevel = user.getCurrentLevel();
+                moveAvatarToLevel(currentLevel);
+            }
+        });
     }
 
     // Funktion som hanterar när en användare klickar på en nod
-    private void onNodeClicked(int nodeId) {
-        boolean unlocked = userViewModel.unlockNextLevelIfAffordable();
+    private void setupNodeClick(View view, int level) {
+        view.setOnClickListener(v -> {
+            int cost = mapViewModel.getCostForLevel(level);
 
-        if (unlocked){
-            animateAvatarToNode(nodeId);
-        } else {
-            showErrorMessage("Level locked!");
-        }
+            if (!mapViewModel.canPurchaseLevel(level)) {
+                Toast.makeText(this, "You can only buy the next level and must have enough coins.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Buy Level " + level)
+                    .setMessage("Buy level " + level + " for " + cost + " coins?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        boolean purchased = userViewModel.unlockNextLevelIfAffordable();
+                        if (purchased) {
+                            moveAvatarToLevel(level);
+                        } else {
+                            Toast.makeText(this, "Purchase failed.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+        });
     }
 
+    public void moveAvatarToLevel(int level) {
+        int nodeId = getResources().getIdentifier("node" + level, "id", getPackageName());
+        TextView target = findViewById(nodeId);
+        if (target == null) return;
 
-    // Funktion som animerar avataren till en specifik nod
-    private void animateAvatarToNode(int nodeId) {
-        // Här gör vi en enkel animation av avataren till den valda noden
-        int targetX = 0, targetY = 0;
+        target.post(() -> {
+            float targetX = target.getX() + target.getWidth() / 2f - avatar.getWidth() / 2f;
+            float targetY = target.getY() + target.getHeight() / 2f - avatar.getHeight() / 2f;
 
-        // Sätt X- och Y-koordinater baserat på nodens position
-        switch (nodeId) {
-            case 0:
-                targetX = (int) binding.gx0.getX();
-                targetY = (int) binding.gy0.getY();
-                break;
-            case 1:
-                targetX = (int) binding.gx1.getX();
-                targetY = (int) binding.gy1.getY();
-                break;
-            case 2:
-                targetX = (int) binding.gx2.getX();
-                targetY = (int) binding.gy2.getY();
-                break;
-            // Fler fall för andra noder
-        }
+            ObjectAnimator animX = ObjectAnimator.ofFloat(avatar, "x", targetX);
+            ObjectAnimator animY = ObjectAnimator.ofFloat(avatar, "y", targetY);
 
-        // Använd en enkel animation till den nya positionen
-        binding.avatar.animate()
-                .x(targetX)
-                .y(targetY)
-                .setDuration(300)
-                .start();
-    }
-
-    private void showErrorMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(animX, animY);
+            set.setDuration(600);
+            set.start();
+        });
     }
 }

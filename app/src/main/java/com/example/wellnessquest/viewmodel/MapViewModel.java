@@ -5,38 +5,42 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.wellnessquest.model.Level;
-import com.example.wellnessquest.model.MapNode;
 import com.example.wellnessquest.model.QuestRepository;
 import com.example.wellnessquest.model.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MapViewModel extends ViewModel {
 
-    private final MediatorLiveData<List<MapNode>> mapNodes = new MediatorLiveData<>();
+    private final MediatorLiveData<Integer> currentLevel = new MediatorLiveData<>();
+    private final MediatorLiveData<Integer> coins = new MediatorLiveData<>();
 
     public MapViewModel(UserViewModel userViewModel) {
-        // Observera userLiveData och uppdatera noder varje gång användaren ändras
-        mapNodes.addSource(userViewModel.getUserLiveData(), user -> {
-            if (user != null) {
-                mapNodes.setValue(generateMapNodes(user.getCurrentLevel()));
-            }
+        // Lyssna på förändringar i användaren
+        currentLevel.addSource(userViewModel.getUserLiveData(), user -> {
+            if (user != null) currentLevel.setValue(user.getCurrentLevel());
+        });
+        coins.addSource(userViewModel.getUserLiveData(), user -> {
+            if (user != null) coins.setValue(user.getCoins());
         });
     }
 
-    public LiveData<List<MapNode>> getMapNodes() {
-        return mapNodes;
+    public LiveData<Integer> getCurrentLevel() {
+        return currentLevel;
     }
 
-    private List<MapNode> generateMapNodes(int currentLevel) {
-        List<MapNode> nodes = new ArrayList<>();
+    public LiveData<Integer> getCoins() {
+        return coins;
+    }
 
-        for (int i = 1; i <= 5; i++) {
-            Level level = QuestRepository.getLevel(i);
-            boolean isUnlocked = i <= currentLevel;
-            nodes.add(new MapNode(i, level.getUnlockCost(), isUnlocked));
-        }
-        return nodes;
+    public int getCostForLevel(int levelNumber) {
+        return QuestRepository.getLevel(levelNumber).getUnlockCost();
+    }
+
+    public boolean canPurchaseLevel(int levelNumber) {
+        Integer currLevel = currentLevel.getValue();
+        Integer coinBalance = coins.getValue();
+        int cost = getCostForLevel(levelNumber);
+
+        return currLevel != null && coinBalance != null &&
+                levelNumber == currLevel + 1 && coinBalance >= cost;
     }
 }
