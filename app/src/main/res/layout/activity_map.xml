@@ -113,7 +113,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.33" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.29" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.29" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy10"
@@ -132,15 +138,15 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@drawable/ic_map2"
-            tools:layout_editor_absoluteX="-185dp"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="16dp" />
 
         <TextView
             android:id="@+id/node_0"
             android:layout_width="83dp"
             android:layout_height="64dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="64dp"
             android:background="@drawable/transparent_bg"
             android:clickable="true"
             android:focusable="true"
@@ -369,12 +375,13 @@
             app:layout_constraintStart_toStartOf="@id/gx9"
             app:layout_constraintTop_toTopOf="@id/gy9" />
 
+
         <TextView
             android:id="@+id/node_10"
             android:layout_width="63dp"
             android:layout_height="48dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="148dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="160dp"
             android:background="@drawable/transparent_bg"
             android:clickable="true"
             android:focusable="true"
@@ -393,13 +400,12 @@
             app:layout_constraintStart_toStartOf="@id/gx10"
             app:layout_constraintTop_toTopOf="@id/gy10" />
 
-
         <ImageView
             android:id="@+id/avatar"
             android:layout_width="113dp"
             android:layout_height="120dp"
-            android:layout_marginStart="152dp"
-            android:layout_marginTop="720dp"
+            android:layout_marginStart="156dp"
+            android:layout_marginTop="576dp"
             android:contentDescription="Avatar on map, from behind"
             android:src="@drawable/ic_avatar_from_back"
             app:layout_constraintStart_toStartOf="parent"

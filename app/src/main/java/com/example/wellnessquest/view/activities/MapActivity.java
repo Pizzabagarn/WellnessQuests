@@ -17,6 +17,7 @@ import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityMapBinding;
 import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.viewmodel.MapViewModel;
+import com.example.wellnessquest.viewmodel.MapViewModelFactory;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 
 public class MapActivity extends AppCompatActivity {
@@ -35,7 +36,8 @@ public class MapActivity extends AppCompatActivity {
         avatar.setVisibility(View.VISIBLE);
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        mapViewModel = new MapViewModel(userViewModel);
+        MapViewModelFactory factory = new MapViewModelFactory(userViewModel);
+        mapViewModel = new ViewModelProvider(this, factory).get(MapViewModel.class);
 
         binding.setLifecycleOwner(this);
         binding.setUserViewModel(userViewModel);
