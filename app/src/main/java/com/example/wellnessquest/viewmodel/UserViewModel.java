@@ -41,7 +41,30 @@ public class UserViewModel extends AndroidViewModel {
             saveToFirestore(user);
         }
     }
-    public boolean unlockNextLevelIfAffordable() {
+
+
+    public boolean canPurchaseLevel(int levelNumber){
+        User user = userLiveData.getValue();
+        if (user != null) return false;
+
+        int nextLevel = user.getCurrentLevel() + 1;
+        Level level = QuestRepository.getLevel(levelNumber);
+        return levelNumber == nextLevel && user.getCoins() >= level.getUnlockCost();
+    }
+
+    public boolean purchaseLevel (int levelNumber){
+        if (!canPurchaseLevel(levelNumber)) return false;
+        User user = userLiveData.getValue();
+        Level level = QuestRepository.getLevel(levelNumber);
+
+        user.setCoins(user.getCoins() - level.getUnlockCost());
+        user.setCurrentLevel(levelNumber);
+
+        saveToFirestore(user);
+        userLiveData.setValue(user);
+        return true;
+    }
+  /*  public boolean unlockNextLevelIfAffordable() {
         User user = userLiveData.getValue();
 
         int nextLevel = user.getCurrentLevel() + 1;
@@ -60,6 +83,8 @@ public class UserViewModel extends AndroidViewModel {
             return false;
         }
     }
+
+   */
 
     public void completeQuest(Quest quest, String imageUrl, String description) {
         User user = userLiveData.getValue();

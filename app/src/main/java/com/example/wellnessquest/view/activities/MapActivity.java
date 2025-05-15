@@ -12,62 +12,49 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityMapBinding;
+import com.example.wellnessquest.model.Level;
 import com.example.wellnessquest.viewmodel.MapViewModel;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 
 public class MapActivity extends AppCompatActivity {
 
-    private UserViewModel userViewModel;
-    private MapViewModel mapViewModel;
     private ActivityMapBinding binding;
     private ImageView avatar;
+    private UserViewModel userViewModel;
+    private MapViewModel mapViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
         avatar = binding.avatar;
-        avatar.setVisibility(View.VISIBLE);
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        MapViewModelFactory factory = new MapViewModelFactory(userViewModel);
-        mapViewModel = new ViewModelProvider(this, factory).get(MapViewModel.class);
+        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
 
-        binding.setLifecycleOwner(this);
-        binding.setUserViewModel(userViewModel);
-
-
-        // Setup klick för alla noder
-        setupNodeClick(binding.node0, 0);
-        setupNodeClick(binding.node1, 1);
-        setupNodeClick(binding.node2, 2);
-        setupNodeClick(binding.node3, 3);
-        setupNodeClick(binding.node4, 4);
-        setupNodeClick(binding.node5, 5);
-        setupNodeClick(binding.node6, 6);
-        setupNodeClick(binding.node7, 7);
-        setupNodeClick(binding.node8, 8);
-        setupNodeClick(binding.node9, 9);
-        setupNodeClick(binding.node10, 10);
-
-        userViewModel.getUserLiveData().observe(this, user -> {
-            if (user != null) {
-                int currentLevel = user.getCurrentLevel();
-                moveAvatarToLevel(currentLevel);
-            }
-        });
+        for (int i = 0; i <= 10; i++) {
+            int finalI = i;
+            View node = findViewById(getResources().getIdentifier("node" + finalI, "id", getPackageName()));
+            if (node != null) setupNodeClick(node, finalI);
+        }
     }
 
-    // Funktion som hanterar när en användare klickar på en nod
     private void setupNodeClick(View view, int level) {
         view.setOnClickListener(v -> {
-            int cost = mapViewModel.getCostForLevel(level);
+            Level levelObj = mapViewModel.getLevel(level);
+            int cost = levelObj.getUnlockCost();
+            int currentLevel = userViewModel.getUserLiveData().getValue().getCurrentLevel();
+            int coins = userViewModel.getUserLiveData().getValue().getCoins();
 
-            if (!mapViewModel.canPurchaseLevel(level)) {
-                Toast.makeText(this, "You can only buy the next level and must have enough coins.", Toast.LENGTH_SHORT).show();
+            if (level != currentLevel + 1) {
+                Toast.makeText(this, "You can only buy the next level.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (coins < cost) {
+                Toast.makeText(this, "Not enough coins.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -75,12 +62,8 @@ public class MapActivity extends AppCompatActivity {
                     .setTitle("Buy Level " + level)
                     .setMessage("Buy level " + level + " for " + cost + " coins?")
                     .setPositiveButton("Yes", (dialog, which) -> {
-                        boolean purchased = userViewModel.unlockNextLevelIfAffordable();
-                        if (purchased) {
-                            moveAvatarToLevel(level);
-                        } else {
-                            Toast.makeText(this, "Purchase failed.", Toast.LENGTH_SHORT).show();
-                        }
+                        boolean purchased = userViewModel.purchaseLevel(level);
+                        if (purchased) moveAvatarToLevel(level);
                     })
                     .setNegativeButton("Cancel", null)
                     .show();
@@ -88,7 +71,7 @@ public class MapActivity extends AppCompatActivity {
     }
 
     public void moveAvatarToLevel(int level) {
-        int nodeId = getResources().getIdentifier("node" + level, "id", getPackageName());
+        int nodeId = getResources().getIdentifier("node_" + level, "id", getPackageName());
         TextView target = findViewById(nodeId);
         if (target == null) return;
 
