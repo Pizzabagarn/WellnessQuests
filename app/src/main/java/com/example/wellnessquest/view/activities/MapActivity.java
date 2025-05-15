@@ -10,14 +10,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityMapBinding;
-import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.viewmodel.MapViewModel;
-import com.example.wellnessquest.viewmodel.MapViewModelFactory;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 
 public class MapActivity extends AppCompatActivity {
