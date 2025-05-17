@@ -31,6 +31,18 @@ public class UserViewModel extends AndroidViewModel {
         userLiveData.setValue(user);
     }
 
+    public void loadUser(String uid) {
+        firestore.collection("users")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    if (snapshot.exists()) {
+                        User user = snapshot.toObject(User.class);
+                        userLiveData.setValue(user);
+                    }
+                });
+    }
+
     public void addCoins(int amount) {
         User user = userLiveData.getValue();
         if (user != null) {
@@ -40,7 +52,16 @@ public class UserViewModel extends AndroidViewModel {
         }
     }
 
-    public boolean unlockNextLevelIfAffordable() {
+    public void levelUpUser() {
+        User user = userLiveData.getValue();
+        if (user == null) return;
+
+        user.setCurrentLevel(user.getCurrentLevel() + 1);
+        saveToFirestore(user);
+        userLiveData.setValue(user);
+    }
+
+ /*   public boolean unlockNextLevelIfAffordable() {
         User user = userLiveData.getValue();
         int nextLevel = user.getCurrentLevel() + 1;
 
@@ -58,7 +79,7 @@ public class UserViewModel extends AndroidViewModel {
             return false;
         }
     }
-
+*/
     public void completeQuest(Quest quest, String imageUrl, String description) {
         User user = userLiveData.getValue();
         if (user == null) return;
