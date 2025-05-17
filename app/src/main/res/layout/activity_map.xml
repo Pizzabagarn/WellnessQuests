@@ -7,112 +7,165 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Guidelines for X positions -->
+        <!-- Guidelines – X (vertical) -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx0"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.44" />
+            app:layout_constraintGuide_percent="0.51" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.19" />
+            app:layout_constraintGuide_percent="0.27" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.37" />
+            app:layout_constraintGuide_percent="0.45" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.64" />
+            app:layout_constraintGuide_percent="0.73" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.72" />
+            app:layout_constraintGuide_percent="0.79" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx5"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.57" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx6"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.28" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gx7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.36" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gx7"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.17" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx8"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.26" />
+            app:layout_constraintGuide_percent="0.56" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx9"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.44" />
+            app:layout_constraintGuide_percent="0.49" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx10"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.39" />
+            app:layout_constraintGuide_percent="0.37" />
 
-        <!-- Guidelines for Y positions -->
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy0" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.825" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.705" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.625" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.63" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.51" />
+        <!-- Guidelines – Y (horizontal) -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.94" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.81" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.71" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.71" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.59" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy5"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.47" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.435" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.38" />
+            app:layout_constraintGuide_percent="0.56" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.44" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy8"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.33" />
-        <androidx.constraintlayout.widget.Guideline android:id="@+id/gy9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.29" />
+            app:layout_constraintGuide_percent="0.34" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gy9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.26" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy10"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.02" />
+            app:layout_constraintGuide_percent="0.38" />
 
-        <!-- Background image -->
+        <!-- Kartbakgrund -->
 
-        <!-- Node overlays with full style -->
+        <!-- Noder -->
 
         <ImageView
             android:id="@+id/mapImage"
@@ -120,271 +173,196 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@drawable/ic_map2"
-            tools:layout_editor_absoluteX="-16dp"
-            tools:layout_editor_absoluteY="148dp" />
+            tools:layout_editor_absoluteX="-28dp"
+            tools:layout_editor_absoluteY="-16dp" />
 
         <TextView
             android:id="@+id/node_0"
-            android:layout_width="70dp"
-            android:layout_height="61dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="76dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="6dp"
-            android:text="START"
+            android:layout_width="67dp"
+            android:layout_height="29dp"
+            android:gravity="center"
+            android:onClick="onNodeClick"
+            android:text="Start"
             android:textColor="@android:color/white"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy0"
+            app:layout_constraintEnd_toEndOf="@id/gx0"
+            app:layout_constraintHorizontal_bias="0.057"
             app:layout_constraintStart_toStartOf="@id/gx0"
             app:layout_constraintTop_toTopOf="@id/gy0" />
 
         <TextView
             android:id="@+id/node_1"
-            android:layout_width="72dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="48dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/orbitron"
+            android:layout_width="136dp"
+            android:layout_height="122dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="9"
-            android:shadowDy="6"
-            android:shadowRadius="6"
+            android:onClick="onNodeClick"
             android:text="100"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/gold"
-            android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy1"
+            app:layout_constraintEnd_toEndOf="@id/gx1"
+            app:layout_constraintHorizontal_bias="0.522"
             app:layout_constraintStart_toStartOf="@id/gx1"
-            app:layout_constraintTop_toTopOf="@id/gy1" />
+            app:layout_constraintTop_toTopOf="@id/gy1"
+            app:layout_constraintVertical_bias="0.467" />
 
         <TextView
             android:id="@+id/node_2"
-            android:layout_width="74dp"
-            android:layout_height="53dp"
-            android:layout_marginTop="44dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
+            android:layout_width="151dp"
+            android:layout_height="130dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
+            android:onClick="onNodeClick"
             android:text="200"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/gold"
-            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy2"
+            app:layout_constraintEnd_toEndOf="@id/gx2"
+            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="@id/gx2"
-            app:layout_constraintTop_toTopOf="@id/gy2" />
+            app:layout_constraintTop_toTopOf="@id/gy2"
+            app:layout_constraintVertical_bias="0.53" />
 
         <TextView
             android:id="@+id/node_3"
-            android:layout_width="75dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
+            android:layout_width="156dp"
+            android:layout_height="149dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
-            android:text="LVL3"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:onClick="onNodeClick"
+            android:text="300"
             android:textColor="@color/gold"
-            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy3"
+            app:layout_constraintEnd_toEndOf="@id/gx3"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/gx3"
-            app:layout_constraintTop_toTopOf="@id/gy3" />
+            app:layout_constraintTop_toTopOf="@id/gy3"
+            app:layout_constraintVertical_bias="0.408" />
 
         <TextView
             android:id="@+id/node_4"
-            android:layout_width="64dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
+            android:layout_width="160dp"
+            android:layout_height="144dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
-            android:text="LVL4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:onClick="onNodeClick"
+            android:text="400"
             android:textColor="@color/gold"
-            android:textSize="13sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy4"
+            app:layout_constraintEnd_toEndOf="@id/gx4"
+            app:layout_constraintHorizontal_bias="0.328"
             app:layout_constraintStart_toStartOf="@id/gx4"
-            app:layout_constraintTop_toTopOf="@id/gy4" />
+            app:layout_constraintTop_toTopOf="@id/gy4"
+            app:layout_constraintVertical_bias="0.62" />
 
         <TextView
             android:id="@+id/node_5"
-            android:layout_width="70dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
+            android:layout_width="154dp"
+            android:layout_height="139dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
-            android:text="LVL5"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:onClick="onNodeClick"
+            android:text="500"
             android:textColor="@color/gold"
-            android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy5"
+            app:layout_constraintEnd_toEndOf="@id/gx5"
+            app:layout_constraintHorizontal_bias="0.428"
             app:layout_constraintStart_toStartOf="@id/gx5"
-            app:layout_constraintTop_toTopOf="@id/gy5" />
+            app:layout_constraintTop_toTopOf="@id/gy5"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/node_6"
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
+            android:layout_width="149dp"
+            android:layout_height="157dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
-            android:text="LVL6"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:onClick="onNodeClick"
+            android:text="600"
             android:textColor="@color/gold"
-            android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy6"
+            app:layout_constraintEnd_toEndOf="@id/gx6"
+            app:layout_constraintHorizontal_bias="0.53"
             app:layout_constraintStart_toStartOf="@id/gx6"
-            app:layout_constraintTop_toTopOf="@id/gy6" />
+            app:layout_constraintTop_toTopOf="@id/gy6"
+            app:layout_constraintVertical_bias="0.503" />
 
         <TextView
             android:id="@+id/node_7"
-            android:layout_width="65dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
+            android:layout_width="149dp"
+            android:layout_height="151dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
-            android:text="LVL7"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:onClick="onNodeClick"
+            android:text="700"
             android:textColor="@color/gold"
-            android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy7"
+            app:layout_constraintEnd_toEndOf="@id/gx7"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="@id/gx7"
-            app:layout_constraintTop_toTopOf="@id/gy7" />
+            app:layout_constraintTop_toTopOf="@id/gy7"
+            app:layout_constraintVertical_bias="0.476" />
 
         <TextView
             android:id="@+id/node_8"
-            android:layout_width="67dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
+            android:layout_width="171dp"
+            android:layout_height="146dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
-            android:text="LVL8"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:onClick="onNodeClick"
+            android:text="900"
             android:textColor="@color/gold"
-            android:textSize="11sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy8"
+            app:layout_constraintEnd_toEndOf="@id/gx8"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="@id/gx8"
-            app:layout_constraintTop_toTopOf="@id/gy8" />
+            app:layout_constraintTop_toTopOf="@id/gy8"
+            app:layout_constraintVertical_bias="0.376" />
 
         <TextView
             android:id="@+id/node_9"
-            android:layout_width="59dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
+            android:layout_width="157dp"
+            android:layout_height="144dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
-            android:text="LVL9"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:onClick="onNodeClick"
+            android:text="1000"
             android:textColor="@color/gold"
-            android:textSize="10sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy9"
+            app:layout_constraintEnd_toEndOf="@id/gx9"
+            app:layout_constraintHorizontal_bias="0.477"
             app:layout_constraintStart_toStartOf="@id/gx9"
-            app:layout_constraintTop_toTopOf="@id/gy9" />
+            app:layout_constraintTop_toTopOf="@id/gy9"
+            app:layout_constraintVertical_bias="0.611" />
 
         <TextView
             android:id="@+id/node_10"
-            android:layout_width="63dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="192dp"
-            android:background="@drawable/transparent_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/aldrich"
+            android:layout_width="168dp"
+            android:layout_height="141dp"
             android:gravity="center"
-            android:padding="6dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="6"
-            android:text="LVL10"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:onClick="onNodeClick"
+            android:text="800"
             android:textColor="@color/gold"
-            android:textSize="10sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/gy10"
+            app:layout_constraintEnd_toEndOf="@id/gx10"
+            app:layout_constraintHorizontal_bias="0.464"
             app:layout_constraintStart_toStartOf="@id/gx10"
-            app:layout_constraintTop_toTopOf="@id/gy10" />
+            app:layout_constraintTop_toTopOf="@id/gy10"
+            app:layout_constraintVertical_bias="0.56" />
 
         <ImageView
             android:id="@+id/avatar"
-            android:layout_width="113dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="152dp"
-            android:layout_marginTop="720dp"
-            android:contentDescription="Avatar on map, from behind"
+            android:layout_width="121dp"
+            android:layout_height="121dp"
+            android:contentDescription="Avatar"
             android:src="@drawable/ic_avatar_from_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/gy0"
+            app:layout_constraintEnd_toEndOf="@id/gx0"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="@id/gx0"
+            app:layout_constraintTop_toTopOf="@id/gy0"
+            app:layout_constraintVertical_bias="0.793" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
