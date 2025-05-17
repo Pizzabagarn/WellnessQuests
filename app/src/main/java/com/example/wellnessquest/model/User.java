@@ -10,6 +10,16 @@ public class User {
     private int currentLevel;
     private String uid; // to save document-id for firebase
     private List<String> completedQuests;
+    private List<Integer> unlockedLevels = new ArrayList<>();
+
+    public List<Integer> getUnlockedLevels() {
+        return unlockedLevels;
+    }
+
+    public void setUnlockedLevels(List<Integer> levels) {
+        this.unlockedLevels = levels;
+    }
+
 
 
     public User(String email) {
