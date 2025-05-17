@@ -61,6 +61,16 @@ public class UserViewModel extends AndroidViewModel {
         userLiveData.setValue(user);
     }
 
+    public void setUserLevel(int level) {
+        User user = userLiveData.getValue();
+        if (user == null) return;
+        user.setCurrentLevel(level);
+        saveToFirestore(user);
+        userLiveData.setValue(user);
+    }
+
+
+
  /*   public boolean unlockNextLevelIfAffordable() {
         User user = userLiveData.getValue();
         int nextLevel = user.getCurrentLevel() + 1;
