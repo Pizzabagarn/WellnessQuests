@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityMapBinding;
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends BaseDrawerActivity {
 
     private ActivityMapBinding binding;
     private ImageView avatar;
@@ -21,10 +21,14 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+
+        // Lägg till layouten inuti drawerLayoutens contentFrame
+        binding = ActivityMapBinding.inflate(getLayoutInflater());
+        drawerBinding.contentFrame.addView(binding.getRoot());
+
         avatar = binding.avatar;
 
-        // Lägg klicklyssnare för varje nod
+        // Klicklyssnare för alla noder
         setupNodeClick(binding.node0, 0);
         setupNodeClick(binding.node1, 1);
         setupNodeClick(binding.node2, 2);
