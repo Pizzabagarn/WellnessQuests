@@ -2,12 +2,14 @@ package com.example.wellnessquest.view.activities;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -71,8 +73,24 @@ public class MapActivity extends AppCompatActivity {
     //flytta avatar och uppdatera level vid nodklick
     private void setupNodeClick(View view, int level) {
         view.setOnClickListener(v -> {
-            userViewModel.setUserLevel(level); // ⬅️ uppdatera level till nodens level
-            moveAvatarToLevel(level);
+            if (!userViewModel.isNextLevel(level)) {
+                Toast.makeText(this, "Level locked!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(userViewModel.canPurchaseLevel(level)){
+                int cost = userViewModel.getLevelCost(level);
+                new AlertDialog.Builder(this)
+                        .setMessage("Buy level " + level + " for " + cost + "?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            userViewModel.setUserLevel(level);
+                            moveAvatarToLevel(level);
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+            } else {
+                Toast.makeText(this, "Not enough coins!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

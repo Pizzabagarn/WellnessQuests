@@ -31,6 +31,7 @@ public class UserViewModel extends AndroidViewModel {
         userLiveData.setValue(user);
     }
 
+    //Loads current user related data from firestore
     public void loadUser(String uid) {
         firestore.collection("users")
                 .document(uid)
@@ -52,6 +53,8 @@ public class UserViewModel extends AndroidViewModel {
         }
     }
 
+    //ANvänds för när man trycker på levelup knappen
+    //bara för test, kan tas bort när allt funkar
     public void levelUpUser() {
         User user = userLiveData.getValue();
         if (user == null) return;
@@ -61,14 +64,38 @@ public class UserViewModel extends AndroidViewModel {
         userLiveData.setValue(user);
     }
 
+    //sets user-level and updates level in firestore + drar coins vid level köp
+    // lägger till upplåsta levels i lista
     public void setUserLevel(int level) {
         User user = userLiveData.getValue();
         if (user == null) return;
+
+        int cost = getLevelCost(level); //drar coins när level ändras,
+        user.setCoins(user.getCoins() - cost);
         user.setCurrentLevel(level);
+        user.getUnlockedLevels().add(level);
+
         saveToFirestore(user);
         userLiveData.setValue(user);
     }
 
+    public int getLevelCost(int level) {
+        return QuestRepository.getLevel(level).getUnlockCost();
+    }
+
+    public boolean canPurchaseLevel(int level){
+        User user = userLiveData.getValue();
+        if (user == null) return false;
+        int cost = getLevelCost(level);
+        int coins = user.getCoins();
+        return coins >= cost;
+    }
+
+    public boolean isNextLevel(int level) {
+        User user = userLiveData.getValue();
+        if (user == null) return false;
+        return level == user.getCurrentLevel() + 1;
+    }
 
 
  /*   public boolean unlockNextLevelIfAffordable() {
