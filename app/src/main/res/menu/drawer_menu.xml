@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_home" android:title="Home" android:icon="@drawable/ic_home"/>
+    <item android:id="@+id/nav_home" android:title="Home" android:icon="@drawable/ic_home_small"/>
     <item android:id="@+id/nav_quests" android:title="Quests" android:icon="@drawable/quest_icon"/>
     <item android:id="@+id/nav_map" android:title="Map" android:icon="@drawable/map_icon"/>
     <item android:id="@+id/nav_profile" android:title="Profile" android:icon="@drawable/profile_button"/>

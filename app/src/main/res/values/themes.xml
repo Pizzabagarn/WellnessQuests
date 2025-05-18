@@ -1,9 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- Bas-tema för hela appen -->
     <style name="Base.Theme.WellnessQuest" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Tvinga NavigationView att inte tona ikoner -->
+        <item name="navigationViewStyle">@style/CustomNavigationView</item>
     </style>
 
+    <!-- Din egentliga apptema -->
     <style name="Theme.WellnessQuest" parent="Base.Theme.WellnessQuest" />
+
+    <!-- Stil override för NavigationView -->
+    <style name="CustomNavigationView" parent="Widget.Material3.NavigationView">
+        <item name="itemIconTint">@null</item>
+    </style>
+
 </resources>
