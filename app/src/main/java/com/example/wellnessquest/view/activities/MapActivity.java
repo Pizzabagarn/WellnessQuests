@@ -83,7 +83,7 @@ public class MapActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this)
                         .setMessage("Buy level " + level + " for " + cost + "?")
                         .setPositiveButton("Yes", (dialog, which) -> {
-                            userViewModel.setUserLevel(level);
+                            userViewModel.purchaseLevel(level);
                             moveAvatarToLevel(level);
                         })
                         .setNegativeButton("Cancel", null)

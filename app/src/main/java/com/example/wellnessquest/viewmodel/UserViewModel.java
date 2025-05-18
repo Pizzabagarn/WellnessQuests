@@ -66,7 +66,7 @@ public class UserViewModel extends AndroidViewModel {
 
     //sets user-level and updates level in firestore + drar coins vid level köp
     // lägger till upplåsta levels i lista
-    public void setUserLevel(int level) {
+    public void purchaseLevel(int level) {
         User user = userLiveData.getValue();
         if (user == null) return;
 
