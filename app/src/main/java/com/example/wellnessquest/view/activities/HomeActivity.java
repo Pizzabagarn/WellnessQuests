@@ -23,9 +23,10 @@ import com.example.wellnessquest.databinding.ActivityHomeBinding;
 import com.example.wellnessquest.model.UserStorage;
 import com.google.android.material.navigation.NavigationView;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseDrawerActivity {
     private ActivityHomeBinding binding;
     private ActionBarDrawerToggle toggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
