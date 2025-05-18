@@ -45,7 +45,7 @@ public class MapActivity extends AppCompatActivity {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         userViewModel.loadUser(uid);
 
-        // ✅ Observe user and log level
+        // ✅ Observe user and log level - ENDAST FÖR TEST KAN TAS BORT
         userViewModel.getUserLiveData().observe(this, user -> {
             if (user != null) {
                 Log.d("LEVEL_DEBUG", "Loaded level: " + user.getCurrentLevel());
@@ -53,7 +53,7 @@ public class MapActivity extends AppCompatActivity {
             }
         });
 
-        // ⬆️ Level up when button is clicked
+        // ⬆️ Level up when button is clicked - ENDAST FÖR TEST KAN TAS BORT
         btnLevelUp.setOnClickListener(v -> userViewModel.levelUpUser());
 
         // Lägg klicklyssnare med databinding
@@ -70,7 +70,7 @@ public class MapActivity extends AppCompatActivity {
         setupNodeClick(binding.node10, 10);
     }
 
-    //flytta avatar och uppdatera level vid nodklick
+    //flytta avatar och uppdatera + KÖP level vid nodklick
     private void setupNodeClick(View view, int level) {
         view.setOnClickListener(v -> {
             if (!userViewModel.isNextLevel(level)) {
