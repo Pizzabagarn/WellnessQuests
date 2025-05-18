@@ -50,6 +50,7 @@ public class MapActivity extends AppCompatActivity {
             if (user != null) {
                 Log.d("LEVEL_DEBUG", "Loaded level: " + user.getCurrentLevel());
                 textCurrentLevel.setText("Level: " + user.getCurrentLevel());
+                moveAvatarToLevel(user.getCurrentLevel());
             }
         });
 
