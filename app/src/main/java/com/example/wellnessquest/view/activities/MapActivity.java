@@ -48,9 +48,8 @@ public class MapActivity extends AppCompatActivity {
         // ✅ Observe user and log level
         userViewModel.getUserLiveData().observe(this, user -> {
             if (user != null) {
-                Log.d("LEVEL_DEBUG", "Loaded level: " + user.getCurrentLevel());
                 textCurrentLevel.setText("Level: " + user.getCurrentLevel());
-                moveAvatarToLevel(user.getCurrentLevel());
+                moveAvatarToLevel(user.getCurrentLevel()); //detta måste va kvar, kan inte tas bort, flyttar avatar till aktuell postion vod start
             }
         });
 

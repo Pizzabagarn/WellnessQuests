@@ -3,9 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <data>
+        <variable
+            name="userViewModel"
+            type="com.example.wellnessquest.viewmodel.UserViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <!-- ta bort nedan, försökte få toolbar att funka men gör dej -->
+        <include
+            layout="@layout/toolbar_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:userViewModel="@{userViewModel}" />
 
         <!-- Guidelines – X (vertical) -->
         <androidx.constraintlayout.widget.Guideline
@@ -179,7 +193,7 @@
         <TextView
             android:id="@+id/node_0"
             android:layout_width="67dp"
-            android:layout_height="29dp"
+            android:layout_height="48dp"
             android:gravity="center"
             android:onClick="onNodeClick"
             android:text="Start"
