@@ -35,6 +35,9 @@ public class MapActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
+        binding.setUserViewModel(userViewModel);
+        binding.setLifecycleOwner(this);
+
         //Level-up knapp - kan tas bort bara för test
         textCurrentLevel = findViewById(R.id.text_current_level);
         btnLevelUp = findViewById(R.id.btn_level_up);
