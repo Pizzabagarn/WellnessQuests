@@ -1,6 +1,7 @@
 package com.example.wellnessquest.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -10,6 +11,12 @@ public class User {
     private int currentLevel;
     private String uid; // to save document-id for firebase
     private List<String> completedQuests;
+
+    private List<Integer> unlockedLevels = new ArrayList<>();
+
+    public List<Integer> getUnlockedLevels() {
+        return unlockedLevels;
+    }
     private String name; // Profile
     private int age; // Profile
     private String purpose; // Profile
@@ -85,4 +92,5 @@ public class User {
     public void setName(String name) { this.name = name; }
     public void setAge(int age) { this.age = age; }
     public void setPurpose(String goal) { this.purpose = goal; }
+
 }
