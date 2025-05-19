@@ -35,7 +35,7 @@ public class MapActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-        //Level-up knapp
+        //Level-up knapp - kan tas bort bara för test
         textCurrentLevel = findViewById(R.id.text_current_level);
         btnLevelUp = findViewById(R.id.btn_level_up);
 
@@ -48,12 +48,12 @@ public class MapActivity extends AppCompatActivity {
         // ✅ Observe user and log level
         userViewModel.getUserLiveData().observe(this, user -> {
             if (user != null) {
-                textCurrentLevel.setText("Level: " + user.getCurrentLevel());
+                textCurrentLevel.setText("Level: " + user.getCurrentLevel()); //kan tas bort detta är bara test
                 moveAvatarToLevel(user.getCurrentLevel()); //detta måste va kvar, kan inte tas bort, flyttar avatar till aktuell postion vod start
             }
         });
 
-        // ⬆️ Level up when button is clicked
+        // ⬆️ Level up when button is clicked - kan tas bort bara för test
         btnLevelUp.setOnClickListener(v -> userViewModel.levelUpUser());
 
         // Lägg klicklyssnare med databinding
