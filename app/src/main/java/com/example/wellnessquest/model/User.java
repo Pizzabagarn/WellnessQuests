@@ -10,6 +10,9 @@ public class User {
     private int currentLevel;
     private String uid; // to save document-id for firebase
     private List<String> completedQuests;
+    private String name; // Profile
+    private int age; // Profile
+    private String purpose; // Profile
 
 
     public User(String email) {
@@ -17,6 +20,10 @@ public class User {
         this.coins = 0;
         this.currentLevel = 1;
         this.completedQuests = new ArrayList<>();
+        this.name = name;
+        this.age = age;
+        this.purpose = purpose;
+
     }
 
     // 🔧 Empty constructor for Firestore
@@ -70,4 +77,12 @@ public class User {
     public String getUid() {
         return uid;
     }
+
+    public String getName() { return name; }
+    public int getAge() { return age; }
+    public String getPurpose() { return purpose; }
+
+    public void setName(String name) { this.name = name; }
+    public void setAge(int age) { this.age = age; }
+    public void setPurpose(String goal) { this.purpose = goal; }
 }
