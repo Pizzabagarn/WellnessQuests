@@ -22,6 +22,7 @@ import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityHomeBinding;
 import com.example.wellnessquest.model.UserStorage;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends BaseDrawerActivity {
     private ActivityHomeBinding binding;
@@ -90,10 +91,17 @@ public class HomeActivity extends BaseDrawerActivity {
         super.onResume();
         new UserStorage(getApplicationContext()).updateLastActive();
 
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.loadUser(uid); // 🔁 ladda uppdaterad användardata
+
+/*
         User user = UserManager.getInstance().getCurrentUser();
         if (user != null) {
             UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
             userViewModel.setUser(user);  // 🔁 FLYTTAD HIT
         }
+
+ */
     }
 }

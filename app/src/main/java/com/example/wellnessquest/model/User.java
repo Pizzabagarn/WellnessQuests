@@ -69,6 +69,8 @@ public class User {
         this.coins += amount;
     }
 
+    public void withdrawCoins (int amount) {this.coins -= amount;}
+
     public void advanceLevel() {
         this.currentLevel++;
     }
