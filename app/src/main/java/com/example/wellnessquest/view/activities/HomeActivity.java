@@ -63,7 +63,8 @@ public class HomeActivity extends BaseDrawerActivity {
                 Intent intent = new Intent(HomeActivity.this, MapActivity.class);
                 startActivity(intent);
             } else if (id == R.id.nav_profile) {
-                showToast("Profile selected");
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
             }
 
             binding.drawerLayout.closeDrawer(GravityCompat.START);

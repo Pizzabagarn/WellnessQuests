@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.android)
     implementation(libs.image.labeling)
     implementation(libs.vision.common)
+    implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
