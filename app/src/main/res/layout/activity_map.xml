@@ -14,13 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- ta bort nedan, försökte få toolbar att funka men gör dej -->
-        <include
-            layout="@layout/toolbar_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:userViewModel="@{userViewModel}" />
-
         <!-- Guidelines – X (vertical) -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx0"
