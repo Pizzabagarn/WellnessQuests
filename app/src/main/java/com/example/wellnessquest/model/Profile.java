@@ -5,12 +5,15 @@ public class Profile {
      private int age;
      private String purpose;
 
+     private int coinsUntilNextLvl;
+
         // Constructor, getters, and setters
 
-    public Profile(String name, int age, String purpose) {
+    public Profile(String name, int age, String purpose, int coinsUntilNextLvl) {
         this.name = name;
         this.age = age;
         this.purpose = purpose;
+        this.coinsUntilNextLvl = coinsUntilNextLvl;
     }
 
     public String getName() {
