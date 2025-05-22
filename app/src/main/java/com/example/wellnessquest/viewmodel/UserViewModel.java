@@ -31,6 +31,19 @@ public class UserViewModel extends AndroidViewModel {
         userLiveData.setValue(user);
     }
 
+    //Loads current user related data from firestore
+    public void loadUser(String uid) {
+        firestore.collection("users")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    if (snapshot.exists()) {
+                        User user = snapshot.toObject(User.class);
+                        userLiveData.setValue(user);
+                    }
+                });
+    }
+
     public void addCoins(int amount) {
         User user = userLiveData.getValue();
         if (user != null) {
@@ -40,7 +53,52 @@ public class UserViewModel extends AndroidViewModel {
         }
     }
 
-    public boolean unlockNextLevelIfAffordable() {
+    //ANvänds för när man trycker på levelup knappen
+    //bara för test, kan tas bort när allt funkar
+    public void levelUpUser() {
+        User user = userLiveData.getValue();
+        if (user == null) return;
+
+        user.setCurrentLevel(user.getCurrentLevel() + 1);
+        saveToFirestore(user);
+        userLiveData.setValue(user);
+    }
+
+    //sets user-level and updates level in firestore + drar coins vid level köp
+    // lägger till upplåsta levels i lista
+    public void purchaseLevel(int level) {
+        User user = userLiveData.getValue();
+        if (user == null) return;
+
+        int cost = getLevelCost(level); //drar coins när level ändras,
+        user.setCoins(user.getCoins() - cost);
+        user.setCurrentLevel(level);
+        user.getUnlockedLevels().add(level);
+
+        saveToFirestore(user);
+        userLiveData.setValue(user);
+    }
+
+    public int getLevelCost(int level) {
+        return QuestRepository.getLevel(level).getUnlockCost();
+    }
+
+    public boolean canPurchaseLevel(int level){
+        User user = userLiveData.getValue();
+        if (user == null) return false;
+        int cost = getLevelCost(level);
+        int coins = user.getCoins();
+        return coins >= cost;
+    }
+
+    public boolean isNextLevel(int level) {
+        User user = userLiveData.getValue();
+        if (user == null) return false;
+        return level == user.getCurrentLevel() + 1;
+    }
+
+
+ /*   public boolean unlockNextLevelIfAffordable() {
         User user = userLiveData.getValue();
         int nextLevel = user.getCurrentLevel() + 1;
 
@@ -58,7 +116,7 @@ public class UserViewModel extends AndroidViewModel {
             return false;
         }
     }
-
+*/
     public void completeQuest(Quest quest, String imageUrl, String description) {
         User user = userLiveData.getValue();
         if (user == null) return;

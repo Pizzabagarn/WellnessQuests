@@ -27,4 +27,9 @@ public class Level {
     public List<Quest> getQuests() {
         return quests;
     }
+
+    public int getCost() {
+        return unlockCost;
+    }
+
 }

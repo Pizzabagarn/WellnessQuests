@@ -10,13 +10,14 @@ import com.example.wellnessquest.model.UserManager;
 import com.example.wellnessquest.view.fragments.QuestListFragment;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 
-public class QuestActivity extends AppCompatActivity {
+public class QuestActivity extends BaseDrawerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quest);
 
+        // 👇 Lägg in denna aktivitets layout inuti drawer-layoutens contentFrame
+        getLayoutInflater().inflate(R.layout.activity_quest, drawerBinding.contentFrame, true);
 
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         User user = UserManager.getInstance().getCurrentUser();

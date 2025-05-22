@@ -23,9 +23,10 @@ import com.example.wellnessquest.databinding.ActivityHomeBinding;
 import com.example.wellnessquest.model.UserStorage;
 import com.google.android.material.navigation.NavigationView;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseDrawerActivity {
     private ActivityHomeBinding binding;
     private ActionBarDrawerToggle toggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,8 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, MapActivity.class);
                 startActivity(intent);
             } else if (id == R.id.nav_profile) {
-                showToast("Profile selected");
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
             }
 
             binding.drawerLayout.closeDrawer(GravityCompat.START);
