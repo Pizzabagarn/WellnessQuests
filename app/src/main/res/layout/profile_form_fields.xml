@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Name -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your name" />
+
+    <!-- Age -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Age"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/input_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your age"
+        android:inputType="number" />
+
+    <!-- Purpose -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Purpose"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/input_goal"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:hint="State Your purpose for using WellnessQuest"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:minLines="4"
+        android:padding="8dp" />
+</LinearLayout>
