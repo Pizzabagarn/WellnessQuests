@@ -2,11 +2,8 @@ package com.example.wellnessquest.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -15,34 +12,52 @@ import com.example.wellnessquest.databinding.ActivityHomeBinding;
 import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.model.UserManager;
 import com.example.wellnessquest.model.UserStorage;
+
 import com.example.wellnessquest.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class HomeActivity extends BaseDrawerActivity {
 
     private ActivityHomeBinding binding;
     private ActionBarDrawerToggle toggle;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 🔗 Ladda in din layout i content_frame
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
+        drawerBinding.contentFrame.addView(binding.getRoot());
+
+        // 👤 Sätt aktuell användare (LiveData uppdateras automatiskt)
+
+        setContentView(binding.getRoot()); // ✅ Använd endast detta!
 
         // ViewModel
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         binding.setUserViewModel(userViewModel);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(this); // 👈 viktigt för LiveData att funka
 
         // Hämta nuvarande användare från UserManager
+
         User user = UserManager.getInstance().getCurrentUser();
         if (user != null) {
             userViewModel.setUser(user);
         }
 
+
+        // 👁‍🗨 Om du vill binda layouten (t.ex. för att visa LiveData i home)
+        binding.setUserViewModel(userViewModel);
+        binding.setLifecycleOwner(this);
+
         // Toolbar och drawer setup
         setSupportActionBar(binding.toolbar);
+
         toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(toggle);
@@ -54,7 +69,6 @@ public class HomeActivity extends BaseDrawerActivity {
 
             if (id == R.id.nav_home) {
                 showToast("Home selected");
-
             } else if (id == R.id.nav_quests) {
                 startActivity(new Intent(this, QuestActivity.class));
 
@@ -80,6 +94,7 @@ public class HomeActivity extends BaseDrawerActivity {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
+
     }
 
     private void showToast(String msg) {
@@ -98,15 +113,13 @@ public class HomeActivity extends BaseDrawerActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Uppdatera senaste aktivitet
         new UserStorage(getApplicationContext()).updateLastActive();
 
-        // Uppdatera ViewModel med aktuell användare
-        User user = UserManager.getInstance().getCurrentUser();
-        if (user != null) {
+        User currentUser = UserManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
             UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-            userViewModel.setUser(user);
+            userViewModel.setUser(currentUser);
+            userViewModel.loadUser(currentUser.getUid()); // 🔁 Hämta färsk data från Firestore
         }
     }
 }
