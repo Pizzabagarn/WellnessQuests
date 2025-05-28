@@ -4,4 +4,9 @@
     <item android:id="@+id/nav_quests" android:title="Quests" android:icon="@drawable/quest_icon"/>
     <item android:id="@+id/nav_map" android:title="Map" android:icon="@drawable/map_icon"/>
     <item android:id="@+id/nav_profile" android:title="Profile" android:icon="@drawable/profile_button"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout"
+        android:icon="@drawable/ic_logout"/>
+
 </menu>
