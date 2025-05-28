@@ -15,6 +15,10 @@ import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.FragmentLoginBinding;
 import com.example.wellnessquest.view.activities.HomeActivity;
 import com.example.wellnessquest.viewmodel.LoginViewModel;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.example.wellnessquest.viewmodel.ProfileViewModel;
+import com.example.wellnessquest.model.UserManager;
 
 public class LoginFragment extends Fragment {
 
@@ -49,14 +53,32 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        // Navigate to HomeActivity on successful login
+        // Navigate to HomeActivity on successful login /// Changed this code so that name, age and purpose from the profile are saved anbd fetched correctly
         viewModel.getLoginSuccess().observe(getViewLifecycleOwner(), success -> {
             if (success != null && success) {
+
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (firebaseUser != null && firebaseUser.getEmail() != null) {
+                    String userId = firebaseUser.getUid();
+
+                    // Load profile in background, no need to wait
+                    ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+                    profileViewModel.getUserProfile(userId).observe(getViewLifecycleOwner(), user -> {
+                        if (user != null) {
+                            UserManager.getInstance().setCurrentUser(user);
+                        }
+                    });
+                }
+
+                // ✅ Navigate immediately after login success
                 startActivity(new Intent(requireContext(), HomeActivity.class));
                 requireActivity().finish();
                 viewModel.resetLoginSuccess();
             }
         });
+
+
+// until here
 
         return binding.getRoot();
     }

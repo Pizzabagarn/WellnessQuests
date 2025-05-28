@@ -18,8 +18,13 @@ import com.example.wellnessquest.viewmodel.ProfileViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.example.wellnessquest.model.UserManager;
+
+
 
 public class ProfileActivity extends AppCompatActivity {
+
+    private User currentUserProfile;
     private EditText inputName, inputAge, inputPurpose;
     private Button saveButton;
     private ProfileViewModel viewModel;
@@ -51,9 +56,13 @@ public class ProfileActivity extends AppCompatActivity {
         String userId = currentUser.getUid();
         viewModel.getUserProfile(userId).observe(this, user -> {
             if (user != null) {
+                // ← keep for display
                 inputName.setText(user.getName());
                 inputAge.setText(String.valueOf(user.getAge()));
                 inputPurpose.setText(user.getPurpose());
+
+                // ← save for later updates
+                currentUserProfile = user;
             }
         });
 
@@ -67,8 +76,8 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         saveButton.setOnClickListener(v -> {
-            String name = inputName.getText().toString().trim();
-            String ageStr = inputAge.getText().toString().trim();
+            String name    = inputName.getText().toString().trim();
+            String ageStr  = inputAge.getText().toString().trim();
             String purpose = inputPurpose.getText().toString().trim();
 
             int age;
@@ -84,13 +93,21 @@ public class ProfileActivity extends AppCompatActivity {
                 return;
             }
 
-            User user = new User();
-            user.setName(name);
-            user.setAge(age);
-            user.setPurpose(purpose);
-            user.setUid(userId); // optional
+            // ← Make sure we have the user loaded
+            if (currentUserProfile == null) {
+                Toast.makeText(this, "Profile still loading…", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            viewModel.saveUser(userId, user);
+            // ← Update the in-memory User
+            currentUserProfile.setName(name);
+            currentUserProfile.setAge(age);
+            currentUserProfile.setPurpose(purpose);
+
+            // ← Push the save out
+            viewModel.saveUser(userId, currentUserProfile);
+            UserManager.getInstance().setCurrentUser(currentUserProfile);
+            // The ViewModel’s saveStatus observer will toast the result for us
         });
     }
 }
