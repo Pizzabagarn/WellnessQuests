@@ -91,17 +91,13 @@ public class HomeActivity extends BaseDrawerActivity {
         super.onResume();
         new UserStorage(getApplicationContext()).updateLastActive();
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.loadUser(uid); // 🔁 ladda uppdaterad användardata
 
-/*
-        User user = UserManager.getInstance().getCurrentUser();
-        if (user != null) {
-            UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-            userViewModel.setUser(user);  // 🔁 FLYTTAD HIT
+        User currentUser = UserManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            // 🔄 Synka från Firestore endast om det behövs
+            userViewModel.setUser(currentUser);
+            userViewModel.loadUser(currentUser.getUid()); // 🔁 Hämta färsk data från Firestore
         }
-
- */
     }
 }

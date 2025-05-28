@@ -20,6 +20,10 @@ public class QuestActivity extends BaseDrawerActivity {
         // 👇 Lägg in denna aktivitets layout inuti drawer-layoutens contentFrame
         getLayoutInflater().inflate(R.layout.activity_quest, drawerBinding.contentFrame, true);
 
+        //Lowisa gjort detta kodblock
+        //Attempts to sign in a user with the provided email and password using Firebase Authentication.
+        // * If authentication succeeds, the method fetches the user's additional data from Firestore,
+        // * sets the UID, and stores the user in the singleton
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.loadUser(uid); // 🔁 ladda uppdaterad användardata
