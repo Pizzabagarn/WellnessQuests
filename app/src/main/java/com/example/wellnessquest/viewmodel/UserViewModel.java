@@ -71,7 +71,7 @@ public class UserViewModel extends AndroidViewModel {
         if (user == null) return;
 
         int cost = getLevelCost(level); //drar coins när level ändras,
-        user.setCoins(user.getCoins() - cost);
+        user.withdrawCoins(cost);
         user.setCurrentLevel(level);
         user.getUnlockedLevels().add(level);
 
