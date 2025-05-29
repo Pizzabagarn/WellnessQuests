@@ -46,7 +46,7 @@ public class QuestDetailsFragment extends Fragment {
             requireActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, proofFragment) // ersätt med din container-id
+                    .replace(R.id.fragment_container, proofFragment)
                     .addToBackStack(null)
                     .commit();
         });
