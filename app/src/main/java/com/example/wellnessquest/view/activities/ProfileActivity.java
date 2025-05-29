@@ -1,7 +1,5 @@
 package com.example.wellnessquest.view.activities;
 
-import static androidx.databinding.DataBindingUtil.setContentView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +13,16 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.viewmodel.ProfileViewModel;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileActivity extends AppCompatActivity {
+
     private EditText inputName, inputAge, inputPurpose;
     private Button saveButton;
+    private ProgressBar progressBar;
     private ProfileViewModel viewModel;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +33,20 @@ public class ProfileActivity extends AppCompatActivity {
         inputAge = findViewById(R.id.input_age);
         inputPurpose = findViewById(R.id.input_goal);
         saveButton = findViewById(R.id.saveButton);
+        progressBar = findViewById(R.id.profile_progress_bar);
 
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-
-        ProgressBar progressBar = findViewById(R.id.profile_progress_bar);
-
-        viewModel.getIsLoading().observe(this, isLoading -> {
-            progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-        });
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
-            finish(); // or redirect to login screen
+            finish();
             return;
         }
-        String userId = currentUser.getUid();
+
+        userId = currentUser.getUid();
+
+        // 🔄 OBSERVER: uppdaterar fält varje gång user LiveData uppdateras
         viewModel.getUserProfile(userId).observe(this, user -> {
             if (user != null) {
                 inputName.setText(user.getName());
@@ -57,14 +55,13 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.getIsLoading().observe(this, isLoading ->
+                progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE)
+        );
+
         viewModel.getSaveStatus().observe(this, msg ->
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         );
-
-        viewModel.getIsLoading().observe(this, isLoading -> {
-            // You can show/hide a ProgressBar here if needed
-
-        });
 
         saveButton.setOnClickListener(v -> {
             String name = inputName.getText().toString().trim();
@@ -85,12 +82,18 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             User user = new User();
+            user.setUid(userId);
             user.setName(name);
             user.setAge(age);
             user.setPurpose(purpose);
-            user.setUid(userId); // optional
 
             viewModel.saveUser(userId, user);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.getUserProfile(userId); // 🔁 Ladda ny data från Firestore
     }
 }
