@@ -25,7 +25,7 @@ import java.util.Map;
 
 
 public class MapActivity extends AppCompatActivity {
-
+    private static final String TAG = "MapActivity";
     private ActivityMapBinding binding;
     private UserViewModel userViewModel;
     private ImageView avatar;
@@ -105,12 +105,21 @@ public class MapActivity extends AppCompatActivity {
 
     public void moveAvatarToLevel(int level) {
         View target = levelTargetMap.get(level);
-        if (target == null) return;
+        if (target == null) {
+            Log.e(TAG, "No target view found for level " + level);
+
+            return;
+        }
 
 
 
         // Hämta målpunktskoordinater från nodens placering
         target.post(() -> {
+            if (avatar == null) {
+                Log.e(TAG, "Avatar view is null, cannot animate.");
+                return;
+            }
+            
             float targetX = target.getX() - (avatar.getWidth() / 2f);
             float targetY = target.getY()- avatar.getHeight();
 
