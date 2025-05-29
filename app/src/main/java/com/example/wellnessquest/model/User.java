@@ -14,6 +14,8 @@ public class User {
     private int age; // Profile
     private String purpose; // Profile
 
+    private List<Integer> unlockedLevels = new ArrayList<>();
+
 
     public User(String email) {
         this.email = email;
@@ -39,9 +41,16 @@ public class User {
         return coins;
     }
 
+    public void withdrawCoins (int amount) {this.coins -= amount;}
+
     public int getCurrentLevel() {
         return currentLevel;
     }
+
+    public List<Integer> getUnlockedLevels() {
+        return unlockedLevels;
+    }
+
 
     public List<String> getCompletedQuests() {
         return completedQuests;
