@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends BaseDrawerActivity {
     private static final String TAG = "MapActivity";
     private ActivityMapBinding binding;
     private UserViewModel userViewModel;
@@ -34,7 +34,9 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+        //binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+        binding = ActivityMapBinding.inflate(getLayoutInflater());
+        drawerBinding.contentFrame.addView(binding.getRoot());
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         binding.setUserViewModel(userViewModel);
