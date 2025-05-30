@@ -67,7 +67,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="100"
+                            android:text='@{String.valueOf(userViewModel.userLiveData.coins)}'
                             android:textColor="@android:color/white"
                             android:textSize="20sp" />
                     </LinearLayout>
@@ -76,7 +76,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Level: 3"
+                        android:text='@{"Level: " + userViewModel.userLiveData.currentLevel}'
                         android:textColor="@android:color/white"
                         android:textSize="20sp"
                         android:layout_marginStart="16dp" />

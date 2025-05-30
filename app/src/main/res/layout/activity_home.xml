@@ -9,108 +9,29 @@
             type="com.example.wellnessquest.viewmodel.UserViewModel" />
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <!-- Hela innehållet hamnar i drawerLayoutens content_frame -->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/profile_window">
 
-        <!-- MAIN CONTENT -->
-        <LinearLayout
-            android:orientation="vertical"
+        <!-- FRAGMENT CONTAINER (eller innehållssida för Home) -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/profile_window">
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-            <!-- TOOLBAR MED APPNAMN + COINS + LEVEL -->
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/teal_700"
-                android:elevation="4dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:title="">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
-
-                    <!-- Appnamn -->
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/agbalumo"
-                        android:maxLines="1"
-                        android:text="WellnessQuest"
-                        android:textColor="@android:color/white"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-
-                    <!-- Coins (ikon + hårdkodad text) -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginEnd="4dp"
-                            android:contentDescription="Coins"
-                            android:src="@drawable/coin" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="100"
-                            android:textColor="@android:color/white"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-
-                    <!-- Level -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="Level: 3"
-                        android:textColor="@android:color/white"
-                        android:textSize="20sp" />
-                </LinearLayout>
-            </androidx.appcompat.widget.Toolbar>
-
-            <!-- FRAGMENT CONTAINER -->
-            <FrameLayout
-                android:id="@+id/fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <!-- LOGO -->
-            <ImageView
-                android:id="@+id/txtWellnessQuest"
-                android:layout_width="match_parent"
-                android:layout_height="178dp"
-                android:contentDescription="WellnessQuest"
-                android:src="@drawable/wellnessquest_text"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerInside"
-                android:layout_margin="16dp" />
-        </LinearLayout>
-
-        <!-- DRAWER MENU -->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/drawer_menu" />
-    </androidx.drawerlayout.widget.DrawerLayout>
+        <!-- LOGO -->
+        <ImageView
+            android:id="@+id/txtWellnessQuest"
+            android:layout_width="match_parent"
+            android:layout_height="178dp"
+            android:contentDescription="WellnessQuest"
+            android:src="@drawable/wellnessquest_text"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerInside"
+            android:layout_margin="16dp" />
+    </LinearLayout>
 </layout>
