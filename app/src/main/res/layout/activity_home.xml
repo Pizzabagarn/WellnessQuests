@@ -21,41 +21,70 @@
             android:layout_height="match_parent"
             android:background="@drawable/profile_window">
 
-            <!-- TOOLBAR -->
+            <!-- TOOLBAR MED APPNAMN + COINS + LEVEL -->
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="@color/teal_700"
+                android:elevation="4dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:title="WellnessQuest" />
+                app:title="">
 
-            <!-- COINS SECTION -->
-            <LinearLayout
-                android:id="@+id/coin_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="16dp"
-                android:gravity="center_vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
-                <ImageView
-                    android:id="@+id/coin_icon"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/coin"
-                    android:contentDescription="Coins" />
+                    <!-- Appnamn -->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/agbalumo"
+                        android:maxLines="1"
+                        android:text="WellnessQuest"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/coin_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{"Coins: " + userViewModel.userLiveData.coins}'
-                    android:textSize="18sp"
-                    android:layout_marginStart="8dp"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
+                    <!-- Coins (ikon + hårdkodad text) -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="4dp"
+                            android:contentDescription="Coins"
+                            android:src="@drawable/coin" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100"
+                            android:textColor="@android:color/white"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <!-- Level -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Level: 3"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
 
             <!-- FRAGMENT CONTAINER -->
             <FrameLayout
