@@ -1,9 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.WellnessQuest" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <!-- Din knappstil -->
+    <style name="CustomButtonStyle" parent="android:Widget.Button">
+        <item name="backgroundTint">@color/my_button_color</item>
     </style>
 
+    <!-- Bas-tema -->
+    <style name="Base.Theme.WellnessQuest" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="buttonStyle">@style/CustomButtonStyle</item>
+    </style>
+
+    <!-- Aktiva temat -->
     <style name="Theme.WellnessQuest" parent="Base.Theme.WellnessQuest" />
+
 </resources>

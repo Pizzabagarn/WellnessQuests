@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -33,14 +34,15 @@
             android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onLoginClicked()}"
             android:text="Log In"
-            android:onClick="@{() -> viewModel.onLoginClicked()}" />
+            android:backgroundTint="@color/my_button_color"/>
 
         <TextView
             android:id="@+id/registerLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account? Register here"
+            android:text="@string/register_link_text"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp" />
     </LinearLayout>
