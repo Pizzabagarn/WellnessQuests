@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.36" />
+            app:layout_constraintGuide_percent="0.353" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx7"
@@ -76,21 +76,21 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.38" />
+            app:layout_constraintGuide_percent="0.373" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx9"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.54" />
+            app:layout_constraintGuide_percent="0.555" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gx10"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.48" />
+            app:layout_constraintGuide_percent="0.49" />
 
         <!-- Guidelines – Y (horizontal) -->
         <androidx.constraintlayout.widget.Guideline
@@ -105,7 +105,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.81" />
+            app:layout_constraintGuide_percent="0.8" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy2"
@@ -126,49 +126,49 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.59" />
+            app:layout_constraintGuide_percent="0.58" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.56" />
+            app:layout_constraintGuide_percent="0.55" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.495" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.44" />
+            app:layout_constraintGuide_percent="0.43" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.38" />
+            app:layout_constraintGuide_percent="0.37" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy9"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.33" />
+            app:layout_constraintGuide_percent="0.324" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gy10"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.26" />
+            app:layout_constraintGuide_percent="0.25" />
 
         <!-- Kartbakgrund -->
 
@@ -190,8 +190,7 @@
             android:gravity="center"
             android:onClick="onNodeClick"
             android:text="Start"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
+            style="@style/MyTextStyle"
             app:layout_constraintBottom_toBottomOf="@id/gy0"
             app:layout_constraintEnd_toEndOf="@id/gx0"
             app:layout_constraintHorizontal_bias="0.057"
@@ -200,19 +199,17 @@
 
         <TextView
             android:id="@+id/node_1"
-            android:layout_width="82dp"
+            style="@style/MyTextStyle"
+            android:layout_width="77dp"
             android:layout_height="51dp"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="100"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="60"
             app:layout_constraintBottom_toBottomOf="@id/gy1"
             app:layout_constraintEnd_toEndOf="@id/gx1"
-            app:layout_constraintHorizontal_bias="0.522"
             app:layout_constraintStart_toStartOf="@id/gx1"
             app:layout_constraintTop_toTopOf="@id/gy1"
-            app:layout_constraintVertical_bias="0.467" />
+            app:layout_constraintVertical_bias="0.686" />
 
         <TextView
             android:id="@+id/node_2"
@@ -220,9 +217,8 @@
             android:layout_height="45dp"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="200"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="80"
+            style="@style/MyTextStyle"
             app:layout_constraintBottom_toBottomOf="@id/gy2"
             app:layout_constraintEnd_toEndOf="@id/gx2"
             app:layout_constraintHorizontal_bias="0.49"
@@ -236,9 +232,8 @@
             android:layout_height="54dp"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="300"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="100"
+            style="@style/MyTextStyle"
             app:layout_constraintBottom_toBottomOf="@id/gy3"
             app:layout_constraintEnd_toEndOf="@id/gx3"
             app:layout_constraintHorizontal_bias="0.0"
@@ -252,9 +247,8 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="400"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="120"
+            style="@style/MyTextStyle"
             app:layout_constraintBottom_toBottomOf="@id/gy4"
             app:layout_constraintEnd_toEndOf="@id/gx4"
             app:layout_constraintHorizontal_bias="0.328"
@@ -268,9 +262,8 @@
             android:layout_height="55dp"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="500"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="140"
+            style="@style/MyTextStyle"
             app:layout_constraintBottom_toBottomOf="@id/gy5"
             app:layout_constraintEnd_toEndOf="@id/gx5"
             app:layout_constraintHorizontal_bias="0.428"
@@ -280,20 +273,19 @@
 
         <TextView
             android:id="@+id/node_6"
-            android:layout_width="61dp"
-            android:layout_height="47dp"
+            style="@style/MyTextStyle"
+            android:layout_width="59dp"
+            android:layout_height="51dp"
             android:fontFamily="@font/agbalumo"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="600"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="160"
             app:layout_constraintBottom_toBottomOf="@id/gy6"
             app:layout_constraintEnd_toEndOf="@id/gx6"
-            app:layout_constraintHorizontal_bias="0.53"
+            app:layout_constraintHorizontal_bias="0.7"
             app:layout_constraintStart_toStartOf="@id/gx6"
             app:layout_constraintTop_toTopOf="@id/gy6"
-            app:layout_constraintVertical_bias="0.503" />
+            app:layout_constraintVertical_bias="0.52" />
 
         <TextView
             android:id="@+id/node_7"
@@ -301,9 +293,8 @@
             android:layout_height="55dp"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="700"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="180"
+            style="@style/MyTextStyle"
             app:layout_constraintBottom_toBottomOf="@id/gy7"
             app:layout_constraintEnd_toEndOf="@id/gx7"
             app:layout_constraintHorizontal_bias="0.496"
@@ -317,9 +308,8 @@
             android:layout_height="45dp"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="800"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="200"
+            style="@style/MyTextStyle"
             app:layout_constraintBottom_toBottomOf="@id/gy8"
             app:layout_constraintEnd_toEndOf="@id/gx8"
             app:layout_constraintHorizontal_bias="0.464"
@@ -329,36 +319,34 @@
 
         <TextView
             android:id="@+id/node_9"
-            android:layout_width="59dp"
-            android:layout_height="37dp"
+            style="@style/MyTextStyle"
+            android:layout_width="60dp"
+            android:layout_height="33dp"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="900"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="220"
             app:layout_constraintBottom_toBottomOf="@id/gy9"
             app:layout_constraintEnd_toEndOf="@id/gx9"
-            app:layout_constraintHorizontal_bias="0.423"
+            app:layout_constraintHorizontal_bias="0.28"
             app:layout_constraintStart_toStartOf="@id/gx9"
             app:layout_constraintTop_toTopOf="@id/gy9"
-            app:layout_constraintVertical_bias="0.459" />
+            app:layout_constraintVertical_bias="0.027" />
+
 
         <TextView
             android:id="@+id/node_10"
-            android:layout_width="44dp"
-            android:layout_height="35dp"
+            style="@style/MyTextStyle"
+            android:layout_width="43dp"
+            android:layout_height="38dp"
             android:gravity="center"
             android:onClick="onNodeClick"
-            android:text="1000"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
+            android:text="240"
             app:layout_constraintBottom_toBottomOf="@id/gy10"
             app:layout_constraintEnd_toEndOf="@id/gx10"
-            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintHorizontal_bias="0.441"
             app:layout_constraintStart_toStartOf="@id/gx10"
             app:layout_constraintTop_toTopOf="@id/gy10"
-            app:layout_constraintVertical_bias="0.611" />
-
+            app:layout_constraintVertical_bias="0.023" />
 
         <ImageView
             android:id="@+id/avatar"

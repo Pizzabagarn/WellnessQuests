@@ -2,7 +2,12 @@
 <resources>
     <style name="MyTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#E4DCD9</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@font/agbalumo</item>
+
+        <item name="android:shadowColor">#8D3E2723</item> <!-- #4D = 30% opacity -->
+        <item name="android:shadowDx">7</item>
+        <item name="android:shadowDy">11</item>
+        <item name="android:shadowRadius">9</item>
     </style>
 </resources>
