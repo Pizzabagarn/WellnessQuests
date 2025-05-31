@@ -96,6 +96,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:menu="@menu/drawer_menu" />
+            android:background="@color/nav_background"
+            app:menu="@menu/drawer_menu"
+            app:itemTextColor="@color/nav_icon_color"
+            app:itemTextAppearance="@style/NavDrawerTextStyle"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

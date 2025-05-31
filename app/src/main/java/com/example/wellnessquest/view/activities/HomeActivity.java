@@ -46,7 +46,7 @@ public class HomeActivity extends BaseDrawerActivity {
             int id = item.getItemId();
 
             if (id == R.id.nav_home) {
-                showToast("Du är redan på startsidan");
+                showToast("Already in home page");
             } else if (id == R.id.nav_quests) {
                 startActivity(new Intent(this, QuestActivity.class));
             } else if (id == R.id.nav_map) {
