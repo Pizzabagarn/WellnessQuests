@@ -57,6 +57,7 @@ public class ProofFragment extends Fragment {
 
         if (getArguments() != null && getArguments().containsKey("quest")) {
             quest = (Quest) getArguments().getSerializable("quest");
+            binding.setQuest(quest);
         } else {
             Toast.makeText(getContext(), "No quest data", Toast.LENGTH_SHORT).show();
             return;
@@ -127,6 +128,32 @@ public class ProofFragment extends Fragment {
             public void onVerified() {
                 binding.textResult.setText("Verified! Quest completed");
                 userViewModel.completeQuest(quest, imageUri.toString(), description);
+
+                // Visa coin-animation och text
+                binding.coinAnimation.setVisibility(View.VISIBLE);
+                binding.coinRewardText.setVisibility(View.VISIBLE);
+
+                // Animera coin: typ studs eller fade
+                binding.coinAnimation.setScaleX(0f);
+                binding.coinAnimation.setScaleY(0f);
+                binding.coinAnimation.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .setDuration(500)
+                        .start();
+
+                // Fade in coin-text
+                binding.coinRewardText.setAlpha(0f);
+                binding.coinRewardText.animate()
+                        .alpha(1f)
+                        .setDuration(500)
+                        .start();
+
+                // Gå tillbaka efter delay
+                new android.os.Handler().postDelayed(() -> {
+
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                }, 1500);
             }
 
             @Override
