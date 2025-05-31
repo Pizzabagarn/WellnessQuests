@@ -2,6 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="quest"
+            type="com.example.wellnessquest.model.Quest" />
     </data>
 
     <ScrollView
@@ -84,6 +87,25 @@
                 android:paddingTop="16dp"
                 android:textStyle="bold"
                 android:textAlignment="center" />
+
+            <ImageView
+                android:id="@+id/coinAnimation"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/coin"
+                android:visibility="gone"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/coinRewardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"+ " + quest.coins + " coins!"}'
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#FFD700"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"/>
 
         </LinearLayout>
     </ScrollView>

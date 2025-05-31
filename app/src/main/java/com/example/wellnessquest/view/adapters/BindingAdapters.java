@@ -9,6 +9,7 @@ import com.example.wellnessquest.R;
 
 public class BindingAdapters {
 
+
     @BindingAdapter("strikeIfComplete")
     public static void strikeThrough(TextView view, boolean complete) {
         if (complete) {
@@ -17,6 +18,8 @@ public class BindingAdapters {
             view.setPaintFlags(view.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
     }
+
+
     @BindingAdapter("categoryIcon")
     public static void setCategoryIcon(ImageView view, String category) {
         if (category == null) return;
