@@ -90,6 +90,7 @@ public class QuestRepository {
                         "muscle", "fitness", "room", "motion", "athlete", "sports",
                         "balance", "stretch", "action", "energy"
                 )));
+                break;
 // Level 2 – Awakening
             case 2:
                 quests.add(new Quest("q9", "Steps of Progress", "Take 500 steps today and show your journey with a picture of your walking path.", "Fitness", false, 15, Arrays.asList(
@@ -333,7 +334,12 @@ public class QuestRepository {
 
 
             default:
-                quests.add(new Quest("q0", "Default Quest", "This is a fallback quest.", "Mind", false, 5, Arrays.asList("default")));
+                quests.add(new Quest("q0", "The Journey Begins", "Hey! You found your way to the questlog, great!" +
+                        " Begin by taking a selfie of yourself, either by using an existing photo or by taking a new one." +
+                        " Once this quest is completed you will be rewarded enough coins to" +
+                        " advance to level 1 where you will find more quests. To advance in levels you have to navigate to the map." +
+                        "By clicking on the next node you will get asked if you want to buy the level", "Mind", false, 60, Arrays.asList("face, selfie, nose, eye, eyes, " +
+                        "skin", "room", "nature", "tree", "sun", "furniture", "hair", "nails", "eyebrows", "person", "smile", "mouth", "lips", "body", "clothes", "picture", "cool", "dude", "beard", "eyelashes")));
                 break;
         }
 

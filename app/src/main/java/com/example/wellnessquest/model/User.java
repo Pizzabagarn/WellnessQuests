@@ -22,7 +22,7 @@ public class User {
     public User(String email) {
         this.email = email;
         this.coins = 0;
-        this.currentLevel = 1;
+        this.currentLevel = 0;
         this.completedQuests = new ArrayList<>();
         this.name = name;
         this.age = age;

@@ -16,6 +16,7 @@ import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.model.UserManager;
 import com.example.wellnessquest.model.UserStorage;
 import com.example.wellnessquest.view.fragments.HomeFragment;
+import com.example.wellnessquest.utils.SoundManager;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.material.navigation.NavigationView;
@@ -55,13 +56,17 @@ public class HomeActivity extends BaseDrawerActivity {
             if (id == R.id.nav_home) {
                 showToast("Already in home page");
             } else if (id == R.id.nav_quests) {
+                SoundManager.getInstance(HomeActivity.this).playQuestSound();
                 startActivity(new Intent(this, QuestActivity.class));
             } else if (id == R.id.nav_map) {
+                SoundManager.getInstance(HomeActivity.this).playButtonClick();
                 startActivity(new Intent(this, MapActivity.class));
             } else if (id == R.id.nav_profile) {
+                SoundManager.getInstance(HomeActivity.this).playButtonClick();
                 startActivity(new Intent(this, ProfileActivity.class));
 
             } else if (id == R.id.nav_logout) {
+                SoundManager.getInstance(HomeActivity.this).playButtonClick();
                 FirebaseAuth.getInstance().signOut();
                 getSharedPreferences("MyPrefs", MODE_PRIVATE).edit().clear().apply();
                 Intent intent = new Intent(this, StartActivity.class);

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wellnessquest.databinding.FragmentRegisterBinding;
+import com.example.wellnessquest.utils.SoundManager;
 import com.example.wellnessquest.viewmodel.LoginViewModel;
 
 public class RegisterFragment extends Fragment {
@@ -42,6 +43,7 @@ public class RegisterFragment extends Fragment {
         viewModel.getNavigateToLogin().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate != null && navigate) {
                 // Go back to login fragment
+                SoundManager.getInstance(requireContext()).playButtonClick();
                 requireActivity().getSupportFragmentManager().popBackStack();
                 viewModel.resetNavigation();
             }
