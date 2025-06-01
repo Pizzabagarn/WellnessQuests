@@ -18,6 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
     public class HomeFragment extends Fragment {
 
         private TextView welcomeText;
+        private ImageView avatarImage;
+
 
         @Nullable
         @Override
@@ -31,8 +33,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
             super.onViewCreated(view, savedInstanceState);
 
             welcomeText = view.findViewById(R.id.home_welcome_text);
+            avatarImage = view.findViewById(R.id.home_avatar_image);
 
-            // Hämta användardata från Firestore
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             FirebaseFirestore.getInstance().collection("users").document(userId)
                     .get()
@@ -44,6 +52,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
                                 String purpose = user.getPurpose() != null ? user.getPurpose() : "";
                                 String welcomeMessage = "Welcome back " + name + ", your stated purpose is: " + purpose;
                                 welcomeText.setText(welcomeMessage);
+
+                                String avatarName = user.getAvatar() != null ? user.getAvatar() : "avatar_black_hair";
+                                int avatarResId = getAvatarResourceId(avatarName);
+                                avatarImage.setImageResource(avatarResId);
                             }
                         }
                     })
@@ -51,6 +63,24 @@ import com.google.firebase.firestore.FirebaseFirestore;
                         welcomeText.setText("Welcome back! (failed to load profile)");
                     });
         }
+
+        private int getAvatarResourceId(String avatarName) {
+            switch (avatarName) {
+                case "avatar_black_hair":
+                    return R.drawable.avatar_black_hair;
+                case "avatar_blond_hair":
+                    return R.drawable.avatar_blond_hair;
+                case "avatar_red_hair":
+                    return R.drawable.avatar_red_hair;
+                case "avatar_brown_hair":
+                    return R.drawable.avatar_brown_hair;
+                default:
+                    return R.drawable.avatar_black_hair; // fallback
+            }
+        }
+
+
+
     }
 
 
