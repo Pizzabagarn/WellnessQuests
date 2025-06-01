@@ -1,6 +1,7 @@
 package com.example.wellnessquest.view.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.model.User;
+import com.example.wellnessquest.view.fragments.ProfileFragment;
 import com.example.wellnessquest.viewmodel.ProfileViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,11 +31,20 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Log.d("ProfileActivity", "Fragment transaction starting");
+
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.avatar_fragment_container, new ProfileFragment())
+                .commit();
+
         inputName = findViewById(R.id.input_name);
         inputAge = findViewById(R.id.input_age);
         inputPurpose = findViewById(R.id.input_goal);
         saveButton = findViewById(R.id.saveButton);
         progressBar = findViewById(R.id.profile_progress_bar);
+
 
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 

@@ -6,5 +6,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="avatar_image_black_hair">Avatar image with black hair</string> // Description for avatar image
+    <string name="avatar_image_blond_hair">Avatar image with blond hair</string> // Description for avatar image
+    <string name="avatar_image_red_hair">Avatar image with red hair</string> // Description for avatar image
+    <string name="avatar_image_brown_hair">Avatar image with brown hair</string> // Description for avatar image
+    <string name="previous_avatar">Previous Avatar</string>
+    <string name="next_avatar">Next Avatar</string>
 
 </resources>

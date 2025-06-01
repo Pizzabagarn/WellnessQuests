@@ -77,14 +77,12 @@
                 android:minLines="4"
                 android:padding="8dp"
                 android:background="@android:drawable/edit_text"/>
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/avatar_black_hair"
-                android:contentDescription="@string/avatar_image_black_hair" />
+
+            <FrameLayout
+                android:id="@+id/avatar_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp" />
 
             <Button
                 android:id="@+id/saveButton"
