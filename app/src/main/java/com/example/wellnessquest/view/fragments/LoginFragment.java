@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.FragmentLoginBinding;
+import com.example.wellnessquest.utils.SoundManager;
 import com.example.wellnessquest.view.activities.HomeActivity;
 import com.example.wellnessquest.viewmodel.LoginViewModel;
 
@@ -35,6 +36,7 @@ public class LoginFragment extends Fragment {
 
         // Go to Register screen
         binding.registerLink.setOnClickListener(v -> {
+            SoundManager.getInstance(requireContext()).playButtonClick();
             requireActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new RegisterFragment())
                     .addToBackStack(null)

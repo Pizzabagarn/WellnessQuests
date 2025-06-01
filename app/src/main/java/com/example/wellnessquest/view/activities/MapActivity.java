@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityMapBinding;
+import com.example.wellnessquest.utils.SoundManager;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -85,15 +86,18 @@ public class MapActivity extends BaseDrawerActivity {
     private void setupNodeClick(View view, int level) {
         view.setOnClickListener(v -> {
             if (!userViewModel.isNextLevel(level)) {
+                SoundManager.getInstance(MapActivity.this).playError();
                 Toast.makeText(this, "Level locked!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if(userViewModel.canPurchaseLevel(level)){
+
                 int cost = userViewModel.getLevelCost(level);
                 new AlertDialog.Builder(this)
                         .setMessage("Buy level " + level + " for " + cost + "?")
                         .setPositiveButton("Yes", (dialog, which) -> {
+                            SoundManager.getInstance(MapActivity.this).playLevelUp();
                             userViewModel.purchaseLevel(level);
                             moveAvatarToLevel(level);
                         })
@@ -101,6 +105,7 @@ public class MapActivity extends BaseDrawerActivity {
                         .show();
             } else {
                 Toast.makeText(this, "Not enough coins!", Toast.LENGTH_SHORT).show();
+                SoundManager.getInstance(MapActivity.this).playError();
             }
         });
     }

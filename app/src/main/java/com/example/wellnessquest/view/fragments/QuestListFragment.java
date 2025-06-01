@@ -17,6 +17,7 @@ import com.example.wellnessquest.databinding.FragmentQuestListBinding;
 import com.example.wellnessquest.model.Quest;
 import com.example.wellnessquest.model.QuestRepository;
 import com.example.wellnessquest.model.User;
+import com.example.wellnessquest.utils.SoundManager;
 import com.example.wellnessquest.view.adapters.QuestAdapter;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 
@@ -47,6 +48,8 @@ public class QuestListFragment extends Fragment {
 
         // Initiera adapter
         adapter = new QuestAdapter(filteredQuests, requireContext(), quest -> {
+
+            SoundManager.getInstance(requireContext()).playQuestSound();
             QuestDetailsFragment detailsFragment = new QuestDetailsFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable("quest", quest);

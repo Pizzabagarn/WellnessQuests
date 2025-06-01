@@ -58,6 +58,7 @@
                         android:layout_marginStart="12dp">
 
                         <ImageView
+                            android:id="@+id/topbarCoinIcon"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/coin"
