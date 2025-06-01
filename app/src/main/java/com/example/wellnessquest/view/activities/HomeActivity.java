@@ -59,7 +59,6 @@ public class HomeActivity extends BaseDrawerActivity {
             } else if (id == R.id.nav_map) {
                 startActivity(new Intent(this, MapActivity.class));
             } else if (id == R.id.nav_profile) {
-                showToast("Profile selected");
                 startActivity(new Intent(this, ProfileActivity.class));
 
             } else if (id == R.id.nav_logout) {

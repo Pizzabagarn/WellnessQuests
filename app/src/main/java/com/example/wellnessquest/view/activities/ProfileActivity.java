@@ -2,6 +2,7 @@ package com.example.wellnessquest.view.activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,21 +19,20 @@ import com.example.wellnessquest.viewmodel.ProfileViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseDrawerActivity {
 
     private EditText inputName, inputAge, inputPurpose;
     private Button saveButton;
     private ProgressBar progressBar;
     private ProfileViewModel viewModel;
     private String userId;
-
     private ProfileFragment profileFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        LayoutInflater.from(this).inflate(R.layout.activity_profile, drawerBinding.contentFrame, true);
+
 
         Log.d("ProfileActivity", "Fragment transaction starting");
 
@@ -103,14 +103,12 @@ public class ProfileActivity extends AppCompatActivity {
 
             String selectedAvatar = profileFragment != null ? profileFragment.getSelectedAvatar() : null;
 
-
             User user = new User();
             user.setUid(userId);
             user.setName(name);
             user.setAge(age);
             user.setPurpose(purpose);
             user.setAvatar(selectedAvatar);
-
 
             viewModel.saveUser(userId, user);
         });

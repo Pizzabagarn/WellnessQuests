@@ -64,7 +64,8 @@ public abstract class BaseDrawerActivity extends AppCompatActivity {
         } else if (id == R.id.nav_map) {
             startActivity(new Intent(this, MapActivity.class));
         } else if (id == R.id.nav_profile) {
-            // TODO: Skapa ProfileActivity om du vill ha den
+            startActivity(new Intent(this, ProfileActivity.class));
+
         }
 
         drawerBinding.drawerLayout.closeDrawer(GravityCompat.START);
