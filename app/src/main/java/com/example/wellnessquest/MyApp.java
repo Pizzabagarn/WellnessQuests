@@ -31,11 +31,12 @@ public class MyApp extends Application {
             public void onActivityStopped(Activity activity) {
                 isActivityChangingConfigurations = activity.isChangingConfigurations();
                 if (--activityReferences == 0 && !isActivityChangingConfigurations) {
-                    // Appen går till bakgrunden
-                    SoundManager.getInstance(activity).stopBackgroundMusic();
+                    // Kontrollera om vi nyligen sagt "pausa inte"
+                    if (!SoundManager.getInstance(activity).consumeSuppressPause()) {
+                        SoundManager.getInstance(activity).stopBackgroundMusic();
+                    }
                 }
             }
-
             @Override public void onActivityResumed(Activity activity) {}
             @Override public void onActivityPaused(Activity activity) {}
             @Override public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {}
