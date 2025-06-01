@@ -15,6 +15,7 @@ import com.example.wellnessquest.databinding.ActivityHomeBinding;
 import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.model.UserManager;
 import com.example.wellnessquest.model.UserStorage;
+import com.example.wellnessquest.view.fragments.HomeFragment;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.material.navigation.NavigationView;
@@ -29,6 +30,12 @@ public class HomeActivity extends BaseDrawerActivity {
         // 🧩 Lägg in Home-layouten i content_frame från BaseDrawerActivity
         ActivityHomeBinding binding = ActivityHomeBinding.inflate(getLayoutInflater());
         drawerBinding.contentFrame.addView(binding.getRoot());
+
+        // 🔥 Ladda in HomeFragment i fragment_container - Gen
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new HomeFragment())
+                .commit();
 
         // ViewModel
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
