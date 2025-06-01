@@ -23,6 +23,13 @@ public class ProfileFragment extends Fragment {
             R.drawable.avatar_brown_hair
     };
 
+    private String[] mAvatarNames = {
+            "avatar_black_hair",
+            "avatar_blond_hair",
+            "avatar_red_hair",
+            "avatar_brown_hair"
+    };
+
     private int mCurrentAvatarIndex = 0;
     private ImageView mAvatarImageView;
 
@@ -32,7 +39,7 @@ public class ProfileFragment extends Fragment {
         Log.d("ProfileFragment", "onCreateView called");
 
 
-        return inflater.inflate(R.layout.fragment_profile_old, container, false);
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     @Override
@@ -63,5 +70,19 @@ public class ProfileFragment extends Fragment {
 
     private void updateAvatarImage() {
         mAvatarImageView.setImageResource(mAvatarResources[mCurrentAvatarIndex]);
+    }
+
+    public void setSelectedAvatar(String avatarName) {
+        for (int i = 0; i < mAvatarNames.length; i++) {
+            if (mAvatarNames[i].equals(avatarName)) {
+                mCurrentAvatarIndex = i;
+                updateAvatarImage();
+                break;
+            }
+        }
+    }
+
+    public String getSelectedAvatar() {
+        return mAvatarNames[mCurrentAvatarIndex];
     }
 }

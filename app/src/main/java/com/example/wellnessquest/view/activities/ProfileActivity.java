@@ -26,6 +26,9 @@ public class ProfileActivity extends AppCompatActivity {
     private ProfileViewModel viewModel;
     private String userId;
 
+    private ProfileFragment profileFragment;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +36,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         Log.d("ProfileActivity", "Fragment transaction starting");
 
+        profileFragment = new ProfileFragment();
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.avatar_fragment_container, new ProfileFragment())
+                .replace(R.id.avatar_fragment_container, profileFragment)
                 .commit();
 
         inputName = findViewById(R.id.input_name);
@@ -63,6 +67,11 @@ public class ProfileActivity extends AppCompatActivity {
                 inputName.setText(user.getName());
                 inputAge.setText(String.valueOf(user.getAge()));
                 inputPurpose.setText(user.getPurpose());
+
+                 //skicka sparad avatar till fragmentet
+                if (user.getAvatar() != null) {
+                    profileFragment.setSelectedAvatar(user.getAvatar());
+                }
             }
         });
 
@@ -92,11 +101,16 @@ public class ProfileActivity extends AppCompatActivity {
                 return;
             }
 
+            String selectedAvatar = profileFragment != null ? profileFragment.getSelectedAvatar() : null;
+
+
             User user = new User();
             user.setUid(userId);
             user.setName(name);
             user.setAge(age);
             user.setPurpose(purpose);
+            user.setAvatar(selectedAvatar);
+
 
             viewModel.saveUser(userId, user);
         });

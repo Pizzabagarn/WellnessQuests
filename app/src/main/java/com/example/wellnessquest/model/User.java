@@ -12,7 +12,9 @@ public class User {
     private List<String> completedQuests;
     private String name; // Profile
     private int age; // Profile
-    private String purpose; // Profile
+    private String purpose;
+
+    private String avatar; // Profile
 
     private List<Integer> unlockedLevels = new ArrayList<>();
 
@@ -94,4 +96,7 @@ public class User {
     public void setName(String name) { this.name = name; }
     public void setAge(int age) { this.age = age; }
     public void setPurpose(String goal) { this.purpose = goal; }
+    public String getAvatar() { return avatar; }
+    public void setAvatar(String avatar) { this.avatar = avatar; }
+
 }
