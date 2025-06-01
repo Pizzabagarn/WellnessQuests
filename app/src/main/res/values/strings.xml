@@ -4,6 +4,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_link_text">No account yet? <u>Sign up here</u></string>
+
 
     <string name="avatar_image_black_hair">Avatar image with black hair</string> // Description for avatar image
     <string name="avatar_image_blond_hair">Avatar image with blond hair</string> // Description for avatar image

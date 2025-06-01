@@ -16,22 +16,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="20dp">
 
             <CheckBox
                 android:id="@+id/checkbox_fitness"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
+                android:fontFamily="@font/agbalumo"
                 android:text="Fitness"
-                android:checked="true" />
+                android:textColorLink="#009688"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <CheckBox
                 android:id="@+id/checkbox_mind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mind"
+                android:layout_marginStart="20dp"
                 android:checked="true"
-                android:layout_marginStart="16dp"/>
+                android:fontFamily="@font/agbalumo"
+                android:text="Mind"
+                android:textColorLink="#009688"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

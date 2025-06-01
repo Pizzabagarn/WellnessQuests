@@ -2,6 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="quest"
+            type="com.example.wellnessquest.model.Quest" />
     </data>
 
     <ScrollView
@@ -20,36 +23,61 @@
                 android:id="@+id/imagePreview"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:background="#EEE" />
+                android:background="#96EEEEEE"
+                android:scaleType="centerCrop" />
 
-            <Button
-                android:id="@+id/buttonSelectImage"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose picture from gallery" />
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:weightSum="2">
 
-            <Button
-                android:id="@+id/buttonTakePhoto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Take new photo"
-                android:layout_marginBottom="12dp" />
+                <ImageButton
+                    android:id="@+id/buttonSelectImage"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_add_photo"
+                    android:background="@drawable/opaque_dark_button"
+                    android:scaleType="centerInside"
+                    android:contentDescription="Choose from gallery"
+                    app:tint="#DDDDDD" />
+
+                <ImageButton
+                    android:id="@+id/buttonTakePhoto"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_camera"
+                    android:background="@drawable/opaque_dark_button"
+                    android:scaleType="centerInside"
+                    android:contentDescription="Take new photo"
+                    app:tint="#DDDDDD" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/editDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Describe what you did"
-                android:minLines="3"
+                android:layout_height="118dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:drawable/edit_text"
                 android:gravity="top"
-                android:background="@android:drawable/edit_text" />
+                android:hint="Describe what you did and how it made you feel"
+                android:minLines="3" />
 
             <Button
                 android:id="@+id/buttonVerify"
-                android:layout_width="match_parent"
+                android:layout_width="368dp"
                 android:layout_height="wrap_content"
-                android:text="Analyze &amp; Verify" />
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/my_button_color"
+                android:text="Turn In Quest"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textResult"
@@ -59,6 +87,25 @@
                 android:paddingTop="16dp"
                 android:textStyle="bold"
                 android:textAlignment="center" />
+
+            <ImageView
+                android:id="@+id/coinAnimation"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/coin"
+                android:visibility="gone"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/coinRewardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"+ " + quest.coins + " coins!"}'
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#FFD700"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"/>
 
         </LinearLayout>
     </ScrollView>

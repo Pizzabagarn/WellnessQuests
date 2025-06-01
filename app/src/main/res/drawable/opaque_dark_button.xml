@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#CC2C2C2C" /> <!-- 80% opacity mörkgrå (#2C2C2C) -->
+    <corners android:radius="4dp" /> <!-- Liten rundning, valfritt -->
+</shape>
