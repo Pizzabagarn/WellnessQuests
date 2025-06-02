@@ -46,6 +46,12 @@ public class QuestDetailsFragment extends Fragment {
             requireActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
+                    .setCustomAnimations(
+                            0,  // in-animation
+                            0,  // out-animation
+                            R.anim.fade_in,   // in-animation när du går tillbaka
+                            R.anim.fade_out  // ut-animation när du går tillbaka
+                    )
                     .replace(R.id.fragment_container, proofFragment)
                     .addToBackStack(null)
                     .commit();

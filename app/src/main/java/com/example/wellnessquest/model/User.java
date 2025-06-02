@@ -10,23 +10,24 @@ public class User {
     private int currentLevel;
     private String uid; // to save document-id for firebase
     private List<String> completedQuests;
+    private String name; // Profile
+    private int age; // Profile
+    private String purpose;
+
+    private String avatar; // Profile
+
     private List<Integer> unlockedLevels = new ArrayList<>();
-
-    public List<Integer> getUnlockedLevels() {
-        return unlockedLevels;
-    }
-
-    public void setUnlockedLevels(List<Integer> levels) {
-        this.unlockedLevels = levels;
-    }
-
 
 
     public User(String email) {
         this.email = email;
         this.coins = 0;
-        this.currentLevel = 1;
+        this.currentLevel = 0;
         this.completedQuests = new ArrayList<>();
+        this.name = name;
+        this.age = age;
+        this.purpose = purpose;
+
     }
 
     // 🔧 Empty constructor for Firestore
@@ -42,9 +43,16 @@ public class User {
         return coins;
     }
 
+    public void withdrawCoins (int amount) {this.coins -= amount;}
+
     public int getCurrentLevel() {
         return currentLevel;
     }
+
+    public List<Integer> getUnlockedLevels() {
+        return unlockedLevels;
+    }
+
 
     public List<String> getCompletedQuests() {
         return completedQuests;
@@ -69,8 +77,6 @@ public class User {
         this.coins += amount;
     }
 
-    public void withdrawCoins (int amount) {this.coins -= amount;}
-
     public void advanceLevel() {
         this.currentLevel++;
     }
@@ -82,4 +88,15 @@ public class User {
     public String getUid() {
         return uid;
     }
+
+    public String getName() { return name; }
+    public int getAge() { return age; }
+    public String getPurpose() { return purpose; }
+
+    public void setName(String name) { this.name = name; }
+    public void setAge(int age) { this.age = age; }
+    public void setPurpose(String goal) { this.purpose = goal; }
+    public String getAvatar() { return avatar; }
+    public void setAvatar(String avatar) { this.avatar = avatar; }
+
 }

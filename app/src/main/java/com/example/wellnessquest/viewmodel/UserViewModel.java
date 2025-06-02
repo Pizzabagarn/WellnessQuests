@@ -1,12 +1,12 @@
 package com.example.wellnessquest.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.wellnessquest.model.Level;
 import com.example.wellnessquest.model.Quest;
 import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.model.QuestRepository;
@@ -40,9 +40,15 @@ public class UserViewModel extends AndroidViewModel {
                     if (snapshot.exists()) {
                         User user = snapshot.toObject(User.class);
                         userLiveData.setValue(user);
+                    } else {
+                        Log.w("UserViewModel", "User not found in the database for UID: " + uid);
                     }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("UserViewModel", "Failed to get user from Firestore", e);
                 });
     }
+
 
     public void addCoins(int amount) {
         User user = userLiveData.getValue();
@@ -51,17 +57,6 @@ public class UserViewModel extends AndroidViewModel {
             userLiveData.setValue(user);
             saveToFirestore(user);
         }
-    }
-
-    //ANvänds för när man trycker på levelup knappen
-    //bara för test, kan tas bort när allt funkar
-    public void levelUpUser() {
-        User user = userLiveData.getValue();
-        if (user == null) return;
-
-        user.setCurrentLevel(user.getCurrentLevel() + 1);
-        saveToFirestore(user);
-        userLiveData.setValue(user);
     }
 
     //sets user-level and updates level in firestore + drar coins vid level köp
@@ -97,26 +92,6 @@ public class UserViewModel extends AndroidViewModel {
         return level == user.getCurrentLevel() + 1;
     }
 
-
- /*   public boolean unlockNextLevelIfAffordable() {
-        User user = userLiveData.getValue();
-        int nextLevel = user.getCurrentLevel() + 1;
-
-        Level level = QuestRepository.getLevel(nextLevel);
-        int cost = level.getUnlockCost();
-
-        if (user.getCoins() >= cost) {
-            user.setCoins(user.getCoins() - cost);
-            user.setCurrentLevel(nextLevel);
-
-            saveToFirestore(user);
-            userLiveData.setValue(user);
-            return true;
-        } else {
-            return false;
-        }
-    }
-*/
     public void completeQuest(Quest quest, String imageUrl, String description) {
         User user = userLiveData.getValue();
         if (user == null) return;

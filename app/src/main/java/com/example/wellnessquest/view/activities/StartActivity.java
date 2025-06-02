@@ -1,4 +1,6 @@
 package com.example.wellnessquest.view.activities;
+import com.example.wellnessquest.utils.SoundManager;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +37,9 @@ public class StartActivity extends AppCompatActivity {
 
         // 🧷 Koppla layouten med databinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_start);
+
+        // 🔊 Starta bakgrundsmusik
+        SoundManager.getInstance(this).playBackgroundMusic();
 
         // 🌀 Starta fade-in animation för loggan
         Animation fade = AnimationUtils.loadAnimation(this, R.anim.fade_in);

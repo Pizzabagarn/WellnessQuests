@@ -18,7 +18,7 @@
             android:id="@+id/editTextNewUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="Email"
             android:text="@={viewModel.email}" />
 
         <EditText
@@ -41,8 +41,10 @@
             android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#FF018786"
+            android:onClick="@{() -> viewModel.onRegisterClicked()}"
             android:text="Create Account"
-            android:onClick="@{() -> viewModel.onRegisterClicked()}" />
+            android:textColorLink="#009688" />
 
     </LinearLayout>
 </layout>

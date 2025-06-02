@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_home" android:title="Home" android:icon="@drawable/ic_home"/>
-    <item android:id="@+id/nav_quests" android:title="Quests" android:icon="@drawable/quest_icon"/>
-    <item android:id="@+id/nav_map" android:title="Map" android:icon="@drawable/map_icon"/>
-    <item android:id="@+id/nav_profile" android:title="Profile" android:icon="@drawable/profile_button"/>
-    <item
-        android:id="@+id/nav_logout"
-        android:title="Logout"
-        android:icon="@drawable/ic_logout"/>
+
+    <group android:id="@+id/group_main">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/home"/>
+    </group>
+
+    <group android:id="@+id/group_quests">
+        <item
+            android:id="@+id/nav_quests"
+            android:title="Quests"
+            android:icon="@drawable/quest"/>
+    </group>
+
+    <group android:id="@+id/group_map">
+        <item
+            android:id="@+id/nav_map"
+            android:title="Map"
+            android:icon="@drawable/map"/>
+    </group>
+
+    <group android:id="@+id/group_profile">
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile"
+            android:icon="@drawable/profile"/>
+    </group>
+
+    <group android:id="@+id/group_logout">
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout"
+            android:icon="@drawable/logout"/>
+    </group>
 
 </menu>

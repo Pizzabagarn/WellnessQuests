@@ -17,32 +17,45 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wellnessquest.R;
 import com.example.wellnessquest.databinding.ActivityMapBinding;
+import com.example.wellnessquest.utils.SoundManager;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.HashMap;
+import java.util.Map;
 
-public class MapActivity extends AppCompatActivity {
 
+public class MapActivity extends BaseDrawerActivity {
+    private static final String TAG = "MapActivity";
     private ActivityMapBinding binding;
     private UserViewModel userViewModel;
-    private TextView textCurrentLevel;
-    private Button btnLevelUp;
     private ImageView avatar;
+    private final Map<Integer, View> levelTargetMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+        //binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+        binding = ActivityMapBinding.inflate(getLayoutInflater());
+        drawerBinding.contentFrame.addView(binding.getRoot());
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         binding.setUserViewModel(userViewModel);
         binding.setLifecycleOwner(this);
 
-        //Level-up knapp - kan tas bort bara för test
-        textCurrentLevel = findViewById(R.id.text_current_level);
-        btnLevelUp = findViewById(R.id.btn_level_up);
-
         avatar = binding.avatar;
+
+        levelTargetMap.put(0, binding.target0);
+        levelTargetMap.put(1, binding.target1);
+        levelTargetMap.put(2, binding.target2);
+        levelTargetMap.put(3, binding.target3);
+        levelTargetMap.put(4, binding.target4);
+        levelTargetMap.put(5, binding.target5);
+        levelTargetMap.put(6, binding.target6);
+        levelTargetMap.put(7, binding.target7);
+        levelTargetMap.put(8, binding.target8);
+        levelTargetMap.put(9, binding.target9);
+        levelTargetMap.put(10, binding.target10);
 
         // ✅ Load user from Firestore using UID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -51,13 +64,9 @@ public class MapActivity extends AppCompatActivity {
         // ✅ Observe user and log level
         userViewModel.getUserLiveData().observe(this, user -> {
             if (user != null) {
-                textCurrentLevel.setText("Level: " + user.getCurrentLevel()); //kan tas bort detta är bara test
                 moveAvatarToLevel(user.getCurrentLevel()); //detta måste va kvar, kan inte tas bort, flyttar avatar till aktuell postion vod start
             }
         });
-
-        // ⬆️ Level up when button is clicked - kan tas bort bara för test
-        btnLevelUp.setOnClickListener(v -> userViewModel.levelUpUser());
 
         // Lägg klicklyssnare med databinding
         setupNodeClick(binding.node0, 0);
@@ -77,15 +86,18 @@ public class MapActivity extends AppCompatActivity {
     private void setupNodeClick(View view, int level) {
         view.setOnClickListener(v -> {
             if (!userViewModel.isNextLevel(level)) {
+                SoundManager.getInstance(MapActivity.this).playError();
                 Toast.makeText(this, "Level locked!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if(userViewModel.canPurchaseLevel(level)){
+
                 int cost = userViewModel.getLevelCost(level);
                 new AlertDialog.Builder(this)
                         .setMessage("Buy level " + level + " for " + cost + "?")
                         .setPositiveButton("Yes", (dialog, which) -> {
+                            SoundManager.getInstance(MapActivity.this).playLevelUp();
                             userViewModel.purchaseLevel(level);
                             moveAvatarToLevel(level);
                         })
@@ -93,27 +105,39 @@ public class MapActivity extends AppCompatActivity {
                         .show();
             } else {
                 Toast.makeText(this, "Not enough coins!", Toast.LENGTH_SHORT).show();
+                SoundManager.getInstance(MapActivity.this).playError();
             }
         });
     }
 
     public void moveAvatarToLevel(int level) {
-        //TODO: ändra rad 47, getIdentifier
-        int nodeId = getResources().getIdentifier("node_" + level, "id", getPackageName());
-        TextView target = findViewById(nodeId);
-        if (target == null) return;
+        View target = levelTargetMap.get(level);
+        if (target == null) {
+            Log.e(TAG, "No target view found for level " + level);
+
+            return;
+        }
+
+
 
         // Hämta målpunktskoordinater från nodens placering
-        float targetX = target.getX();
-        float targetY = target.getY();
+        target.post(() -> {
+            if (avatar == null) {
+                Log.e(TAG, "Avatar view is null, cannot animate.");
+                return;
+            }
+            
+            float targetX = target.getX() - (avatar.getWidth() / 2f);
+            float targetY = target.getY()- avatar.getHeight();
 
-        // Animera avataren till nya positionen
-        ObjectAnimator animX = ObjectAnimator.ofFloat(avatar, "x", targetX);
-        ObjectAnimator animY = ObjectAnimator.ofFloat(avatar, "y", targetY);
+            // Animera avataren till nya positionen
+            ObjectAnimator animX = ObjectAnimator.ofFloat(avatar, "x", targetX);
+            ObjectAnimator animY = ObjectAnimator.ofFloat(avatar, "y", targetY);
 
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(animX, animY);
-        set.setDuration(600);
-        set.start();
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(animX, animY);
+            set.setDuration(600);
+            set.start();
+        });
     }
 }

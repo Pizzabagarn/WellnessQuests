@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/button_previous_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/outline_arrow_left_24"
+            android:contentDescription="previous_avatar" />
+
+        <ImageView
+            android:id="@+id/imageView_avatar"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar_black_hair"
+            android:contentDescription="avatar_image_black_hair" />
+
+        <ImageButton
+            android:id="@+id/button_next_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/outline_arrow_right_24"
+            android:contentDescription="next_avatar" />
+    </LinearLayout>
+

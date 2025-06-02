@@ -15,6 +15,8 @@ import com.example.wellnessquest.databinding.ActivityHomeBinding;
 import com.example.wellnessquest.model.User;
 import com.example.wellnessquest.model.UserManager;
 import com.example.wellnessquest.model.UserStorage;
+import com.example.wellnessquest.view.fragments.HomeFragment;
+import com.example.wellnessquest.utils.SoundManager;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.material.navigation.NavigationView;
@@ -22,97 +24,75 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends BaseDrawerActivity {
 
-    private ActivityHomeBinding binding;
-    private ActionBarDrawerToggle toggle;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot()); // ✅ Använd endast detta!
+        // 🧩 Lägg in Home-layouten i content_frame från BaseDrawerActivity
+        ActivityHomeBinding binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        drawerBinding.contentFrame.addView(binding.getRoot());
+
+        // 🔥 Ladda in HomeFragment i fragment_container - Gen
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new HomeFragment())
+                .commit();
 
         // ViewModel
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         binding.setUserViewModel(userViewModel);
-        binding.setLifecycleOwner(this); // 👈 viktigt för LiveData att funka
+        binding.setLifecycleOwner(this);
 
-        // Hämta nuvarande användare från UserManager
+        // 🔄 Sätt användare
         User user = UserManager.getInstance().getCurrentUser();
         if (user != null) {
             userViewModel.setUser(user);
         }
 
-        // Toolbar och drawer setup
-        setSupportActionBar(binding.toolbar);
-
-        toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        binding.drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        // Navigation item clicks
-        binding.navView.setNavigationItemSelectedListener(item -> {
+        // Navigation click listener
+        drawerBinding.navView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
 
             if (id == R.id.nav_home) {
-                showToast("Home selected");
+                showToast("Already in home page");
             } else if (id == R.id.nav_quests) {
+                SoundManager.getInstance(HomeActivity.this).playQuestSound();
                 startActivity(new Intent(this, QuestActivity.class));
-
             } else if (id == R.id.nav_map) {
+                SoundManager.getInstance(HomeActivity.this).playButtonClick();
                 startActivity(new Intent(this, MapActivity.class));
-
             } else if (id == R.id.nav_profile) {
-                showToast("Profile selected");
+                SoundManager.getInstance(HomeActivity.this).playButtonClick();
+                startActivity(new Intent(this, ProfileActivity.class));
 
             } else if (id == R.id.nav_logout) {
-                // 🔐 Logga ut från Firebase
+                SoundManager.getInstance(HomeActivity.this).playButtonClick();
                 FirebaseAuth.getInstance().signOut();
-
-                // 🧼 Rensa lokal data om det behövs
                 getSharedPreferences("MyPrefs", MODE_PRIVATE).edit().clear().apply();
-
-                // 🔁 Gå tillbaka till inloggningen
                 Intent intent = new Intent(this, StartActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
 
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
+            drawerBinding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
-
-    }
-
-    private void showToast(String msg) {
-        android.widget.Toast.makeText(this, msg, android.widget.Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Uppdatera senaste aktivitet
         new UserStorage(getApplicationContext()).updateLastActive();
 
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-
         User currentUser = UserManager.getInstance().getCurrentUser();
         if (currentUser != null) {
-            // 🔄 Synka från Firestore endast om det behövs
             userViewModel.setUser(currentUser);
-            userViewModel.loadUser(currentUser.getUid()); // 🔁 Hämta färsk data från Firestore
+            userViewModel.loadUser(currentUser.getUid());
         }
+    }
+
+    private void showToast(String msg) {
+        android.widget.Toast.makeText(this, msg, android.widget.Toast.LENGTH_SHORT).show();
     }
 }
