@@ -5,10 +5,9 @@ import com.example.wellnessquest.model.Quest;
 import java.util.List;
 
 public class Level {
-    private int levelNumber;
-    private int unlockCost;
-
-    private List<Quest> quests;
+    private int levelNumber; // Represent what level the user is currently on
+    private int unlockCost; // Cost in coins to unlock a level
+    private List<Quest> quests; // Every level has a list of quests
 
     public Level(int levelNumber, int unlockCost, List<Quest> quests) {
         this.levelNumber = levelNumber;
