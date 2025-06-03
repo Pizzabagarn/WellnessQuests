@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profile_window">
+    android:background="@drawable/login_page">
 
     <ScrollView
         android:layout_width="0dp"
@@ -79,7 +79,10 @@
                 android:id="@+id/saveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save Profile" />
+                android:backgroundTint="@color/purple_500"
+                android:text="Save Profile"
+                android:layout_marginBottom="10dp"
+                />
 
             <ProgressBar
                 android:id="@+id/profile_progress_bar"
