@@ -52,6 +52,7 @@ public class UserViewModel extends AndroidViewModel {
      * Loads user data from Firestore using the provided UID and updates LiveData.
      * @param uid Firebase Authentication user ID.
      * @author Lowisa Svensson Christell
+     * @author Alexander Westman
      */
     public void loadUser(String uid) {
         firestore.collection("users")

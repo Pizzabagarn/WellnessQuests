@@ -1,4 +1,3 @@
-// ProofFragment.java
 package com.example.wellnessquest.view.fragments;
 
 import android.app.Activity;
@@ -28,7 +27,6 @@ import com.example.wellnessquest.databinding.FragmentProofBinding;
 import com.example.wellnessquest.model.Quest;
 import com.example.wellnessquest.utils.QuestVerifier;
 import com.example.wellnessquest.utils.SoundManager;
-import com.example.wellnessquest.view.activities.MapActivity;
 import com.example.wellnessquest.viewmodel.UserViewModel;
 import com.google.mlkit.vision.label.ImageLabel;
 
@@ -39,6 +37,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * ProofFragment allows the user to upload or capture an image as proof of quest completion.
+ * The image is verified using ML Kit, and if valid, the quest is completed and a reward is given.
+ *
+ * @author Alexander Westman
+ */
 public class ProofFragment extends Fragment {
 
     private FragmentProofBinding binding;
@@ -48,12 +52,18 @@ public class ProofFragment extends Fragment {
     private Quest quest;
     private UserViewModel userViewModel;
 
+    /**
+     * Inflates the layout for the fragment and sets up databinding.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProofBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
+    /**
+     * Initializes UI components and sets click listeners for image selection, photo capture, and verification.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -81,6 +91,9 @@ public class ProofFragment extends Fragment {
         binding.buttonVerify.setOnClickListener(v -> verifyImage());
     }
 
+    /**
+     * Launcher for selecting an image from the gallery.
+     */
     private final ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.GetContent(),
             uri -> {
@@ -90,6 +103,9 @@ public class ProofFragment extends Fragment {
                 }
             });
 
+    /**
+     * Launcher for capturing a photo with the camera.
+     */
     private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -99,6 +115,9 @@ public class ProofFragment extends Fragment {
                 }
             });
 
+    /**
+     * Dispatches an intent to open the camera app and capture a photo.
+     */
     private void dispatchTakePictureIntent() {
         Context context = requireContext();
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -116,6 +135,9 @@ public class ProofFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates a temporary image file for storing the captured photo.
+     */
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         File storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -124,6 +146,9 @@ public class ProofFragment extends Fragment {
         return image;
     }
 
+    /**
+     * Verifies the selected or captured image using ML Kit and completes the quest if valid.
+     */
     private void verifyImage() {
         if (imageUri == null) {
             Toast.makeText(getContext(), "Choose existing or take new image", Toast.LENGTH_SHORT).show();
@@ -139,23 +164,17 @@ public class ProofFragment extends Fragment {
         QuestVerifier.verify(requireContext(), imageUri, quest, description, new QuestVerifier.VerificationCallback() {
             @Override
             public void onVerified() {
-
                 SoundManager.getInstance(requireContext()).playSuccess();
 
-                // 🔢 Antal coins
-                int coins = quest.getRewardCoins(); // t.ex. 10
-
-                // 👇 Visa animation
+                int coins = quest.getRewardCoins();
                 animateCoinReward(coins);
 
                 binding.textResult.setText("Verified! Quest completed");
                 userViewModel.completeQuest(quest, imageUri.toString(), description);
 
-                // Visa coin-animation och text
                 binding.coinAnimation.setVisibility(View.VISIBLE);
                 binding.coinRewardText.setVisibility(View.VISIBLE);
 
-                // Animera coin: typ studs eller fade
                 binding.coinAnimation.setScaleX(0f);
                 binding.coinAnimation.setScaleY(0f);
                 binding.coinAnimation.animate()
@@ -164,30 +183,22 @@ public class ProofFragment extends Fragment {
                         .setDuration(500)
                         .start();
 
-                // Fade in coin-text
                 binding.coinRewardText.setAlpha(0f);
                 binding.coinRewardText.animate()
                         .alpha(1f)
                         .setDuration(500)
                         .start();
 
-                // Gå tillbaka efter delay
                 new android.os.Handler().postDelayed(() -> {
-
                     requireActivity().getSupportFragmentManager().popBackStack();
                 }, 1500);
             }
-
-
-
 
             @Override
             public void onFailed() {
                 SoundManager.getInstance(requireContext()).playError();
                 binding.textResult.setText("The image doesn't match the quest. Try again!");
             }
-
-
 
             @Override
             public void onMismatch(List<ImageLabel> labels) {
@@ -201,11 +212,11 @@ public class ProofFragment extends Fragment {
                 Toast.makeText(getContext(), "Verification error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
+    /**
+     * Displays a visual animation and count-up effect to reward the user with coins after quest verification.
+     */
     private void animateCoinReward(int rewardAmount) {
         binding.coinFlyIcon.setTranslationY(0f);
         binding.coinFlyText.setTranslationY(0f);
@@ -254,10 +265,7 @@ public class ProofFragment extends Fragment {
                     binding.coinFlyText.setVisibility(View.GONE);
                     binding.coinFlyText.setAlpha(1f);
                     binding.coinFlyText.setTranslationY(0f);
-
                 })
                 .start();
     }
-
-
 }

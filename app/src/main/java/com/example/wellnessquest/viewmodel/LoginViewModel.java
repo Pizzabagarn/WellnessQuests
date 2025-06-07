@@ -12,6 +12,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * LoginViewModel manages user login and registration logic using Firebase Authentication
+ * and Firestore. It exposes observable fields and LiveData for databinding and UI updates.
+ *
+ * @author Alexander Westman
+ */
 public class LoginViewModel extends AndroidViewModel {
 
     // Fields bound to input fields in the UI
@@ -28,6 +34,11 @@ public class LoginViewModel extends AndroidViewModel {
     private final FirebaseAuth firebaseAuth;
     private final FirebaseFirestore firestore;
 
+    /**
+     * Constructor initializes FirebaseAuth and Firestore instances.
+     *
+     * @param application The application context.
+     */
     public LoginViewModel(@NonNull Application application) {
         super(application);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -35,7 +46,8 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     /**
-     * Called when the user clicks the "Log In" button
+     * Called when the user clicks the "Log In" button. Authenticates using Firebase
+     * and fetches user data from Firestore on success.
      */
     public void onLoginClicked() {
         String email = this.email.getValue();
@@ -46,13 +58,11 @@ public class LoginViewModel extends AndroidViewModel {
             return;
         }
 
-        // Try to sign in using Firebase Authentication
         firebaseAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                         if (firebaseUser != null) {
-                            // Fetch additional user data from Firestore
                             firestore.collection("users")
                                     .document(firebaseUser.getUid())
                                     .get()
@@ -82,7 +92,8 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     /**
-     * Called when the user clicks the "Register" button
+     * Called when the user clicks the "Register" button. Validates input,
+     * creates a new Firebase user, and saves a User object to Firestore.
      */
     public void onRegisterClicked() {
         String email = this.email.getValue();
@@ -100,18 +111,14 @@ public class LoginViewModel extends AndroidViewModel {
             return;
         }
 
-        // Try to create the user in Firebase Authentication
         firebaseAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                         if (firebaseUser != null) {
-                            // Create the custom User object
                             User user = new User(email);
-                            user.setUid(firebaseUser.getUid()); // set uid for firebase
+                            user.setUid(firebaseUser.getUid());
 
-
-                            // Save to Firestore
                             firestore.collection("users")
                                     .document(firebaseUser.getUid())
                                     .set(user)
@@ -127,34 +134,53 @@ public class LoginViewModel extends AndroidViewModel {
                 });
     }
 
-    // Show a toast message to the UI
+    /**
+     * Displays a toast message to the UI.
+     *
+     * @param message The message to be shown.
+     */
     private void showToast(String message) {
         toastMessage.setValue(message);
     }
 
-    // Expose toast message
+    /**
+     * Returns observable for toast messages.
+     */
     public MutableLiveData<String> getToastMessage() {
         return toastMessage;
     }
 
+    /**
+     * Clears the toast message value.
+     */
     public void clearToast() {
         toastMessage.setValue(null);
     }
 
-    // Expose login success status
+    /**
+     * Returns observable for login success flag.
+     */
     public MutableLiveData<Boolean> getLoginSuccess() {
         return loginSuccess;
     }
 
+    /**
+     * Resets the login success flag.
+     */
     public void resetLoginSuccess() {
         loginSuccess.setValue(false);
     }
 
-    // Expose navigation trigger for UI
+    /**
+     * Returns observable for triggering navigation to login screen.
+     */
     public MutableLiveData<Boolean> getNavigateToLogin() {
         return navigateToLogin;
     }
 
+    /**
+     * Resets navigation trigger flag.
+     */
     public void resetNavigation() {
         navigateToLogin.setValue(false);
     }

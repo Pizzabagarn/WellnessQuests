@@ -17,14 +17,31 @@ import com.example.wellnessquest.utils.SoundManager;
 import com.example.wellnessquest.view.activities.HomeActivity;
 import com.example.wellnessquest.viewmodel.LoginViewModel;
 
+/**
+ * LoginFragment handles the user login UI and logic.
+ * It uses data binding to connect the layout with the LoginViewModel,
+ * navigates to the register screen, and responds to login events.
+ *
+ * @author Alexander Westman
+ */
 public class LoginFragment extends Fragment {
 
     private LoginViewModel viewModel;
 
+    /**
+     * Required empty public constructor.
+     */
     public LoginFragment() {
-        // Required empty public constructor
     }
 
+    /**
+     * Inflates the layout and initializes ViewModel bindings and observers.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
+     * @return The root view for the fragment's UI
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +51,7 @@ public class LoginFragment extends Fragment {
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
-        // Go to Register screen
+        // Navigate to Register screen when register link is clicked
         binding.registerLink.setOnClickListener(v -> {
             SoundManager.getInstance(requireContext()).playButtonClick();
             requireActivity().getSupportFragmentManager().beginTransaction()
@@ -43,7 +60,7 @@ public class LoginFragment extends Fragment {
                     .commit();
         });
 
-        // Show Toast messages
+        // Observe toast messages and show them
         viewModel.getToastMessage().observe(getViewLifecycleOwner(), message -> {
             if (message != null && !message.isEmpty()) {
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
@@ -51,7 +68,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        // Navigate to HomeActivity on successful login
+        // Observe login success and navigate to HomeActivity
         viewModel.getLoginSuccess().observe(getViewLifecycleOwner(), success -> {
             if (success != null && success) {
                 startActivity(new Intent(requireContext(), HomeActivity.class));

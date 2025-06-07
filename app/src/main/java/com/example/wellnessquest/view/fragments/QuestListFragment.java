@@ -36,6 +36,7 @@ import java.util.List;
  * and passing the selected quest.
  *
  * @author Mena Nasir
+ * @author Alexander Westman
  */
 public class QuestListFragment extends Fragment {
 

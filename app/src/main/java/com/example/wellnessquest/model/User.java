@@ -14,10 +14,10 @@ import java.util.List;
  * This class is used for saving and loading user data to/from Firebase Firestore.
  * </p>
  *
- * @author Gen
- * @author Alex
- * @author Mena
- * @author Lowisa
+ * @author Gen Felíx Teramoto
+ * @author Alexander Westman
+ * @author Mena Nasir
+ * @author Lowisa Svensson Christell
  */
 public class User {
     private String email;

@@ -7,14 +7,34 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is responsible for generating levels and associated quests
+ * for the WellnessQuest application. Each level includes a set of quests
+ * and a coin cost required to unlock that level.
+ *
+ * Author: Alexander
+ */
+
 public class QuestRepository {
 
+    /**
+     * Returns a Level object with its corresponding quests and cost.
+     *
+     * @param levelNumber the level number (1-10)
+     * @return Level object
+     */
     public static Level getLevel(int levelNumber) {
         List<Quest> quests = generateQuestsForLevel(levelNumber);
         int cost = calculateLevelCost(levelNumber);
         return new Level(levelNumber, cost, quests);
     }
 
+
+    /**
+     * Returns a list of all levels from 1 to 10.
+     *
+     * @return list of all Level objects
+     */
     public static List<Level> getAllLevels() {
         List<Level> levels = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
@@ -23,11 +43,25 @@ public class QuestRepository {
         return levels;
     }
 
+    /**
+     * Calculates the unlock cost of a level based on its number.
+     * The cost increases with each subsequent level.
+     *
+     * @param levelNumber the level number
+     * @return the cost in coins
+     */
     private static int calculateLevelCost(int levelNumber) {
         //kostnaden ökar per nivå
         return 60 + (levelNumber - 1) * 20;
     }
 
+    /**
+     * Generates a list of quests associated with a given level.
+     * Includes quest descriptions, categories, rewards, and image tags.
+     *
+     * @param level the level number (1-10)
+     * @return list of Quest objects
+     */
     private static List<Quest> generateQuestsForLevel(int level) {
         List<Quest> quests = new ArrayList<>();
 
