@@ -9,14 +9,14 @@
             type="com.example.wellnessquest.viewmodel.UserViewModel" />
     </data>
 
-    <!-- Hela innehållet hamnar i drawerLayoutens content_frame -->
+    <!-- All content will be placed inside the drawerLayout's content_frame -->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/profile_window">
 
-        <!-- FRAGMENT CONTAINER (eller innehållssida för Home) -->
+        <!-- FRAGMENT CONTAINER (or the main content area of Home) -->
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"

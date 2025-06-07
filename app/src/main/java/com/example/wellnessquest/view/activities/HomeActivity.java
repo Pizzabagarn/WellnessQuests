@@ -33,10 +33,10 @@ import com.google.firebase.auth.FirebaseAuth;
  * navigation drawer functionality and inject its layout into the base container.
  * </p>
  *
- * @author Gen
- * @author Alex
- * @author Mena
- * @author Lowisa
+ * @author Gen Félix Teramoto
+ * @author Alex Westman
+ * @author Mena Nasir
+ * @author Lowisa Svensson Christell
  */
 public class HomeActivity extends BaseDrawerActivity {
 
