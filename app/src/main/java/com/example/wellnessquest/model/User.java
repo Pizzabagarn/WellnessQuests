@@ -99,17 +99,9 @@ public class User {
         this.currentLevel = currentLevel;
     }
 
-    public void setCompletedQuests(List<String> completedQuests) {
-        this.completedQuests = completedQuests;
-    }
-
     // Utility
     public void earnCoins(int amount) {
         this.coins += amount;
-    }
-
-    public void advanceLevel() {
-        this.currentLevel++;
     }
 
     public void setUid(String uid) {
@@ -120,14 +112,24 @@ public class User {
         return uid;
     }
 
+
     public String getName() { return name; }
+
     public int getAge() { return age; }
+
     public String getPurpose() { return purpose; }
 
+
     public void setName(String name) { this.name = name; }
+
     public void setAge(int age) { this.age = age; }
+
     public void setPurpose(String goal) { this.purpose = goal; }
+
+
     public String getAvatar() { return avatar; }
+
+
     public void setAvatar(String avatar) { this.avatar = avatar; }
 
 }

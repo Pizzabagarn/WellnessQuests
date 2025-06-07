@@ -84,13 +84,6 @@ public class Quest implements Serializable {
         this.id = id;
     }
 
-    /**
-     * Sets a new list of valid tags for ML verification.
-     * @param validTags the list of valid tags
-     */
-    public void setValidTags(List<String> validTags) {
-        this.validTags = validTags;
-    }
 
     /**
      * Sets a new title for the quest.
@@ -100,6 +93,7 @@ public class Quest implements Serializable {
         this.title = title;
     }
 
+
     /**
      * Sets a new description for the quest.
      * @param description the description to set
@@ -108,14 +102,6 @@ public class Quest implements Serializable {
         this.description = description;
     }
 
-    /**
-     * Returns the category of the quest.
-     * Duplicate of {@link #getCategory()}.
-     * @return the quest's category
-     */
-    public String setCategory() {
-        return category;
-    }
 
     /**
      * Sets the category of the quest.
@@ -125,6 +111,7 @@ public class Quest implements Serializable {
         this.category = category;
     }
 
+
     /**
      * Sets the completion status of the quest.
      * @param completed true if completed, false otherwise
@@ -133,6 +120,7 @@ public class Quest implements Serializable {
         isCompleted = completed;
     }
 
+
     /**
      * Sets the amount of coins rewarded by the quest.
      * @param coins number of coins
@@ -140,6 +128,7 @@ public class Quest implements Serializable {
     public void setCoins(int coins) {
         this.coins = coins;
     }
+
 
     /**
      * @return true if the quest is completed, false otherwise
@@ -155,10 +144,5 @@ public class Quest implements Serializable {
         return coins;
     }
 
-    /**
-     * Marks the quest as completed.
-     */
-    public void markComplete() {
-        this.isCompleted = true;
-    }
+
 }

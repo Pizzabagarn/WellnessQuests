@@ -51,7 +51,7 @@ public class QuestRepository {
      * @return the cost in coins
      */
     private static int calculateLevelCost(int levelNumber) {
-        //kostnaden ökar per nivå
+
         return 60 + (levelNumber - 1) * 20;
     }
 
