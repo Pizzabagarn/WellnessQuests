@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * This class follows the MVVM (Model-View-ViewModel) pattern to separate logic from UI components.
  * </p>
  *
- * @author Gen
+ * @author Gen Félix Teramoto
  */
 public class ProfileViewModel extends ViewModel {
 
