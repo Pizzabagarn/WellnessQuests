@@ -19,6 +19,19 @@ import com.example.wellnessquest.viewmodel.ProfileViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * ProfileActivity handles user profile input and interaction within the WellnessQuest app.
+ * <p>
+ * This activity allows the user to input their name, age, and wellness goals, and save the data
+ * to Firebase via the ProfileViewModel. It also embeds a ProfileFragment to select and display an avatar.
+ * Data is loaded and observed using LiveData and ViewModel architecture.
+ * </p>
+ *
+ * <p>Extends {@link BaseDrawerActivity} to include navigation drawer functionality.</p>
+ *
+ * @author Gen
+ */
+
 public class ProfileActivity extends BaseDrawerActivity {
 
     private EditText inputName, inputAge, inputPurpose;
@@ -28,6 +41,13 @@ public class ProfileActivity extends BaseDrawerActivity {
     private String userId;
     private ProfileFragment profileFragment;
 
+    /**
+     * Initializes the activity, sets up layout, bindings, ViewModel, and LiveData observers.
+     * Inflates {@code activity_profile.xml} into the drawer layout.
+     *
+     * @param savedInstanceState Bundle containing saved instance state (if any)
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +56,7 @@ public class ProfileActivity extends BaseDrawerActivity {
 
         Log.d("ProfileActivity", "Fragment transaction starting");
 
+        // Initialize and display avatar selection fragment
         profileFragment = new ProfileFragment();
 
         getSupportFragmentManager()
@@ -43,15 +64,17 @@ public class ProfileActivity extends BaseDrawerActivity {
                 .replace(R.id.avatar_fragment_container, profileFragment)
                 .commit();
 
+        // Bind UI components
         inputName = findViewById(R.id.input_name);
         inputAge = findViewById(R.id.input_age);
         inputPurpose = findViewById(R.id.input_goal);
         saveButton = findViewById(R.id.saveButton);
         progressBar = findViewById(R.id.profile_progress_bar);
 
-
+        // Initialize ViewModel
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
+        // Check for authenticated user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
@@ -61,28 +84,31 @@ public class ProfileActivity extends BaseDrawerActivity {
 
         userId = currentUser.getUid();
 
-        // 🔄 OBSERVER: uppdaterar fält varje gång user LiveData uppdateras
+        // Observe profile data and update UI accordingly
         viewModel.getUserProfile(userId).observe(this, user -> {
             if (user != null) {
                 inputName.setText(user.getName());
                 inputAge.setText(String.valueOf(user.getAge()));
                 inputPurpose.setText(user.getPurpose());
 
-                 //skicka sparad avatar till fragmentet
+                // Send avatar selection to fragment
                 if (user.getAvatar() != null) {
                     profileFragment.setSelectedAvatar(user.getAvatar());
                 }
             }
         });
 
+        // Show/hide progress bar based on loading state
         viewModel.getIsLoading().observe(this, isLoading ->
                 progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE)
         );
 
+        // Display result of save operation
         viewModel.getSaveStatus().observe(this, msg ->
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         );
 
+        // Display result of save operation
         saveButton.setOnClickListener(v -> {
             String name = inputName.getText().toString().trim();
             String ageStr = inputAge.getText().toString().trim();
@@ -114,9 +140,13 @@ public class ProfileActivity extends BaseDrawerActivity {
         });
     }
 
+    /**
+     * Called when the activity resumes.
+     * Re-fetches the user profile to ensure the UI is updated with the latest data.
+     */
     @Override
     protected void onResume() {
         super.onResume();
-        viewModel.getUserProfile(userId); // 🔁 Ladda ny data från Firestore
+        viewModel.getUserProfile(userId); // Reload user profile from Firestore
     }
 }

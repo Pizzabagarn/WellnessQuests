@@ -22,34 +22,56 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * HomeActivity serves as the main landing screen after a user logs in.
+ * <p>
+ * It displays the {@link HomeFragment}, handles navigation drawer interaction,
+ * and initializes the {@link UserViewModel} to sync user data with the UI.
+ * </p>
+ * <p>
+ * This activity extends {@link BaseDrawerActivity}, allowing it to reuse
+ * navigation drawer functionality and inject its layout into the base container.
+ * </p>
+ *
+ * @author Gen
+ * @author Alex
+ * @author Mena
+ * @author Lowisa
+ */
 public class HomeActivity extends BaseDrawerActivity {
 
+    /**
+     * Initializes the HomeActivity, sets up fragment loading, ViewModel binding,
+     * navigation drawer listeners, and loads current user data.
+     *
+     * @param savedInstanceState The saved instance state from a previous instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 🧩 Lägg in Home-layouten i content_frame från BaseDrawerActivity
+        // Inject Home layout into the drawer's content frame
         ActivityHomeBinding binding = ActivityHomeBinding.inflate(getLayoutInflater());
         drawerBinding.contentFrame.addView(binding.getRoot());
 
-        // 🔥 Ladda in HomeFragment i fragment_container - Gen
+        // Load HomeFragment into the fragment container
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, new HomeFragment())
                 .commit();
 
-        // ViewModel
+        // Initialize UserViewModel and bind it to the layout
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         binding.setUserViewModel(userViewModel);
         binding.setLifecycleOwner(this);
 
-        // 🔄 Sätt användare
+        // Set the current user into the ViewModel
         User user = UserManager.getInstance().getCurrentUser();
         if (user != null) {
             userViewModel.setUser(user);
         }
 
-        // Navigation click listener
+        // Set up navigation menu click behavior
         drawerBinding.navView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
 
@@ -79,6 +101,10 @@ public class HomeActivity extends BaseDrawerActivity {
         });
     }
 
+    /**
+     * Called when the activity is resumed.
+     * Updates the user's last active timestamp and reloads user data into the ViewModel.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -92,6 +118,11 @@ public class HomeActivity extends BaseDrawerActivity {
         }
     }
 
+    /**
+     * Displays a short toast message to the user.
+     *
+     * @param msg The message to display
+     */
     private void showToast(String msg) {
         android.widget.Toast.makeText(this, msg, android.widget.Toast.LENGTH_SHORT).show();
     }

@@ -16,12 +16,32 @@ import com.example.wellnessquest.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+    /**
+     * HomeFragment displays a personalized welcome message and avatar for the current user.
+     * <p>
+     * It fetches user data from Firebase Firestore when the fragment resumes, and dynamically
+     * updates the UI based on the user's name, purpose, and selected avatar.
+     * </p>
+     *
+     * <p>
+     * This fragment is part of the home screen functionality in the WellnessQuest application.
+     * </p>
+     *
+     * @author Gen
+     */
     public class HomeFragment extends Fragment {
 
         private TextView welcomeText;
         private ImageView avatarImage;
 
-
+        /**
+         * Inflates the layout for the fragment.
+         *
+         * @param inflater           The LayoutInflater used to inflate views
+         * @param container          The parent view that this fragment's UI should be attached to
+         * @param savedInstanceState The previously saved instance state, if any
+         * @return The root view for this fragment
+         */
         @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -29,6 +49,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
             return inflater.inflate(R.layout.fragment_home, container, false);
         }
 
+        /**
+         * Called after the view is created. Initializes UI components.
+         *
+         * @param view               The root view of the fragment
+         * @param savedInstanceState The previously saved instance state, if any
+         */
         @Override
         public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
@@ -38,6 +64,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
         }
 
+        /**
+         * Called when the fragment becomes visible again.
+         * Fetches the latest user data from Firestore and updates the welcome message and avatar.
+         */
         @Override
         public void onResume() {
             super.onResume();
@@ -66,6 +96,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
                     });
         }
 
+
+        /**
+         * Maps an avatar name string to its corresponding drawable resource ID.
+         *
+         * @param avatarName The name of the avatar (e.g., "avatar_red_hair")
+         * @return The resource ID of the corresponding drawable
+         */
         private int getAvatarResourceId(String avatarName) {
             switch (avatarName) {
                 case "avatar_black_hair":
