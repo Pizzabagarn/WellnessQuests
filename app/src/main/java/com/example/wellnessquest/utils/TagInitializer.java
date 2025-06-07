@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.example.wellnessquest.model.Quest;
 import com.google.gson.Gson;
@@ -24,24 +23,63 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * TagInitializer is responsible for automatically generating and caching visual tags
+ * associated with each quest using ML Kit’s image labeling.
+ *
+ * <p>During the app’s startup, each quest is linked to three representative images.
+ * These images are automatically fetched using an external Python script that queries
+ * image search engines based on the objective of the quest (e.g., "go for a walk",
+ * "do yoga", "drink water"). The purpose is to simulate the types of photos a user
+ * might submit as proof.</p>
+ *
+ * <p>The images are analyzed once using ML Kit on the device at startup, and the
+ * extracted tags are stored locally using SharedPreferences. These tags are then
+ * merged with the quest’s predefined valid tags and used during quest verification
+ * to determine whether a user's uploaded image matches the expected content.</p>
+ * @author Alexander Westman
+ */
+
 public class TagInitializer {
 
     private static final String PREF_NAME = "tag_analysis_prefs";
 
-    // Callback-interface för att signalera färdigställande eller fel
+    /**
+     * Callback interface for signaling when tag initialization is complete or if an error occurs.
+     */
     public interface InitCallback {
+        /**
+         * Called when tag initialization completes successfully.
+         */
         void onDone();
+
+        /**
+         * Called when an error occurs during tag initialization.
+         *
+         * @param e the thrown exception
+         */
         void onError(Exception e);
     }
 
-    // Rensa tidigare analyserade MLKit-taggar
+    /**
+     * Clears all previously analyzed ML Kit tags from SharedPreferences.
+     * Triggers reprocessing the next time {@link #initializeIfNeeded(Context, InitCallback)} is called.
+     *
+     * @param context application context
+     */
     public static void reset(Context context) {
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
                 .edit().clear().apply();
-        Log.d("TagInit", "🔄 SharedPreferences rensades – ny initialisering kommer ske.");
     }
 
-    // Kör bara MLKit-inläsningen om det inte redan är gjort
+    /**
+     * Initializes and analyzes image tags using ML Kit if not already done.
+     * Loads quest image mappings from a JSON file in assets, performs image
+     * labeling using ML Kit, and stores the results in SharedPreferences.
+     *
+     * @param context  application context
+     * @param callback callback to signal success or error
+     */
     public static void initializeIfNeeded(Context context, InitCallback callback) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         if (prefs.getBoolean("mlkit_done", false)) {
@@ -66,17 +104,13 @@ public class TagInitializer {
 
                     for (String path : imagePaths) {
                         try {
-                            // Hoppa över om bilden redan analyserats
                             if (prefs.contains(path + "_done")) {
-                                Log.d("TagInit", "⏩ Hoppar över (redan analyserad): " + path);
                                 continue;
                             }
 
                             InputStream inputStream = context.getAssets().open(path);
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                             InputImage image = InputImage.fromBitmap(bitmap, 0);
-
-                            Log.d("TagInit", "🚀 Väntar på MLKit för: " + path);
 
                             CountDownLatch latch = new CountDownLatch(1);
 
@@ -87,23 +121,20 @@ public class TagInitializer {
                                                 String tag = label.getText().toLowerCase();
                                                 if (!allTags.contains(tag)) {
                                                     allTags.add(tag);
-                                                    Log.d("TagInit", "🔍 Tag för " + questId + ": " + tag);
                                                 }
                                             }
                                         }
-                                        // ✅ Markera att denna bild är klar
                                         editor.putBoolean(path + "_done", true);
                                         latch.countDown();
                                     })
                                     .addOnFailureListener(e -> {
-                                        Log.e("TagInit", "💥 MLKit-fel för bild: " + path, e);
                                         latch.countDown();
                                     });
 
                             latch.await();
 
                         } catch (Exception e) {
-                            Log.e("TagInit", "💥 Fel på bild: " + path, e);
+                            // Continue processing remaining images
                         }
                     }
 
@@ -120,11 +151,18 @@ public class TagInitializer {
         }).start();
     }
 
-
-    // Hämta sammanslagna taggar: de fördefinierade + de MLKit har genererat
+    /**
+     * Retrieves a merged list of tags for the given quest.
+     * Combines predefined tags from the {@link Quest} with previously
+     * stored ML Kit-generated tags for the same quest.
+     *
+     * @param context the application context
+     * @param quest   the quest for which tags should be fetched
+     * @return a combined list of tags used for verification
+     */
     public static List<String> getMergedTags(Context context, Quest quest) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        Type listType = new TypeToken<List<String>>(){}.getType();
+        Type listType = new TypeToken<List<String>>() {}.getType();
         List<String> mlTags = new Gson().fromJson(prefs.getString(quest.getId() + "_mltags", "[]"), listType);
 
         List<String> merged = new ArrayList<>(quest.getValidTags());
@@ -134,7 +172,6 @@ public class TagInitializer {
             }
         }
 
-        Log.d("TagInit", "🔄 Merged tags for " + quest.getId() + ": " + merged);
         return merged;
     }
 }
