@@ -23,7 +23,7 @@ import com.example.wellnessquest.R;
  * </p>
  * <p>Avatars are represented by drawable resources and identified by corresponding names.</p>
  *
- * @author Gen
+ * @author Gen Félix Teramoto
  */
 
 public class ProfileFragment extends Fragment {

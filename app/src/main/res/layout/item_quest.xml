@@ -24,7 +24,7 @@
             android:padding="16dp"
             android:gravity="center_vertical">
 
-            <!-- Ikon -->
+            <!-- Icon -->
             <ImageView
                 android:id="@+id/questIcon"
                 android:layout_width="36dp"
@@ -33,7 +33,7 @@
                 app:categoryIcon="@{quest.category}"
                 tools:src="@drawable/ic_launcher_foreground" />
 
-            <!-- Titel -->
+            <!-- Title -->
             <TextView
                 android:id="@+id/questTitle"
                 android:layout_width="0dp"
@@ -46,7 +46,7 @@
                 app:strikeIfComplete="@{quest.complete}"
                 tools:text="Drink water" />
 
-            <!-- Coins + ikon -->
+            <!-- Coins + icon -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                     tools:text="5" />
             </LinearLayout>
 
-            <!-- Klar-check -->
+            <!-- Completed checkmark -->
             <ImageView
                 android:id="@+id/checkIcon"
                 android:layout_width="28dp"

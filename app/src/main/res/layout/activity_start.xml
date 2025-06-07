@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!-- Ingen ViewModel behövs just nu -->
+        <!-- No ViewModel needed at the moment -->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

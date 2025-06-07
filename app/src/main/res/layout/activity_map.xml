@@ -170,9 +170,9 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.25" />
 
-        <!-- Kartbakgrund -->
+        <!-- Map background -->
 
-        <!-- Noder -->
+        <!-- Nodes -->
 
         <ImageView
             android:id="@+id/mapImage"

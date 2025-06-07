@@ -29,7 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
  *
  * <p>Extends {@link BaseDrawerActivity} to include navigation drawer functionality.</p>
  *
- * @author Gen
+ * @author Gen Félix Teramoto
  */
 
 public class ProfileActivity extends BaseDrawerActivity {

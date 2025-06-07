@@ -27,7 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
      * This fragment is part of the home screen functionality in the WellnessQuest application.
      * </p>
      *
-     * @author Gen
+     * @author Gen Félix Teramoto
      */
     public class HomeFragment extends Fragment {
 
