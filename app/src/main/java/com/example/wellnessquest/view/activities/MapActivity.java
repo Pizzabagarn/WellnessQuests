@@ -23,7 +23,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * MapActivity displays a game-like map with levels that users can unlock using coins.
+ * Each level is represented by a node on the map. The user can move their avatar
+ * by unlocking and selecting levels. Data is loaded from Firebase via a UserViewModel.
+ *
+ * This activity uses data binding and observes changes to user data in real time.
+ * It includes level purchase confirmation dialogs, sound effects, and avatar animations.
+ * @author Lowisa Svensson Christell
+ */
 
 public class MapActivity extends BaseDrawerActivity {
     private static final String TAG = "MapActivity";
@@ -32,6 +40,12 @@ public class MapActivity extends BaseDrawerActivity {
     private ImageView avatar;
     private final Map<Integer, View> levelTargetMap = new HashMap<>();
 
+    /**
+     * Called when the activity is starting. Initializes the view binding, loads user data,
+     * sets up map nodes, and connects click listeners to nodes for level interaction.
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down,
+     *                           this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +59,7 @@ public class MapActivity extends BaseDrawerActivity {
 
         avatar = binding.avatar;
 
+        // Map each level to its corresponding target view on the map
         levelTargetMap.put(0, binding.target0);
         levelTargetMap.put(1, binding.target1);
         levelTargetMap.put(2, binding.target2);
@@ -57,18 +72,18 @@ public class MapActivity extends BaseDrawerActivity {
         levelTargetMap.put(9, binding.target9);
         levelTargetMap.put(10, binding.target10);
 
-        // ✅ Load user from Firestore using UID
+        // Load user from Firestore using UID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         userViewModel.loadUser(uid);
 
-        // ✅ Observe user and log level
+        // Observe user and log level
         userViewModel.getUserLiveData().observe(this, user -> {
             if (user != null) {
                 moveAvatarToLevel(user.getCurrentLevel()); //detta måste va kvar, kan inte tas bort, flyttar avatar till aktuell postion vod start
             }
         });
 
-        // Lägg klicklyssnare med databinding
+        // Set click listeners on each map node
         setupNodeClick(binding.node0, 0);
         setupNodeClick(binding.node1, 1);
         setupNodeClick(binding.node2, 2);
@@ -82,7 +97,12 @@ public class MapActivity extends BaseDrawerActivity {
         setupNodeClick(binding.node10, 10);
     }
 
-    //flytta avatar och uppdatera level vid nodklick
+    /**
+     * Sets up a click listener on a map node. When clicked, checks if the level is unlocked,
+     * allows purchasing if enough coins are available, and moves the avatar.
+     * @param view  The map node view.
+     * @param level The level associated with the node.
+     */
     private void setupNodeClick(View view, int level) {
         view.setOnClickListener(v -> {
             if (!userViewModel.isNextLevel(level)) {
@@ -92,7 +112,6 @@ public class MapActivity extends BaseDrawerActivity {
             }
 
             if(userViewModel.canPurchaseLevel(level)){
-
                 int cost = userViewModel.getLevelCost(level);
                 new AlertDialog.Builder(this)
                         .setMessage("Buy level " + level + " for " + cost + "?")
@@ -109,18 +128,18 @@ public class MapActivity extends BaseDrawerActivity {
             }
         });
     }
-
+    /**
+     * Animates the avatar's movement to the specified level's target view on the map.
+     * If the target view or avatar is missing, logs an error.
+     * @param level The level to which the avatar should move.
+     */
     public void moveAvatarToLevel(int level) {
         View target = levelTargetMap.get(level);
         if (target == null) {
             Log.e(TAG, "No target view found for level " + level);
-
             return;
         }
 
-
-
-        // Hämta målpunktskoordinater från nodens placering
         target.post(() -> {
             if (avatar == null) {
                 Log.e(TAG, "Avatar view is null, cannot animate.");
@@ -130,7 +149,6 @@ public class MapActivity extends BaseDrawerActivity {
             float targetX = target.getX() - (avatar.getWidth() / 2f);
             float targetY = target.getY()- avatar.getHeight();
 
-            // Animera avataren till nya positionen
             ObjectAnimator animX = ObjectAnimator.ofFloat(avatar, "x", targetX);
             ObjectAnimator animY = ObjectAnimator.ofFloat(avatar, "y", targetY);
 
