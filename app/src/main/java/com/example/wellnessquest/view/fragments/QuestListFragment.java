@@ -24,12 +24,41 @@ import com.example.wellnessquest.viewmodel.UserViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A fragment that displays a filtered list of quests in a RecyclerView.
+ * <p>
+ * Quests are fetched based on the user's current level, and marked as completed
+ * if they exist in the user's completed quest list. The list can be filtered using
+ * category-based checkboxes (Fitness and Mind).
+ * </p>
+ *
+ * This fragment also handles quest click events, navigating to {@link QuestDetailsFragment}
+ * and passing the selected quest.
+ *
+ * @author Mena Nasir
+ */
 public class QuestListFragment extends Fragment {
+
+    /** View binding for this fragment */
     private FragmentQuestListBinding binding;
+
+    /** Adapter for the RecyclerView */
     private QuestAdapter adapter;
+
+    /** All quests available for the user's level */
     private List<Quest> allQuests = new ArrayList<>();
+
+    /** Quests shown after applying filters */
     private List<Quest> filteredQuests = new ArrayList<>();
 
+    /**
+     * Inflates the layout for this fragment using view binding.
+     *
+     * @param inflater The LayoutInflater object
+     * @param container The parent view group
+     * @param savedInstanceState Previously saved state
+     * @return The root view of the binding
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,14 +68,22 @@ public class QuestListFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Called after the fragment's view has been created.
+     * <p>
+     * Sets up the RecyclerView, loads quests from the repository,
+     * observes user data, and handles category filtering.
+     * </p>
+     *
+     * @param view The fragment's root view
+     * @param savedInstanceState Previously saved state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Hämta ViewModel
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        // Initiera adapter
         adapter = new QuestAdapter(filteredQuests, requireContext(), quest -> {
 
             SoundManager.getInstance(requireContext()).playQuestSound();
@@ -66,7 +103,6 @@ public class QuestListFragment extends Fragment {
         binding.recyclerViewQuests.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewQuests.setAdapter(adapter);
 
-        // Observera user
         userViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> {
             if (user == null) {
                 return;
@@ -96,6 +132,10 @@ public class QuestListFragment extends Fragment {
         });
     }
 
+    /**
+     * Filters the list of quests based on the selected checkboxes.
+     * Only quests matching the selected categories ("Fitness" and/or "Mind") are shown.
+     */
     private void filterQuests() {
         filteredQuests.clear();
         boolean showFitness = binding.checkboxFitness.isChecked();
@@ -109,5 +149,4 @@ public class QuestListFragment extends Fragment {
             }
         }
     }
-
 }

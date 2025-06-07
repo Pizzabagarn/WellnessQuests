@@ -51,7 +51,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
                             if (user != null) {
                                 String name = user.getName() != null ? user.getName() : "";
                                 String purpose = user.getPurpose() != null ? user.getPurpose() : "";
-                                String welcomeMessage = "Welcome back " + name + ", your stated purpose is: " + purpose;
+                                String welcomeMessage = "Welcome back " + name + "!\n\n"
+                                        + "Your stated purpose is: " + purpose;
                                 welcomeText.setText(welcomeMessage);
 
                                 String avatarName = user.getAvatar() != null ? user.getAvatar() : "avatar_black_hair";

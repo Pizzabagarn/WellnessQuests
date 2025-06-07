@@ -39,7 +39,4 @@ public class QuestViewModel extends AndroidViewModel {
 
         return allQuests;
     }
-
-
-
 }

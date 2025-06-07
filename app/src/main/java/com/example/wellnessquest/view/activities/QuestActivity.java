@@ -17,7 +17,7 @@ public class QuestActivity extends BaseDrawerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 👇 Lägg in denna aktivitets layout inuti drawer-layoutens contentFrame
+
         getLayoutInflater().inflate(R.layout.activity_quest, drawerBinding.contentFrame, true);
 
         //Lowisa gjort detta kodblock
