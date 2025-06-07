@@ -4,21 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Represents a user in the WellnessQuest application.
+ * <p>
+ * A user has a profile (name, age, purpose, avatar), gameplay attributes (coins, level, completed quests),
+ * and is uniquely identified by a UID which matches the Firebase Authentication ID.
+ * </p>
+ * <p>
+ * This class is used for saving and loading user data to/from Firebase Firestore.
+ * </p>
+ *
+ * @author Gen
+ * @author Alex
+ * @author Mena
+ * @author Lowisa
+ */
 public class User {
     private String email;
     private int coins;
     private int currentLevel;
-    private String uid; // to save document-id for firebase
+    private String uid; // Firebase document ID
     private List<String> completedQuests;
-    private String name; // Profile
-    private int age; // Profile
+    private String name;
+    private int age;
     private String purpose;
-
-    private String avatar; // Profile
-
+    private String avatar;
     private List<Integer> unlockedLevels = new ArrayList<>();
 
-
+    /**
+     * Creates a new User with the specified email. Other fields are initialized with default values.
+     *
+     * @param email The user's email address
+     */
     public User(String email) {
         this.email = email;
         this.coins = 0;
@@ -30,24 +47,38 @@ public class User {
 
     }
 
-    // 🔧 Empty constructor for Firestore
+    /**
+     * Empty constructor required for Firebase deserialization.
+     */
     public User() {
     }
 
-    // Getters
+    // ============================
+    //         Getters
+    // ============================
+
+    /**
+     * @return the user's email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * @return the number of coins the user currently has
+     */
     public int getCoins() {
         return coins;
     }
 
+
     public void withdrawCoins (int amount) {this.coins -= amount;}
+
 
     public int getCurrentLevel() {
         return currentLevel;
     }
+
 
     public List<Integer> getUnlockedLevels() {
         return unlockedLevels;
