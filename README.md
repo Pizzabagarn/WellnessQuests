@@ -1,79 +1,94 @@
-WellnessQuests 🌿🎮
-WellnessQuests är en Android-applikation som kombinerar fysisk och mental hälsa med spelmekanik. Användaren kan genomföra quests, samla coins och ta sig vidare på en interaktiv karta med nivåer. Applikationen är utvecklad i Android Studio med Java och använder MVVM-arkitektur med databinding, LiveData och Firebase.
+# WellnessQuests
 
-Versionen som lämnas för granskning är taggad som v3.0. Denna version innehåller bland annat quest-verifiering med ML Kit och ett nytt nivåsystem.
+**WellnessQuests** is an Android application that combines physical and mental health with game mechanics. Users complete quests, collect coins, and progress through an interactive level-based map. The application is developed in Android Studio using Java and follows the MVVM architecture pattern with DataBinding, LiveData, and Firebase integration.
 
-📦 Ladda ner projektet
-Gå till GitHub-repot: https://github.com/Pizzabagarn/WellnessQuests
+This submission corresponds to tag **v4.0**, which includes quest verification via ML Kit, a dynamic level system, sound-effects, music, and improved project structure for evaluation.
 
-Klicka på fliken "Releases" eller "Tags"
+---
 
-Leta upp taggen v3.0
+## Download the Project
 
-Klicka på "Download ZIP" under v3.0 för att ladda ner källkoden
+1. Visit the GitHub repository:  
+   https://github.com/Pizzabagarn/WellnessQuests
 
-Extrahera ZIP-filen till en mapp på din dator
+2. Navigate to the **Releases** or **Tags** section.
 
-🚀 Starta applikationen
-🔧 Krav
-Android Studio (rekommenderad version: 2022.3 (Electric Eel) eller senare)
+3. Locate the tag `v4.0`.
 
-Java 17
+4. Click **Download ZIP** to download the source code.
 
-Gradle (används automatiskt via Android Studio)
+5. Extract the ZIP file to a folder on your computer.
 
-En fysisk Android-enhet eller emulator
+---
 
-Internetanslutning för att ladda ner beroenden
+## Requirements
 
-Google Services JSON-fil:
+- Android Studio (recommended version: 2022.3 "Electric Eel" or later)
+- Java 17
+- Gradle (automatically handled by Android Studio)
+- A physical Android device or emulator
+- Internet connection (for downloading dependencies)
 
-För testning, lägg medföljande google-services.json-fil (som ligger i samma mapp som denna README, under readme&json) i Android Studio-projektet.
+**Firebase configuration:**
 
-Den ska placeras i WellnessQuest/app/-mappen, det vill säga samma mapp som innehåller build.gradle för modulen app.
+- For testing purposes, place the provided `google-services.json` file (included alongside this README in the `readme&json/` folder on Canvas) into the Android project at:
+  WellnessQuest/app/google-services.json
 
-💻 Steg-för-steg (Android Studio)
-Starta Android Studio.
+---
 
-Välj "Open" och navigera till den extraherade mappen (WellnessQuest).
+## How to Run the Application
 
-Vänta medan Android Studio synkroniserar projektet och laddar beroenden.
+1. Open **Android Studio**.
 
-Kopiera in filen google-services.json från samma mapp som readme ligger i canvas, till mappen WellnessQuest/app/.
+2. Select **Open** and navigate to the extracted `WellnessQuest` folder.
 
-Öppna Device Manager (uppe till höger i Android Studio) och klicka på "Create Device" för att skapa en emulator:
+3. Wait for Android Studio to sync the project and download required dependencies.
 
-Välj enhetstyp (t.ex. Pixel 5)
+4. Copy the `google-services.json` file into `WellnessQuest/app/`.
 
-Välj en system image (t.ex. API 33)
+5. Open **Device Manager** in Android Studio (top-right corner), and create a virtual device:
 
-Klicka på "Finish" och sedan "Play" för att starta emulatorn
+- Choose a device type (e.g., Pixel 5)
+- Select a system image (e.g., API 33)
+- Click **Finish**, then press **Play** to start the emulator
 
-Tryck på den gröna ▶️-knappen (Run ‘app’) för att bygga och starta appen.
+6. Press the green **Run 'app'** button to build and launch the application.
 
-Obs: Första gången kan det ta några minuter att bygga projektet på grund av Gradle-synk.
+> Note: The first build may take a few minutes due to Gradle sync.
 
-📱 Funktionalitet
-Firebase Authentication – Registrera och logga in med e-post och lösenord
+---
 
-Firestore – Coins, nivådata och quests sparas i molnet och laddas vid inloggning
+## Features
 
-Databinding + LiveData – Coins och quests uppdateras direkt i gränssnittet
+- **Firebase Authentication**: Register and log in with email and password
+- **Cloud Firestore**: Coins, level data, and quest status are saved in the cloud
+- **DataBinding and LiveData**: UI elements update in real-time as data changes
+- **Quest system**: Each quest contains:
+- Title, description, and category (e.g., "Mind", "Fitness")
+- Coin reward
+- A list of valid image tags for verification
 
-Quest-logik – Varje quest har:
+- **ML Kit Integration**:  
+  During quest verification, users upload or capture a photo. ML Kit analyzes the image locally and compares it to the expected tags. If matching, the quest is automatically marked as complete.
 
-Titel, beskrivning, kategori (t.ex. “Mind”, “Fitness”)
+- **Interactive Level Map**:  
+  Each level contains 8 quests. Users unlock levels using coins and can tap each level node to view information.  
+  
 
-Belöning i coins
+- **Offline support**:  
+  Basic functionality such as quest display and UI navigation may work offline **after login**, but the app **requires an internet connection to log in** and to sync data with Firestore. Offline support is limited and not fully implemented in this version
 
-Ikon
+---
 
-ValidTag-lista för bildverifiering
+## Authors
 
-ML Kit-integration – När ett quest ska verifieras får användaren ta eller ladda upp en bild. Bilden analyseras lokalt med ML Kit för att jämföras med questets taggar. Om taggarna matchar godkänns questet automatiskt.
+- Alexander Westman
+- Mena Nasir
+- Gen Félix Teramoto
+- Lowisa Svensson Christell
 
-Dagbokssystem – Efter verifiering sparas en dagbokspost med bild och textbeskrivning av questet.
+---
 
-Interaktiv nivå-karta – Varje nivå innehåller 8 quests. Användaren låser upp nästa nivå med coins och kan klicka på varje nivå för att visa detaljer i en toolbox.(Finns men inte släppt än i denna versionen)
+## License
 
-Offline-stöd – De flesta funktioner fungerar utan konstant internetförbindelse (undantaget inloggning och databassynk).
+This project is for educational purposes and part of a university course (System Development and Project, Spring 2025).
