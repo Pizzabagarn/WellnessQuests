@@ -31,8 +31,10 @@ This submission corresponds to tag **v4.0**, which includes quest verification v
 
 **Firebase configuration:**
 
-- For testing purposes, place the provided `google-services.json` file (included alongside this README in the `readme&json/` folder on Canvas) into the Android project at:
-  WellnessQuest/app/google-services.json
+For testing purposes, you need to place the `google-services.json` file into the Android project at:
+
+> If you are using the ZIP version provided via Canvas (final submission), the file is already included in the correct location.  
+> If you downloaded the project from GitHub, this file is **not included** due to security reasons. Please contact the development team or set up your own Firebase project and add your own `google-services.json`.
 
 ---
 
@@ -45,6 +47,8 @@ This submission corresponds to tag **v4.0**, which includes quest verification v
 3. Wait for Android Studio to sync the project and download required dependencies.
 
 4. Copy the `google-services.json` file into `WellnessQuest/app/`.
+> Note: For the final submission (ZIP version), the `google-services.json` file is already included in the correct directory (`app/`) and does not need to be added manually. This only applies if you are using the provided ZIP archive instead of cloning the project from Git.
+
 
 5. Open **Device Manager** in Android Studio (top-right corner), and create a virtual device:
 
