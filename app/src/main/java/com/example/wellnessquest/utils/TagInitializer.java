@@ -42,6 +42,12 @@ import java.util.concurrent.CountDownLatch;
 
 public class TagInitializer {
 
+
+    /**
+     * Minimum confidence threshold for an image label to be considered valid.
+     */
+    private static final float MIN_CONFIDENCE_THRESHOLD = 0.4f;
+
     private static final String PREF_NAME = "tag_analysis_prefs";
 
     /**
@@ -117,7 +123,7 @@ public class TagInitializer {
                             labeler.process(image)
                                     .addOnSuccessListener(labels -> {
                                         for (ImageLabel label : labels) {
-                                            if (label.getConfidence() > 0.6f) {
+                                            if (label.getConfidence() > MIN_CONFIDENCE_THRESHOLD) {
                                                 String tag = label.getText().toLowerCase();
                                                 if (!allTags.contains(tag)) {
                                                     allTags.add(tag);

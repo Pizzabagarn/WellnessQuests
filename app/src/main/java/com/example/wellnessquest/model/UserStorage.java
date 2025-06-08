@@ -10,6 +10,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * UserStorage handles local persistence of user-related data using SharedPreferences.
+ *
+ * <p>This class was originally intended as a lightweight alternative to a full backend database,
+ * allowing the app to store, retrieve, and manage {@link User} objects locally during early development.
+ * While Firebase Firestore is now the primary storage backend, UserStorage continues to be used for:
+ *
+ * <ul>
+ *   <li>Session management (e.g. saving and clearing the current user)</li>
+ *   <li>Tracking last active timestamps for auto logout</li>
+ *   <li>Development and testing environments without Firebase</li>
+ * </ul>
+ *
+ * <p>Each user is stored as a JSON string keyed by their username. Passwords are securely hashed
+ * using SHA-256 before storage. The currently logged-in user is tracked separately.
+ *
+ * <p>Usage example:
+ * <pre>{@code
+ *     UserStorage storage = new UserStorage(context);
+ *     User user = storage.getCurrentUser();
+ *     if (user != null) {
+ *         // Use current user
+ *     }
+ * }</pre>
+ *
+ * @author Alexander Westman
+ */
+
 public class UserStorage {
 
     private static final String PREF_NAME = "UserPrefs";

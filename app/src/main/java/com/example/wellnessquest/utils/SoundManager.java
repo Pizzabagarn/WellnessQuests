@@ -22,8 +22,10 @@ public class SoundManager {
     private static final float MUSIC_VOLUME_RIGHT = 0.1f;
     private static final float FX_VOLUME_LEFT = 0.2f;
     private static final float FX_VOLUME_RIGHT = 0.2f;
+    private static final float FX_QUESTFX_LEFT = 0.1f;
+    private static final float FX_QUESTFX_RIGHT = 0.1f;
     private static final float ERROR_VOLUME = 0.3f;
-    private static final float CLICK_VOLUME = 0.5f;
+    private static final float CLICK_VOLUME = 0.4f;
 
     // === Singleton Instance ===
     private static SoundManager instance;
@@ -57,7 +59,7 @@ public class SoundManager {
         clickSoundId = soundPool.load(context, R.raw.button_click, 1);
         questSoundId = soundPool.load(context, R.raw.questlog_sound, 1);
         errorSoundId = soundPool.load(context, R.raw.error, 1);
-        // coinSoundId can be added here if needed
+
     }
 
     /**
@@ -114,7 +116,7 @@ public class SoundManager {
      */
     public void playQuestSound() {
         if (soundPoolLoaded) {
-            soundPool.play(questSoundId, FX_VOLUME_LEFT, FX_VOLUME_RIGHT, 0, 0, 1);
+            soundPool.play(questSoundId, FX_QUESTFX_LEFT, FX_QUESTFX_RIGHT, 0, 0, 1);
         }
     }
 
