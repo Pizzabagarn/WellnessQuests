@@ -29,6 +29,13 @@
             android:icon="@drawable/profile"/>
     </group>
 
+    <group android:id="@+id/group_statistics">
+        <item
+            android:id="@+id/nav_statistics"
+            android:title="Statistics"
+            android:icon="@drawable/quest"/>
+    </group>
+
     <group android:id="@+id/group_logout">
         <item
             android:id="@+id/nav_logout"
