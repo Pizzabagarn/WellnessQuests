@@ -51,6 +51,10 @@
             android:name=".view.activities.ProfileActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".view.activities.StatisticsActivity"
+            android:exported="false" />
+
         <!-- StartActivity körs först -->
         <activity
             android:name=".view.activities.StartActivity"
