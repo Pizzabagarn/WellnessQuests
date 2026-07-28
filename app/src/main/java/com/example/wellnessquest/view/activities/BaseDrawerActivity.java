@@ -102,6 +102,10 @@ public abstract class BaseDrawerActivity extends AppCompatActivity {
             SoundManager.getInstance(BaseDrawerActivity.this).playButtonClick();
             startActivity(new Intent(this, ProfileActivity.class));
 
+        } else if (id == R.id.nav_statistics) {
+            SoundManager.getInstance(BaseDrawerActivity.this).playButtonClick();
+            startActivity(new Intent(this, StatisticsActivity.class));
+
         } else if (id == R.id.nav_logout) {
             SoundManager.getInstance(BaseDrawerActivity.this).playButtonClick();
             FirebaseAuth.getInstance().signOut();
