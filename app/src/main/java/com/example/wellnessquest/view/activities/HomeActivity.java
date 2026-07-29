@@ -65,6 +65,7 @@ public class HomeActivity extends BaseDrawerActivity {
             userViewModel.setUser(user);
         }
 
+
         // Navigation drawer item click listener
         drawerBinding.navView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -80,6 +81,9 @@ public class HomeActivity extends BaseDrawerActivity {
             } else if (id == R.id.nav_profile) {
                 SoundManager.getInstance(HomeActivity.this).playButtonClick();
                 startActivity(new Intent(this, ProfileActivity.class));
+            } else if (id == R.id.nav_statistics) {
+                SoundManager.getInstance(HomeActivity.this).playButtonClick();
+                startActivity(new Intent(this, StatisticsActivity.class));
             } else if (id == R.id.nav_logout) {
                 SoundManager.getInstance(HomeActivity.this).playButtonClick();
                 FirebaseAuth.getInstance().signOut();
@@ -93,6 +97,7 @@ public class HomeActivity extends BaseDrawerActivity {
             return true;
         });
     }
+
 
     /**
      * Called when the activity resumes. Updates user's last active time and
