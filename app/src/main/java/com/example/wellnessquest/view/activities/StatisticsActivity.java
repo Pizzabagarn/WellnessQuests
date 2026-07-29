@@ -16,13 +16,22 @@ import java.util.Date;
 
 public class StatisticsActivity extends BaseDrawerActivity {
 
-    private TextView textMonday;
-    private TextView textTuesday;
-    private TextView textWednesday;
-    private TextView textThursday;
-    private TextView textFriday;
-    private TextView textSaturday;
-    private TextView textSunday;
+    private TextView valueMonday;
+    private TextView valueTuesday;
+    private TextView valueWednesday;
+    private TextView valueThursday;
+    private TextView valueFriday;
+    private TextView valueSaturday;
+    private TextView valueSunday;
+    private TextView textWeeklyTotal;
+
+    private android.view.View barMonday;
+    private android.view.View barTuesday;
+    private android.view.View barWednesday;
+    private android.view.View barThursday;
+    private android.view.View barFriday;
+    private android.view.View barSaturday;
+    private android.view.View barSunday;
 
     private final int[] completedPerDay = new int[7];
 
@@ -45,13 +54,23 @@ public class StatisticsActivity extends BaseDrawerActivity {
      * to this activity.
      */
     private void connectViews() {
-        textMonday = findViewById(R.id.textMonday);
-        textTuesday = findViewById(R.id.textTuesday);
-        textWednesday = findViewById(R.id.textWednesday);
-        textThursday = findViewById(R.id.textThursday);
-        textFriday = findViewById(R.id.textFriday);
-        textSaturday = findViewById(R.id.textSaturday);
-        textSunday = findViewById(R.id.textSunday);
+        valueMonday = findViewById(R.id.valueMonday);
+        valueTuesday = findViewById(R.id.valueTuesday);
+        valueWednesday = findViewById(R.id.valueWednesday);
+        valueThursday = findViewById(R.id.valueThursday);
+        valueFriday = findViewById(R.id.valueFriday);
+        valueSaturday = findViewById(R.id.valueSaturday);
+        valueSunday = findViewById(R.id.valueSunday);
+
+        barMonday = findViewById(R.id.barMonday);
+        barTuesday = findViewById(R.id.barTuesday);
+        barWednesday = findViewById(R.id.barWednesday);
+        barThursday = findViewById(R.id.barThursday);
+        barFriday = findViewById(R.id.barFriday);
+        barSaturday = findViewById(R.id.barSaturday);
+        barSunday = findViewById(R.id.barSunday);
+
+        textWeeklyTotal = findViewById(R.id.textWeeklyTotal);
     }
 
     /**
@@ -171,12 +190,67 @@ public class StatisticsActivity extends BaseDrawerActivity {
      * Displays the number of completed quests for each day.
      */
     private void displayStatistics() {
-        textMonday.setText("Monday: " + completedPerDay[0]);
-        textTuesday.setText("Tuesday: " + completedPerDay[1]);
-        textWednesday.setText("Wednesday: " + completedPerDay[2]);
-        textThursday.setText("Thursday: " + completedPerDay[3]);
-        textFriday.setText("Friday: " + completedPerDay[4]);
-        textSaturday.setText("Saturday: " + completedPerDay[5]);
-        textSunday.setText("Sunday: " + completedPerDay[6]);
+        TextView[] valueViews = {
+                valueMonday,
+                valueTuesday,
+                valueWednesday,
+                valueThursday,
+                valueFriday,
+                valueSaturday,
+                valueSunday
+        };
+
+        android.view.View[] bars = {
+                barMonday,
+                barTuesday,
+                barWednesday,
+                barThursday,
+                barFriday,
+                barSaturday,
+                barSunday
+        };
+
+        int maximumValue = 1;
+        int weeklyTotal = 0;
+
+        for (int value : completedPerDay) {
+            weeklyTotal += value;
+
+            if (value > maximumValue) {
+                maximumValue = value;
+            }
+        }
+
+        for (int i = 0; i < completedPerDay.length; i++) {
+            int value = completedPerDay[i];
+            valueViews[i].setText(String.valueOf(value));
+
+            int maximumBarHeightDp = 180;
+            int minimumBarHeightDp = 4;
+
+            int barHeightDp;
+
+            if (value == 0) {
+                barHeightDp = minimumBarHeightDp;
+            } else {
+                barHeightDp = Math.max(
+                        30,
+                        value * maximumBarHeightDp / maximumValue
+                );
+            }
+
+            android.view.ViewGroup.LayoutParams parameters =
+                    bars[i].getLayoutParams();
+
+            parameters.height = dpToPixels(barHeightDp);
+            bars[i].setLayoutParams(parameters);
+        }
+
+        textWeeklyTotal.setText(weeklyTotal + " completed quests");
+    }
+
+    private int dpToPixels(int dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return Math.round(dp * density);
     }
 }
